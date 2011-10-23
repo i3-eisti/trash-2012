@@ -1,0 +1,15 @@
+#Dimension W H
+6 5
+# Map tiles
+#   0 : plain
+#   1 : horizontal road
+#   2 : vertical road
+#   3 : top-left road
+#   4 : top-right road
+#   5 : bottom-left road
+#   6 : bottom-right road
+000000
+114000
+002000
+005111
+000000

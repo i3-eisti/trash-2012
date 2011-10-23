@@ -1,0 +1,10 @@
+Focntionnalités livrées
+Fonctionnalités éventuellement livrées
+Evolution versions 
+Zonage par écran
+Maquette par écran
+Principe de l'application
+Contraintes (techniques, autres)
+Navigation
+Personas
+Test scénarios
