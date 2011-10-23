@@ -11,10 +11,14 @@ namespace Trash2012.Model
     public class City
     {
         public MapTile[,] Map { get; private set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
 
-        public City(MapTile[,] cityMap)
+        public City(MapTile[,] cityMap, int width, int height)
         {
             this.Map = cityMap;
+            this.Width = width;
+            this.Height = height;
         }
     }
 
