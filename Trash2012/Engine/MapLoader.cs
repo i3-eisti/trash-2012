@@ -19,7 +19,7 @@ namespace Trash2012.Engine
         interface IMapBuilder<out MapBuilder>
         {
             MapBuilder swallow(string line);
-            City Build();
+            IMapTile[][] Build();
         }
 
         //Dimension swallower attempt to read map dimension
@@ -54,7 +54,7 @@ namespace Trash2012.Engine
                 }
             }
 
-            public City Build()
+            public IMapTile[][] Build()
             {
                 throw new NotSupportedException(
                     "Only tile swallower can build a city, " +
@@ -65,35 +65,52 @@ namespace Trash2012.Engine
         //Tile swallower attempt to read map tile
         class TileSwallower : MapBuilder, IMapBuilder<TileSwallower>
         {
-            private static Dictionary<int, MapTile> buildTileCorrespondor()
+            private static Dictionary<int, IMapTile> buildTileCorrespondor()
             {
-                Dictionary<int, MapTile> correspondance = new Dictionary<int, MapTile>();
-                correspondance.Add(0, new MapTile(MapTile.Type.Plain));
-                correspondance.Add(1, new RoadTile(RoadTile.Type.Horizontal));
-                correspondance.Add(2, new RoadTile(RoadTile.Type.Vertical));
-                correspondance.Add(3, new RoadTile(RoadTile.Type.TopLeft));
-                correspondance.Add(4, new RoadTile(RoadTile.Type.TopRight));
-                correspondance.Add(5, new RoadTile(RoadTile.Type.BottomLeft));
-                correspondance.Add(6, new RoadTile(RoadTile.Type.BottomRight));
+                Dictionary<int, IMapTile> correspondance = new Dictionary<int, IMapTile>();
+                correspondance.Add(0, new BackgroundTile(BackgroundTile.BackgroundType.Plain));
+                correspondance.Add(1, new RoadTile(RoadTile.RoadType.Horizontal));
+                correspondance.Add(2, new RoadTile(RoadTile.RoadType.Vertical));
+                correspondance.Add(3, new RoadTile(RoadTile.RoadType.TopLeft));
+                correspondance.Add(4, new RoadTile(RoadTile.RoadType.TopRight));
+                correspondance.Add(5, new RoadTile(RoadTile.RoadType.BottomLeft));
+                correspondance.Add(6, new RoadTile(RoadTile.RoadType.BottomRight));
                 return correspondance;
             }
 
-            public static readonly Dictionary<int, MapTile> MapCorrespondor =
+            public static readonly Dictionary<int, IMapTile> MapCorrespondor =
                 buildTileCorrespondor();
 
             private int width;
             private int height;
             //tiles buffer
-            private MapTile[] tiles;
+            private IMapTile[][] tiles;
             //check if buffer is totally filled
             private int remainingTilesToComplete;
+            private int currentLine;
+            private int currentColumn;
 
             public TileSwallower(int width, int height)
             {
                 this.width = width;
                 this.height = height;
                 remainingTilesToComplete = width * height;
-                tiles = new MapTile[remainingTilesToComplete];
+                tiles = new IMapTile[height][];
+                currentLine = currentColumn = 0;
+                tiles[currentLine] = new IMapTile[width];
+            }
+
+            private void AddTile(IMapTile tile)
+            {
+                if (currentColumn == width)
+                {
+                    currentColumn = 0;
+                    currentLine += 1;
+                    tiles[currentLine] = new IMapTile[width];
+                }
+                //add corresponding tile to buffer
+                this.tiles[currentLine][currentColumn] = tile;
+                currentColumn += 1;
             }
 
             public TileSwallower swallow(string line)
@@ -106,9 +123,7 @@ namespace Trash2012.Engine
                 {
                     //read tile code
                     int tileCode = int.Parse( tileMatch.Value );
-                    //add corresponding tile to buffer
-                    this.tiles[ this.tiles.Length - remainingTilesToComplete ] =
-                        MapCorrespondor[tileCode];
+                    AddTile(MapCorrespondor[tileCode]);
                     //decrease remaining needed item
                     remainingTilesToComplete--;
                 }
@@ -117,21 +132,11 @@ namespace Trash2012.Engine
                 return this;
             }
 
-            public City Build()
+            public IMapTile[][] Build()
             {
                 if (remainingTilesToComplete != 0)
                     throw new Exception("Not enough data to build a complete city");
-
-                MapTile[,] cityMap = new MapTile[height,width];
-                for (int x = height; x-- > 0;)
-                {
-                    for (int y = width; y-- > 0;)
-                    {
-                        cityMap[x,y] = this.tiles[y + x * width];
-                    }
-                }
-
-                return new City(cityMap);
+                return tiles;
             }
 
         }
@@ -143,7 +148,7 @@ namespace Trash2012.Engine
         //      Read a file map and build corresponding city
         // Returns:
         //      New city with map initialized
-        public static City loadMap(string filepath)
+        public static IMapTile[][] loadMap(string filepath)
         {
             //test buffer
             string lineBuffer = null;

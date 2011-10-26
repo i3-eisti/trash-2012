@@ -8,54 +8,144 @@ using System.Drawing;
 
 namespace Trash2012.Model
 {
+    /// <summary>
+    ///     City Class.
+    ///     Contains a two-dimension array acting as city map.
+    /// </summary>
     public class City
     {
-        public MapTile[,] Map { get; private set; }
+        //cannot access both size with [,] notation
+        public IMapTile[][] Map { get; private set; }
         public int Width { get; set; }
         public int Height { get; set; }
 
-        public City(MapTile[,] cityMap, int width, int height)
+        public City(IMapTile[][] map) : this(map, map[0].Length, map.Length) { }
+
+        public City(IMapTile[][] cityMap, int width, int height)
         {
             this.Map = cityMap;
             this.Width = width;
             this.Height = height;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is City))
+                return false;
+            City that = (City)obj;
+
+            return this.GetHashCode() == that.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Width * 31 + (
+                this.Height * 31 + (
+                    this.Map.GetHashCode() * 31
+            ));
+        }
     }
 
-    public class MapTile
+    #region Tile
+
+    /// <summary>
+    /// General Tile
+    /// </summary>
+    public interface IMapTile {
+        Bitmap Tile { get; }
+    }
+    /// <summary>
+    /// Tile which represents background elements
+    /// </summary>
+    public interface IBackgroundTile : IMapTile
     {
-        public enum Type
+        BackgroundTile.BackgroundType Type { get; }
+    }
+    /// <summary>
+    /// Tile which represents road elements
+    /// </summary>
+    public interface IRoadTile : IMapTile
+    {
+        RoadTile.RoadType Type { get; }
+    }
+    /// <summary>
+    /// Tile which represents house elements
+    /// </summary>
+    public interface IHouseTile : IMapTile
+    {
+        HouseTile.HouseType Type { get; }
+    }
+
+    //All interface above map to corresponding class
+
+    public abstract class AbstractTile<TileType>
+    {
+        /// <summary>
+        /// Tile's image
+        /// </summary>
+        public Bitmap Tile { get; private set; }
+        /// <summary>
+        /// Tile's type
+        /// </summary>
+        public TileType Type { get; private set; }
+
+        protected AbstractTile(Bitmap img, TileType t)
+        {
+            Tile = img;
+            Type = t;
+        }
+
+        public abstract override int GetHashCode();
+
+        public override bool Equals(object obj)
+        {
+            return obj is AbstractTile<TileType> && obj.GetHashCode() == this.GetHashCode();
+        }
+    }
+
+    public class BackgroundTile : AbstractTile<BackgroundTile.BackgroundType>, IBackgroundTile
+    {
+        /// <summary>
+        /// BackgroundTile Type
+        /// </summary>
+        public enum BackgroundType
         {
             Plain
         }
 
-        private static Bitmap selectTile(MapTile.Type type)
+        /// <summary>
+        ///     Internal method for selecting correct Bitmap
+        /// </summary>
+        /// <param name="type">BackgroundTile type</param>
+        /// <returns>corresponding BitMap</returns>
+        private static Bitmap selectTile(BackgroundType type)
         {
             switch (type)
             {
-                case Type.Plain:
+                case BackgroundType.Plain:
                     return Resources.TilePlain;
                 default:
-                    throw new ArgumentException("Unknown Map Type");
+                    throw new ArgumentException("Unknown Map BackgroundType : " + type);
             }
         }
 
-        public Bitmap Tile { get; private set; }
-
-        protected MapTile(Bitmap img)
+        public override int GetHashCode()
         {
-            Tile = img;
+            return Type.ToString().GetHashCode() * 31 + 11;
         }
 
-        public MapTile(Type type) : this(selectTile(type))
-        {
-
-        }
+        public BackgroundTile(BackgroundType type) : base(selectTile(type), type) { }
     }
 
-    class RoadTile : MapTile
+    /// <summary>
+    ///  Specific MapTile which represents Road tile
+    /// </summary>
+    public class RoadTile : AbstractTile<RoadTile.RoadType>, IRoadTile
     {
-        new public enum Type
+        /// <summary>
+        /// RoadTile's type
+        /// </summary>
+        public enum RoadType 
         {
             Horizontal,
             Vertical,
@@ -65,35 +155,49 @@ namespace Trash2012.Model
             BottomRight
         }
 
-        private static Bitmap selectTile(RoadTile.Type dir)
+        /// <summary>
+        ///     Internal method for selecting correct Bitmap
+        /// </summary>
+        /// <param name="type">MapTile type</param>
+        /// <returns>corresponding BitMap</returns>
+        private static Bitmap selectTile(RoadTile.RoadType dir)
         {
             switch (dir)
             {
-                case Type.Horizontal:
+                case RoadType.Horizontal:
                     return Resources.TileRoadHorizontal;
-                case Type.Vertical:
+                case RoadType.Vertical:
                     return Resources.TileRoadVertical;
-                case Type.TopLeft:
+                case RoadType.TopLeft:
                     return Resources.TileRoadTopLeft;
-                case Type.TopRight:
+                case RoadType.TopRight:
                     return Resources.TileRoadTopRight;
-                case Type.BottomLeft:
+                case RoadType.BottomLeft:
                     return Resources.TileRoadBottomLeft;
-                case Type.BottomRight:
+                case RoadType.BottomRight:
                     return Resources.TileRoadBottomRight;
                 default:
-                    throw new ArgumentException("Unknown Road Direction");
+                    throw new ArgumentException("Unknown Road Direction : " + dir);
             }
         }
 
-        public RoadTile(RoadTile.Type dir) : base(selectTile(dir))
+        public override int GetHashCode()
         {
+            return Type.ToString().GetHashCode() * 31 + 13;
         }
+
+        public RoadTile(RoadTile.RoadType dir) : base(selectTile(dir), dir) { }
     }
 
-    class HouseTile : MapTile
+    /// <summary>
+    /// Specific MapTile which represents House tile
+    /// </summary>
+    public class HouseTile : AbstractTile<HouseTile.HouseType>, IHouseTile
     {
-        new public enum Type
+        /// <summary>
+        /// HouseTile's type
+        /// </summary>
+        public enum HouseType
         {
             Horizontal,
             Vertical,
@@ -103,7 +207,12 @@ namespace Trash2012.Model
             BottomRight
         }
 
-        private static Bitmap selectTile(HouseTile.Type dir)
+        /// <summary>
+        ///     Internal method for selecting correct Bitmap
+        /// </summary>
+        /// <param name="type">MapTile type</param>
+        /// <returns>corresponding BitMap</returns>
+        private static Bitmap selectTile(HouseTile.HouseType dir)
         {
             throw new NotImplementedException("House tile icon not ready yet.");
             //switch (dir)
@@ -125,10 +234,15 @@ namespace Trash2012.Model
             //}
         }
 
-        public HouseTile(HouseTile.Type type) : base(selectTile(type))
+        public override int GetHashCode()
         {
+            return Type.ToString().GetHashCode() * 31 + 17;
         }
+
+        public HouseTile(HouseTile.HouseType type) : base(selectTile(type), type) { }
     }
+
+    #endregion
 
 
 }
