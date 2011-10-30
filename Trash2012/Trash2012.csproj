@@ -126,27 +126,31 @@
     <Resource Include="Resources\truck.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\custom.trash-map" />
-    <Resource Include="Resources\default.trash-map" />
-    <None Include="Resources\road0.jpg" />
+    <None Include="Resources\custom.trash-map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\default.trash-map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Resources\road0.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\road1.jpg" />
+    <Resource Include="Resources\road1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\road4.jpg" />
+    <Resource Include="Resources\road4.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\road6.jpg" />
+    <Resource Include="Resources\road6.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\road2.jpg" />
+    <Resource Include="Resources\road2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\road3.jpg" />
+    <Resource Include="Resources\road3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\road5.jpg" />
+    <Resource Include="Resources\road5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -171,7 +175,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\dollar.png" />
+    <None Include="Resources\dollar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Resource Include="Resources\work.22-10-2011.txt" />
   </ItemGroup>
   <ItemGroup>

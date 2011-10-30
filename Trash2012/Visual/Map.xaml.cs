@@ -66,9 +66,9 @@ namespace Trash2012.Visual
                 for (int j = MyCity.Width; j-- > 0; )
                 {
                     Image img = new Image();
-                    img.Width = 100;
-                    img.Height = 100;
-                    img.Stretch = Stretch.Uniform;
+                    img.Width = this.Width / MyCity.Width;
+                    img.Height = this.Height / MyCity.Height;
+                    img.Stretch = Stretch.Fill;
                     img.SetValue(Grid.ColumnProperty, j);
                     img.SetValue(Grid.RowProperty, i);
 
