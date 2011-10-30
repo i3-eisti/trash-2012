@@ -144,6 +144,15 @@ namespace Trash2012.Engine
         #endregion
 
 
+        //public static IMapTile[][] loadMapFromFile(string filepath)
+        //{
+        //    //swallow that file !
+        //    using (Stream stream = new FileStream(filepath,FileMode.Open))
+        //    {
+        //        return loadMap(stream);
+        //    }
+        //}
+
         // Summary:
         //      Read a file map and build corresponding city
         // Returns:

@@ -61,9 +61,9 @@ namespace Trash2012.Visual
 
         public void SetGrid()
         {
-            for (int i = 0; i < MyCity.Width; i++)
+            for (int i = MyCity.Height; i-- > 0; )
             {
-                for (int j = 0; j < MyCity.Height; j++)
+                for (int j = MyCity.Width; j-- > 0; )
                 {
                     Image img = new Image();
                     img.Width = 100;
@@ -75,7 +75,7 @@ namespace Trash2012.Visual
                     try
                     {
                         img.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                            MyCity.Map[i, j].Tile.GetHbitmap(),
+                            MyCity.Map[i][j].Tile.GetHbitmap(),
                             IntPtr.Zero,
                             Int32Rect.Empty,
                             BitmapSizeOptions.FromEmptyOptions());

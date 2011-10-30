@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Trash2012.Engine;
+using Trash2012.Model;
 
 namespace Trash2012.Visual
 {
@@ -22,7 +23,8 @@ namespace Trash2012.Visual
         public MainWindow()
         {
             InitializeComponent();
-            MyMap.MyCity = MapLoader.loadMap("Resources/custom.trash-map");
+            City ct = new City(MapLoader.loadMap(@"D:\devel\Trash2012\Trash2012\Resources\default.trash-map"));
+            MyMap.MyCity = ct;
         }
     }
 }

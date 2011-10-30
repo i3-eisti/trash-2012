@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Management;
+
 namespace Trash2012.Model
 {
     public class Company
