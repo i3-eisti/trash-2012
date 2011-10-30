@@ -60,6 +60,13 @@ namespace Trash2012.Properties {
             }
         }
         
+        internal static byte[] DefaultMap {
+            get {
+                object obj = ResourceManager.GetObject("DefaultMap", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap TilePlain {
             get {
                 object obj = ResourceManager.GetObject("TilePlain", resourceCulture);

@@ -143,28 +143,32 @@ namespace Trash2012.Engine
 
         #endregion
 
+        public static IMapTile[][] loadMapFromFile(string filepath)
+        {
+            //swallow that file !
+            using (Stream stream = new System.IO.FileStream(filepath,FileMode.Open))
+            {
+                return loadMap(stream);
+            }
+        }
 
-        //public static IMapTile[][] loadMapFromFile(string filepath)
-        //{
-        //    //swallow that file !
-        //    using (Stream stream = new FileStream(filepath,FileMode.Open))
-        //    {
-        //        return loadMap(stream);
-        //    }
-        //}
+        public static IMapTile[][] loadDefaultMap()
+        {
+            return loadMap(new MemoryStream(Resources.DefaultMap));
+        }
 
         // Summary:
         //      Read a file map and build corresponding city
         // Returns:
         //      New city with map initialized
-        public static IMapTile[][] loadMap(string filepath)
+        private static IMapTile[][] loadMap(Stream inputStream)
         {
             //test buffer
             string lineBuffer = null;
             IMapBuilder<TileSwallower> swallower = new DimensionSwallower();
 
             //swallow that file !
-            using(StreamReader stream = new System.IO.StreamReader(filepath))
+            using (StreamReader stream = new System.IO.StreamReader(inputStream))
             {
                 //iterate through lines
                 while((lineBuffer = stream.ReadLine()) != null)
