@@ -42,6 +42,9 @@ namespace Trash2012.Visual
 
         private void InitDefinitions()
         {
+            RootGrid.ColumnDefinitions.Clear();
+            RootGrid.RowDefinitions.Clear();
+
             //ColumnDefinition defcol = new ColumnDefinition();
             //defcol.Width = new GridLength(30);
             for (int i = 0; i < MyCity.Width; i++)
@@ -61,14 +64,18 @@ namespace Trash2012.Visual
 
         public void SetGrid()
         {
+
+            double tileWidth = this.Width / MyCity.Width;
+            double tileHeight = this.Height / MyCity.Height;
+
             for (int i = MyCity.Height; i-- > 0; )
             {
                 for (int j = MyCity.Width; j-- > 0; )
                 {
                     Image img = new Image();
-                    img.Width = 100;
-                    img.Height = 100;
-                    img.Stretch = Stretch.Uniform;
+                    img.Width = tileWidth;
+                    img.Height = tileHeight;
+                    img.Stretch = Stretch.Fill;
                     img.SetValue(Grid.ColumnProperty, j);
                     img.SetValue(Grid.RowProperty, i);
 

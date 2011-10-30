@@ -126,12 +126,12 @@
     <Resource Include="Resources\truck.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\custom.trash-map">
+    <None Include="Resources\custom.trash-map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\default.trash-map">
+    </None>
+    <None Include="Resources\default.trash-map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
     <Resource Include="Resources\road0.jpg" />
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace Trash2012.Visual
         public MainWindow()
         {
             InitializeComponent();
-            City ct = new City(MapLoader.loadMap(@"D:\devel\Trash2012\Trash2012\Resources\default.trash-map"));
+            City ct = new City(MapLoader.loadMapFromFile(@"Resources\custom.trash-map"));
             MyMap.MyCity = ct;
         }
     }
