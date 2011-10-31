@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Trash2012.Model;
+using System.Windows.Media.Effects;
 
 namespace Trash2012.Visual
 {
@@ -30,72 +31,102 @@ namespace Trash2012.Visual
             set
             {
                 my_city = value;
-                InitDefinitions();
-                SetGrid();
+                SetCanvas();
             }
         }
+
+        /// <summary>
+        /// Every image of the component
+        /// </summary>
+        private List<Image> GraphicTiles;
+
+        /// <summary>
+        /// Selected Image
+        /// </summary>
+        public Image SelectedImage { get; private set; }
+        /// <summary>
+        /// Selected Tile
+        /// </summary>
+        public IMapTile SelectedMapTile { get; private set; }
 
         public Map()
         {
             InitializeComponent();
+            UserInitialization();
         }
 
-        private void InitDefinitions()
+        private void UserInitialization()
         {
-            RootGrid.ColumnDefinitions.Clear();
-            RootGrid.RowDefinitions.Clear();
-
-            //ColumnDefinition defcol = new ColumnDefinition();
-            //defcol.Width = new GridLength(30);
-            for (int i = 0; i < MyCity.Width; i++)
-            {
-                //RootGrid.ColumnDefinitions.Add(defcol);
-                RootGrid.ColumnDefinitions.Add(new ColumnDefinition());
-                
-            }
-
-            //RowDefinition defrow = new RowDefinition();
-            //defrow.Height = new GridLength(30);
-            for (int i = 0; i < MyCity.Height; i++)
-            {
-                RootGrid.RowDefinitions.Add(new RowDefinition());
-            }
+            GraphicTiles = new List<Image>();
+            SelectedImage = null;
+            SelectedMapTile = null;
         }
 
-        public void SetGrid()
+        public void SetCanvas()
         {
-
-            double tileWidth = this.Width / MyCity.Width;
-            double tileHeight = this.Height / MyCity.Height;
-
-            for (int i = MyCity.Height; i-- > 0; )
+            //compute tile size
+            double tileWidth = RootContainer.Width / MyCity.Width;
+            double tileHeight = RootContainer.Height / MyCity.Height;
+            //reset graphic tiles's array
+            GraphicTiles.Clear();
+            
+            try
             {
-                for (int j = MyCity.Width; j-- > 0; )
+                for (int i = MyCity.Height; i-- > 0; )
                 {
-                    Image img = new Image();
-                    img.Width = tileWidth;
-                    img.Height = tileHeight;
-                    img.Stretch = Stretch.Fill;
-                    img.SetValue(Grid.ColumnProperty, j);
-                    img.SetValue(Grid.RowProperty, i);
-
-                    try
+                    for (int j = MyCity.Width; j-- > 0; )
                     {
-                        img.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                            MyCity.Map[i][j].Tile.GetHbitmap(),
-                            IntPtr.Zero,
-                            Int32Rect.Empty,
-                            BitmapSizeOptions.FromEmptyOptions());
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Error when converting ressource into image : " + e.Message);
-                    }
+                            Image img = new Image();
+                            img.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                                MyCity.Map[i][j].Tile.GetHbitmap(),
+                                IntPtr.Zero,
+                                Int32Rect.Empty,
+                                BitmapSizeOptions.FromEmptyOptions());
+                            img.Width = tileWidth;
+                            img.Height = tileHeight;
+                            img.Stretch = Stretch.Fill;
+                            img.SetValue(Grid.ColumnProperty, j);
+                            img.SetValue(Grid.RowProperty, i);
+                            /// Supervise mouse event on every image
+                            img.MouseDown += SelectTile_MouseDown;
 
-                    RootGrid.Children.Add(img);
-                    
+                            //record every image
+                            GraphicTiles.Add(img);
+
+                            Canvas.SetLeft(img, Math.Ceiling(j * tileWidth));
+                            Canvas.SetTop(img, Math.Ceiling(i * tileHeight) - i);
+                            RootContainer.Children.Add(img);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error when loading City map [converting ressource into image] : " + e.Message);
+            }
+        }
+
+        private void SelectTile_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //clean previous effect
+            if (SelectedImage != null)
+            {
+                Canvas.SetZIndex(SelectedImage, 0);
+                SelectedImage.Effect = null;
+            }
+
+            SelectedImage = (Image)sender;
+            Console.WriteLine(SelectedImage + " selected, parent: " + SelectedImage.Parent + ", z-index: " + Canvas.GetZIndex(SelectedImage));
+
+            //outer glow effect
+            DropShadowEffect outerGlow = new DropShadowEffect();
+
+            outerGlow.BlurRadius = SelectedImage.Width;
+
+            Color red = Color.FromRgb((byte)255,0,50);
+            outerGlow.Color = red;
+
+            SelectedImage.Effect = outerGlow;
+            Canvas.SetZIndex(SelectedImage, 1);
         }
     }
 }
