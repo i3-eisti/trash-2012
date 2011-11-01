@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Canvas Name="RootContainer" Height="300" Width="300">
+             mc:Ignorable="d" >
+    <Canvas Name="RootContainer" Height="380" Width="380" >
+        <Border Name="OuterBorder" BorderThickness="12" CornerRadius="6" BorderBrush="#6A000000" Background="#6A000000"
+                Height="380"
+                Width="380" Canvas.Left="0" Canvas.Top="0">
+            <Canvas Name="MapContainer" Height="360" Width="360" Canvas.Left="15" Canvas.Top="15"></Canvas>
+        </Border>
     </Canvas>
 </UserControl>
