@@ -4,13 +4,13 @@
 #   0 : plain
 #   1 : horizontal road
 #   2 : vertical road
-#   3 : top-left road     // bottom-right
-#   4 : top-right road    // bottom-left
-#   5 : bottom-left road  // top-right |_
-#   6 : bottom-right road // top-left   _|
+#   3 : top-left
+#   4 : top-right
+#   5 : bottom-left
+#   6 : bottom-right
 000000
-114000
-316000
-511400
+115000
+613000
+411500
 000200
-000511
+000411

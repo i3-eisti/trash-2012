@@ -112,6 +112,7 @@ namespace Trash2012.Visual
 
         private List<Image> selectedImages = new List<Image>();
         private List<IMapTile> selectedMapTiles = new List<IMapTile>();
+        public Travel MyTravel  = new Travel();
 
         /// <summary>
         /// Last selected image
@@ -221,20 +222,28 @@ namespace Trash2012.Visual
             IMapTile selectedTile = GraphicTiles[selectedImage];
             Border imgContainer = (Border)selectedImage.Parent;
 
+            //int height_pos = (int) (e.GetPosition(MapContainer).X / selectedImage.Height);
+            //int width_pos = (int)(e.GetPosition(MapContainer).Y / selectedImage.Width);
+
             if (!IsImageSelected(selectedImage)) //not yet selected
             {
-                //Update properties
-                selectedImages.Add(selectedImage);
-                selectedMapTiles.Add(selectedTile);
+                if (MyTravel.Add(selectedTile))
+                {
+                    //Update properties
+                    selectedImages.Add(selectedImage);
+                    selectedMapTiles.Add(selectedTile);
 
-                imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
-                imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
 
 
-                //make it stand out above
-                Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
-                Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
-                Canvas.SetZIndex(imgContainer, selectedImages.Count);
+                    imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
+                    imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
+
+
+                    //make it stand out above
+                    Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
+                    Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
+                    Canvas.SetZIndex(imgContainer, selectedImages.Count);
+                }
             }
             else //already selected
             {
