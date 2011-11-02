@@ -53,6 +53,7 @@ namespace Trash2012.Model
     /// </summary>
     public interface IMapTile {
         Bitmap Tile { get; }
+        Point Position { get; set; }
     }
     /// <summary>
     /// Tile which represents background elements
@@ -67,13 +68,15 @@ namespace Trash2012.Model
     public interface IRoadTile : IMapTile
     {
         RoadTile.RoadType Type { get; }
+        //bool HasHouse = false;
     }
     /// <summary>
     /// Tile which represents house elements
     /// </summary>
-    public interface IHouseTile : IMapTile
+    public interface IHouseTile : IRoadTile
     {
-        HouseTile.HouseType Type { get; }
+        //RoadTile.RoadType Type { get; }
+        //bool HasHouse = true;
     }
 
     //All interface above map to corresponding class
@@ -84,6 +87,10 @@ namespace Trash2012.Model
         /// Tile's image
         /// </summary>
         public Bitmap Tile { get; private set; }
+        /// <summary>
+        /// Position of the tile in the Map (grid)
+        /// </summary>
+        public Point Position { get; set; }
         /// <summary>
         /// Tile's type
         /// </summary>
@@ -149,10 +156,16 @@ namespace Trash2012.Model
         {
             Horizontal,
             Vertical,
-            TopLeft,
-            TopRight,
-            BottomLeft,
-            BottomRight
+            TopLeft,            //              TOP
+            TopRight,           //            |     |
+            BottomLeft,         //            |     |
+            BottomRight,        //      ______|     |______
+            TopBottomLeft,      // LEFT                     RIGHT
+            TopBottomRight,     //      ______       ______              
+            TopLeftRight,       //            |     |
+            BottomLeftRight     //            |     |
+                                //            |     |
+                                //            BOTTOM  
         }
 
         /// <summary>
@@ -176,6 +189,14 @@ namespace Trash2012.Model
                     return Resources.TileRoadBottomLeft;
                 case RoadType.BottomRight:
                     return Resources.TileRoadBottomRight;
+                case RoadType.TopBottomLeft:
+                    return Resources.TileRoadTopBottomLeft;
+                case RoadType.TopBottomRight:
+                    return Resources.TileRoadTopBottomRight;
+                case RoadType.TopLeftRight:
+                    return Resources.TileRoadTopLeftRight;
+                case RoadType.BottomLeftRight:
+                    return Resources.TileRoadBottomLeftRight;
                 default:
                     throw new ArgumentException("Unknown Road Direction : " + dir);
             }
@@ -192,54 +213,11 @@ namespace Trash2012.Model
     /// <summary>
     /// Specific MapTile which represents House tile
     /// </summary>
-    public class HouseTile : AbstractTile<HouseTile.HouseType>, IHouseTile
+    public class HouseTile
     {
-        /// <summary>
-        /// HouseTile's type
-        /// </summary>
-        public enum HouseType
-        {
-            Horizontal,
-            Vertical,
-            TopLeft,
-            TopRight,
-            BottomLeft,
-            BottomRight
-        }
 
-        /// <summary>
-        ///     Internal method for selecting correct Bitmap
-        /// </summary>
-        /// <param name="type">MapTile type</param>
-        /// <returns>corresponding BitMap</returns>
-        private static Bitmap selectTile(HouseTile.HouseType dir)
-        {
-            throw new NotImplementedException("House tile icon not ready yet.");
-            //switch (dir)
-            //{
-            //    case Type.Horizontal:
-            //        return Resources.TileHouseRoadHorizontal;
-            //    case Type.Vertical:      
-            //        return Resources.TileHouseRoadVertical;
-            //    case Type.TopLeft:       
-            //        return Resources.TileHouseRoadTopLeft;
-            //    case Type.TopRight:      
-            //        return Resources.TileHouseRoadTopRight;
-            //    case Type.BottomLeft:    
-            //        return Resources.TileHouseRoadBottomLeft;
-            //    case Type.BottomRight:   
-            //        return Resources.TileHouseRoadBottomRight;
-            //    default:
-            //        throw new ArgumentException("Unknown House Type");
-            //}
-        }
 
-        public override int GetHashCode()
-        {
-            return Type.ToString().GetHashCode() * 31 + 17;
-        }
 
-        public HouseTile(HouseTile.HouseType type) : base(selectTile(type), type) { }
     }
 
     #endregion

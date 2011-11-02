@@ -62,6 +62,7 @@
     <ProjectReference Include="..\Trash2012\Trash2012.csproj">
       <Project>{424B6C68-B0DF-4DCA-9D45-84E6FFED937B}</Project>
       <Name>Trash2012</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

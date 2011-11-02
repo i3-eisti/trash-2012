@@ -65,21 +65,28 @@ namespace Trash2012.Engine
         //Tile swallower attempt to read map tile
         class TileSwallower : MapBuilder, IMapBuilder<TileSwallower>
         {
-            private static Dictionary<int, IMapTile> buildTileCorrespondor()
+            private static IMapTile MapCorrespondor(int tileCode)
             {
-                Dictionary<int, IMapTile> correspondance = new Dictionary<int, IMapTile>();
-                correspondance.Add(0, new BackgroundTile(BackgroundTile.BackgroundType.Plain));
-                correspondance.Add(1, new RoadTile(RoadTile.RoadType.Horizontal));
-                correspondance.Add(2, new RoadTile(RoadTile.RoadType.Vertical));
-                correspondance.Add(3, new RoadTile(RoadTile.RoadType.TopLeft));
-                correspondance.Add(4, new RoadTile(RoadTile.RoadType.TopRight));
-                correspondance.Add(5, new RoadTile(RoadTile.RoadType.BottomLeft));
-                correspondance.Add(6, new RoadTile(RoadTile.RoadType.BottomRight));
-                return correspondance;
+                switch (tileCode)
+                {
+                    case 0:
+                         return new BackgroundTile(BackgroundTile.BackgroundType.Plain);
+                    case 1 : 
+                         return new RoadTile(RoadTile.RoadType.Horizontal);
+                    case 2:
+                         return new RoadTile(RoadTile.RoadType.Vertical);
+                    case 3:
+                         return new RoadTile(RoadTile.RoadType.TopLeft);
+                    case 4:
+                         return new RoadTile(RoadTile.RoadType.TopRight);
+                    case 5:
+                         return new RoadTile(RoadTile.RoadType.BottomLeft);
+                    case 6:
+                         return new RoadTile(RoadTile.RoadType.BottomRight); 
+                    default:
+                         throw new ArgumentException("Unknown tile code : " + tileCode);
+                }
             }
-
-            public static readonly Dictionary<int, IMapTile> MapCorrespondor =
-                buildTileCorrespondor();
 
             private int width;
             private int height;
@@ -109,6 +116,7 @@ namespace Trash2012.Engine
                     tiles[currentLine] = new IMapTile[width];
                 }
                 //add corresponding tile to buffer
+                tile.Position = new Point(currentColumn, currentLine);
                 this.tiles[currentLine][currentColumn] = tile;
                 currentColumn += 1;
             }
@@ -123,7 +131,7 @@ namespace Trash2012.Engine
                 {
                     //read tile code
                     int tileCode = int.Parse( tileMatch.Value );
-                    AddTile(MapCorrespondor[tileCode]);
+                    AddTile(MapCorrespondor(tileCode));
                     //decrease remaining needed item
                     remainingTilesToComplete--;
                 }
