@@ -38,23 +38,21 @@ namespace Trash2012.Model
 
         #region Date changed handler (e.g payday)
 
-        private List<Func<DateTime>> dateChangeHandlers = new List<Func<DateTime>>();
+        private List<Action<DateTime>> dateChangeHandlers = new List<Action<DateTime>>();
 
         private void OnDateChange(DateTime newDate)
         {
-            foreach (Func<DateTime,> handler in dateChangeHandlers)
+            foreach (Action<DateTime> handler in dateChangeHandlers)
                 handler(newDate);
         }
 
-        private int PayDay_Handler(DateTime newDate)
+        private void PayDay_Handler(DateTime newDate)
         {
             //every month, receive payday
             if (newDate.Day == 1)
             {
                 //Player.Gold += PAYDAY;
             }
-
-            return 0;
         }
         
         #endregion
