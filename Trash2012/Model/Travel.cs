@@ -53,9 +53,15 @@ namespace Trash2012.Model
         {
             int diffX = Math.Abs(a.Position.X - b.Position.X);
             int diffY = Math.Abs(a.Position.Y - b.Position.Y);
+            if (diffX < -1 || diffX > 1 || diffY < -1 || diffY > 1)
+            {
+                return false;
+            }
+
+
             if (diffX == 0)
             {
-                if (diffY != 0)
+                if (diffY != -1)
                 {
                     return true;
                 }
