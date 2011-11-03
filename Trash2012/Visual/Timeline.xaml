@@ -17,7 +17,7 @@
             Grid.Column="0"
             HorizontalAlignment="Left" VerticalAlignment="Top"
             Stretch="Fill"
-            Source="/Trash2012;component/Resources/calendar_logo.png"/>
+            Source="/Trash2012;component/Resources/calendar_logo_30_30.png"/>
         <Slider 
             Name="sldTime" 
             Grid.Column="2"

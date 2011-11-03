@@ -76,7 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Game.cs" />
-    <Compile Include="Model\Travel.cs" />
+    <!--Compile Include="Model\Travel.cs" /-->
     <Compile Include="Visual\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -201,13 +201,7 @@
     <Resource Include="Resources\road4.1.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\calendar_logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\road1s.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\TileRoadLeftTopBottom.bmp" />
+    <Resource Include="Resources\calendar_logo_30_30.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

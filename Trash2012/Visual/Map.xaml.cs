@@ -112,7 +112,7 @@ namespace Trash2012.Visual
 
         private List<Image> selectedImages = new List<Image>();
         private List<IMapTile> selectedMapTiles = new List<IMapTile>();
-        public Travel MyTravel  = new Travel();
+        //public Travel MyTravel  = new Travel();
 
         /// <summary>
         /// Last selected image
@@ -227,8 +227,8 @@ namespace Trash2012.Visual
 
             if (!IsImageSelected(selectedImage)) //not yet selected
             {
-                if (MyTravel.Add(selectedTile))
-                {
+                //if (MyTravel.Add(selectedTile))
+                //{
                     //Update properties
                     selectedImages.Add(selectedImage);
                     selectedMapTiles.Add(selectedTile);
@@ -243,7 +243,7 @@ namespace Trash2012.Visual
                     Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
                     Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
                     Canvas.SetZIndex(imgContainer, selectedImages.Count);
-                }
+                //}
             }
             else //already selected
             {
