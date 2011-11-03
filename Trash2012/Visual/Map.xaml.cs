@@ -48,7 +48,7 @@ namespace Trash2012.Visual
 
         private void UserInitialization()
         {
-            ///Selection handler
+            //Selection handler
             {
                 GraphicTiles = new Dictionary<Image, IMapTile>();
                 Canvas.SetZIndex(OuterBorder, -5);
@@ -80,7 +80,7 @@ namespace Trash2012.Visual
                             img.Stretch = Stretch.Fill;
                             img.SetValue(Grid.ColumnProperty, j);
                             img.SetValue(Grid.RowProperty, i);
-                            /// Supervise mouse event on every image
+                            // Supervise mouse event on every image
                             img.MouseDown += SelectTile_MouseDown;
 
                             //wrap it into a border container,
@@ -112,7 +112,7 @@ namespace Trash2012.Visual
 
         private List<Image> selectedImages = new List<Image>();
         private List<IMapTile> selectedMapTiles = new List<IMapTile>();
-        //public Travel MyTravel  = new Travel();
+        public Travel MyTravel = new Travel();
 
         /// <summary>
         /// Last selected image
@@ -184,22 +184,26 @@ namespace Trash2012.Visual
         }
 
         private static readonly Color BORDER_COLOR = Colors.Black;
+
         /// <summary>
         /// Image's Border thickness when selection is not activated
         /// </summary>
-        private static readonly int BORDER_THICKNESS_UNACTIVATED = 0;
+        private const int BORDER_THICKNESS_UNACTIVATED = 0;
+
         /// <summary>
         /// Image's Border radius when selection is not activated
         /// </summary>
-        private static readonly int BORDER_RADIUS_UNACTIVATED = 0;
+        private const int BORDER_RADIUS_UNACTIVATED = 0;
+
         /// <summary>
         /// Image's Border thickness when selection is activated
         /// </summary>
-        private static readonly int BORDER_THICKNESS_ACTIVATED = 4;
+        private const int BORDER_THICKNESS_ACTIVATED = 4;
+
         /// <summary>
         /// Image's Border radius when selection is activated
         /// </summary>
-        private static readonly int BORDER_RADIUS_ACTIVATED = 7;
+        private const int BORDER_RADIUS_ACTIVATED = 7;
 
         /// <summary>
         /// Check wheter an image is already selected or not
@@ -227,8 +231,8 @@ namespace Trash2012.Visual
 
             if (!IsImageSelected(selectedImage)) //not yet selected
             {
-                //if (MyTravel.Add(selectedTile))
-                //{
+                if (MyTravel.Add(selectedTile))
+                {
                     //Update properties
                     selectedImages.Add(selectedImage);
                     selectedMapTiles.Add(selectedTile);
@@ -243,7 +247,7 @@ namespace Trash2012.Visual
                     Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
                     Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
                     Canvas.SetZIndex(imgContainer, selectedImages.Count);
-                //}
+                }
             }
             else //already selected
             {
