@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using System.Management;
 
 namespace Trash2012.Model
 {
     public class Company
     {
-        public Resource<int> Gold { get; set; }
+        public Resource Gold { get; set; }
         public List<Truck> Trucks { get; set; }
 
         public Company()
         {
-            Gold = new Resource<int>("Or", 0, 10000, 1000);
+            Gold = new Resource("Or", 0, 10000, 1000);
             Trucks = new List<Truck>(10);
         }
 
@@ -26,14 +23,14 @@ namespace Trash2012.Model
          */
     }
 
-    public class Resource<T>
+    public class Resource
     {
-        public string Name { get; private set; }
-        public T Minimum { get; private set; }
-        public T Maximum { get; private set; }
-        public T Current { get; set; }
+        public readonly string Name;
+        public readonly int Minimum;
+        public readonly int Maximum;
+        public int Current { get; set; }
 
-        public Resource(string name, T min, T max, T value)
+        public Resource(string name, int min, int max, int value)
         {
             // Make 'T' implements ICompare of smth like to enable comparing
             //if (value < min || value > max)
@@ -44,6 +41,36 @@ namespace Trash2012.Model
             Maximum = max;
             Current = value;
         }
+
+        public bool Add(int quantity)
+        {
+            if (quantity < 0)
+                throw new ArgumentException("Quantity must be positive");
+            if (quantity + Current > Maximum)
+            {
+                Current += quantity;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        #region Syntatic Sugar Helpers
+
+        public static implicit operator Resource(int value)
+        {
+            return new Resource("anything", Int32.MinValue, Int32.MaxValue, value);
+        }
+
+        public static Resource operator+(Resource a, Resource b)
+        {
+            a.Add(b.Current);
+            return a;
+        }
+
+        #endregion
 
     }
 }

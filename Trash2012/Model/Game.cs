@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Trash2012.Engine;
 
 namespace Trash2012.Model
 {
@@ -35,14 +32,18 @@ namespace Trash2012.Model
 
             dateChangeHandlers.Add( PayDay_Handler );
         }
+        
+        #region Game Event
 
         #region Date changed handler (e.g payday)
 
-        private List<Action<DateTime>> dateChangeHandlers = new List<Action<DateTime>>();
+        private delegate void DateHandler(DateTime dateEvent);
+
+        private List<DateHandler> dateChangeHandlers = new List<DateHandler>();
 
         private void OnDateChange(DateTime newDate)
         {
-            foreach (Action<DateTime> handler in dateChangeHandlers)
+            foreach (DateHandler handler in dateChangeHandlers)
                 handler(newDate);
         }
 
@@ -51,10 +52,12 @@ namespace Trash2012.Model
             //every month, receive payday
             if (newDate.Day == 1)
             {
-                //Player.Gold += PAYDAY;
+                Player.Gold += PAYDAY;
             }
         }
         
+        #endregion
+
         #endregion
 
         #region Hidden members

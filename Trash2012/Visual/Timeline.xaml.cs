@@ -32,6 +32,7 @@ namespace Trash2012.Visual
         private void UserInitialization()
         {
             CurrentDate = Trash2012.Model.Game.TRASH2012_BEGIN;
+            UpdateDateIcon();
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace Trash2012.Visual
         /// </summary>
         public DateTime CurrentDate { get; private set; }
 
-        private void sldTime_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void SldTimeValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             UpdateCurrentDate();
             UpdateDateIcon();

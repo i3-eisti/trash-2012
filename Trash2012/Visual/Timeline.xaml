@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Name="ucTimeline" d:DesignHeight="35" d:DesignWidth="600">
+             Name="ucTimeline" d:DesignHeight="40" d:DesignWidth="600">
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -14,15 +14,13 @@
         <Image 
             Name="imgCurrentDate" 
             Height="30" Width="30"
-            Grid.Column="0"
-            HorizontalAlignment="Left" VerticalAlignment="Top"
-            Stretch="Fill"
-            Source="/Trash2012;component/Resources/calendar_logo_30_30.png"/>
+            Margin="5"
+            Grid.Column="0"/>
         <Slider 
             Name="sldTime" 
             Grid.Column="2"
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
             Maximum="364" Minimum="0" 
-            TickPlacement="BottomRight" ValueChanged="sldTime_ValueChanged" />
+            TickPlacement="BottomRight" ValueChanged="SldTimeValueChanged" />
     </Grid>
 </UserControl>
