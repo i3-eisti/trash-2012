@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" >
-        <Border Name="OuterBorder" BorderThickness="12" CornerRadius="6" BorderBrush="#6A000000" Background="#6A000000"
-                Height="380"
-                Width="380" Canvas.Left="0" Canvas.Top="0">
-            <Canvas Name="MapContainer" Height="360" Width="360" Canvas.Left="15" Canvas.Top="15"></Canvas>
+        <Border 
+            Name="OuterBorder" 
+            BorderThickness="12" CornerRadius="6" 
+            BorderBrush="#6A000000" Background="#6A000000">
+            <Canvas 
+                Name="MapContainer"/>
         </Border>
 </UserControl>

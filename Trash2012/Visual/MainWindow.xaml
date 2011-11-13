@@ -1,17 +1,32 @@
 ﻿<Window xmlns:my="clr-namespace:Trash2012.Visual" x:Class="Trash2012.Visual.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Trash2012" Name="Trash2012" MinWidth="410">
-    <Grid Name="RootGrid">
+        Title="Trash2012"
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen"
+        Loaded="Trash2012_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\MainWindowStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid 
+        Name="RootGrid" 
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition />
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
-            <Button Content="Démarer une partie" />
+        <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="IndianRed">
             <Button Content="Quitter" />
         </StackPanel>
 
@@ -22,29 +37,48 @@
         
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             
-            <StackPanel Grid.Column="0" Background="Gray" Margin="5">
-                
-            </StackPanel>
+            <my:Dashboard 
+                x:Name="GameDashboard"
+                Grid.Column="0" 
+                Margin="5"/>
             
             <my:Map 
                 x:Name="MyMap" 
                 Margin="5"
                 Grid.Column="1"
                 Height="380" Width="380"/>
+            
         </Grid>
 
         <StackPanel Grid.Row="3" Orientation="Vertical">
-            <TabControl x:Name="Tabs" VerticalAlignment="Stretch" Margin="5">
+            
+            <TabControl 
+                x:Name="Tabs" VerticalAlignment="Stretch" Margin="5">
+                
                 <TabItem Header="Boutique">
-                    <ListView ItemsSource="{Binding}" />
+                    <StackPanel 
+                        Margin="8"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                        
+                        <my:ShopItem
+                            Source="/Trash2012;component/Resources/truck.png"
+                            Text="Camion recycleur de papier"
+                            Price="250"
+                            BuyHandler="TruckShopItemHandler"
+                            Style="{StaticResource ShopButton}"/>
+                        
+                    </StackPanel>
                 </TabItem>
+                
                 <TabItem Header="Entreprise">
                     
                 </TabItem>
+                
             </TabControl>
         </StackPanel>
 

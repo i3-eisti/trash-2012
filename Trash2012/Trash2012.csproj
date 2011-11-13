@@ -77,7 +77,11 @@
     </ApplicationDefinition>
     <Compile Include="Model\Game.cs" />
     <!--Compile Include="Model\Travel.cs" /-->
+    <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\Travel.cs" />
+    <Compile Include="Visual\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Visual\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -92,9 +96,36 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Engine\MapLoader.cs" />
+    <Compile Include="Visual\ShopItem.xaml.cs">
+      <DependentUpon>ShopItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Visual\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
+    <Page Include="Styles\DashboardStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\HomePageStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MainWindowStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ShopItemStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TimelineStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Visual\Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Visual\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +137,10 @@
     <Page Include="Visual\Map.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Visual\ShopItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Visual\Timeline.xaml">
       <SubType>Designer</SubType>
@@ -130,7 +165,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -192,7 +227,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\dollar.png" />
     <Resource Include="Resources\work.22-10-2011.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +247,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\trash_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\inhabitant.png" />
+    <Resource Include="Resources\money.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

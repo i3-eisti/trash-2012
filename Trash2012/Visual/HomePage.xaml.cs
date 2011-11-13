@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Trash2012.Engine;
+using Trash2012.Model;
 
 namespace Trash2012.Visual
 {
@@ -22,6 +24,19 @@ namespace Trash2012.Visual
         public HomePage()
         {
             InitializeComponent();
+        }
+
+        private void bStart_Click(object sender, RoutedEventArgs e)
+        {
+            Game newGame = new Game(MapLoader.loadDefaultMap());
+            MainWindow gameWindow = new MainWindow(newGame);
+            gameWindow.Show();
+            this.Close();
+        }
+
+        private void bLoad_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

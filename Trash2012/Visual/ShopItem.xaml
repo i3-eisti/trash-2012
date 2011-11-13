@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Trash2012.Visual.ShopItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\ShopItemStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Button
+        Name="BuyButton" Click="BuyButton_Click">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid 
+                Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.7*"/>
+                    <ColumnDefinition Width="2.3*"/>
+                </Grid.ColumnDefinitions>
+                <Image
+                    Name="Icon"
+                    Grid.Column="0"
+                    Width="50" Height="50"
+                    Style="{StaticResource ShopItemIcon}"/>
+                <TextBlock 
+                    Name="ItemLabel"
+                    Margin="5"
+                    Grid.Column="1"
+                    TextWrapping="Wrap"
+                    Style="{StaticResource ShopItemLabel}"/>
+            </Grid>
+            <Grid
+                Grid.Row="1">
+                <TextBlock 
+                    Name="ItemPrice"
+                    Grid.Column="0"
+                    Style="{StaticResource ShopItemPrice}"/>
+            </Grid>
+        </Grid>
+    </Button>
+</UserControl>

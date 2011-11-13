@@ -4,15 +4,45 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-	    Title="HomePage" 
+	    Title="HomePage"
+        Width="800"
+        Height="600"
         ResizeMode="NoResize" 
         WindowStyle="ToolWindow" 
-        WindowStartupLocation="CenterScreen" 
-        SizeToContent="Width">
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Styles\HomePageStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush
+            ImageSource="/Trash2012;component/Resources/trash_background.png"
+            Stretch="Fill"/>
+    </Window.Background>
     <Grid>
-        <Image 
-            Width="800" Height="600"
-            Stretch="Fill"
-            Source="/Trash2012;component/Resources/trash_background.png" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*"/>    
+            <RowDefinition />    
+            <RowDefinition Height=".8*"/>    
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Button 
+            Name="bStart"
+            Grid.Row="1" 
+            Grid.Column="0" 
+            Content="Nouvelle Partie" 
+            Style="{DynamicResource HomeButton}" Click="bStart_Click" />
+        <!--Button 
+            Name="bLoad"
+            Grid.Row="1"
+            Grid.Column="1" 
+            Content="Charger une partie" 
+            Width="300" 
+            Style="{DynamicResource HomeButton}" Click="bLoad_Click" /-->
     </Grid>
 </Window>
