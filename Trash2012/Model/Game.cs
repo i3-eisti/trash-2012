@@ -21,18 +21,22 @@ namespace Trash2012.Model
         }
 
         public City City { get; private set; }
-        public Company Player { get; private set; }
+        public Company Company { get; private set; }
 
         public Game(
             IMapTile[][] cityMap
         ) {
             City = new City(cityMap);
             _currentDate = TRASH2012_BEGIN;
-            Player = new Company();
+            Company = new Company();
 
             dateChangeHandlers.Add( PayDay_Handler );
         }
+
+        #region Save/ Load
         
+        #endregion
+
         #region Game Event
 
         #region Date changed handler (e.g payday)
@@ -52,7 +56,7 @@ namespace Trash2012.Model
             //every month, receive payday
             if (newDate.Day == 1)
             {
-                Player.Gold += PAYDAY;
+                Company.Gold += PAYDAY;
             }
         }
         

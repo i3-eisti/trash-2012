@@ -22,21 +22,21 @@ namespace Trash2012.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        public Resources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Trash2012.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Trash2012.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,91 +60,101 @@ namespace Trash2012.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap CalendarBackground {
+        public static System.Drawing.Bitmap CalendarBackground {
             get {
                 object obj = ResourceManager.GetObject("CalendarBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static byte[] DefaultMap {
+        public static byte[] DefaultMap {
             get {
                 object obj = ResourceManager.GetObject("DefaultMap", resourceCulture);
                 return ((byte[])(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TilePlain {
+        /// <summary>
+        ///   Looks up a localized string similar to Une ville est en proie à la saleté et aux déchets qui s&apos;accumulent !
+        ///Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !.
+        /// </summary>
+        public static string NewGameAnnounce {
+            get {
+                return ResourceManager.GetString("NewGameAnnounce", resourceCulture);
+            }
+        }
+        
+        public static System.Drawing.Bitmap TilePlain {
             get {
                 object obj = ResourceManager.GetObject("TilePlain", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadBottomLeft {
+        public static System.Drawing.Bitmap TileRoadBottomLeft {
             get {
                 object obj = ResourceManager.GetObject("TileRoadBottomLeft", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadBottomLeftRight {
+        public static System.Drawing.Bitmap TileRoadBottomLeftRight {
             get {
                 object obj = ResourceManager.GetObject("TileRoadBottomLeftRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadBottomRight {
+        public static System.Drawing.Bitmap TileRoadBottomRight {
             get {
                 object obj = ResourceManager.GetObject("TileRoadBottomRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadHorizontal {
+        public static System.Drawing.Bitmap TileRoadHorizontal {
             get {
                 object obj = ResourceManager.GetObject("TileRoadHorizontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadTopBottomLeft {
+        public static System.Drawing.Bitmap TileRoadTopBottomLeft {
             get {
                 object obj = ResourceManager.GetObject("TileRoadTopBottomLeft", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadTopBottomRight {
+        public static System.Drawing.Bitmap TileRoadTopBottomRight {
             get {
                 object obj = ResourceManager.GetObject("TileRoadTopBottomRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadTopLeft {
+        public static System.Drawing.Bitmap TileRoadTopLeft {
             get {
                 object obj = ResourceManager.GetObject("TileRoadTopLeft", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadTopLeftRight {
+        public static System.Drawing.Bitmap TileRoadTopLeftRight {
             get {
                 object obj = ResourceManager.GetObject("TileRoadTopLeftRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadTopRight {
+        public static System.Drawing.Bitmap TileRoadTopRight {
             get {
                 object obj = ResourceManager.GetObject("TileRoadTopRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        internal static System.Drawing.Bitmap TileRoadVertical {
+        public static System.Drawing.Bitmap TileRoadVertical {
             get {
                 object obj = ResourceManager.GetObject("TileRoadVertical", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
