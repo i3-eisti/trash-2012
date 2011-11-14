@@ -7,12 +7,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Trash2012.Model;
-<<<<<<< HEAD
-=======
 using System.Windows.Media.Effects;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
->>>>>>> FETCH_HEAD
 
 namespace Trash2012.Visual
 {

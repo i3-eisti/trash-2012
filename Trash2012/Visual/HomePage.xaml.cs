@@ -30,13 +30,8 @@ namespace Trash2012.Visual
         {
             Game newGame = new Game(MapLoader.loadDefaultMap());
             MainWindow gameWindow = new MainWindow(newGame);
-            gameWindow.Show();
             this.Close();
-        }
-
-        private void bLoad_Click(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
+            gameWindow.Show();
         }
     }
 }

@@ -37,12 +37,5 @@
             Grid.Column="0" 
             Content="Nouvelle Partie" 
             Style="{DynamicResource HomeButton}" Click="bStart_Click" />
-        <!--Button 
-            Name="bLoad"
-            Grid.Row="1"
-            Grid.Column="1" 
-            Content="Charger une partie" 
-            Width="300" 
-            Style="{DynamicResource HomeButton}" Click="bLoad_Click" /-->
     </Grid>
 </Window>

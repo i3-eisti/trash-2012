@@ -29,18 +29,18 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
+                <ColumnDefinition Width="58"/>
             </Grid.ColumnDefinitions>
             <Slider 
                 Name="sldTime" 
@@ -50,18 +50,18 @@
                 Ticks="31.0, 60.0, 91.0, 121.0, 152.0, 182.0, 213.0, 244.0, 274.0, 305.0, 335.0, 365.0" 
                 TickPlacement="BottomRight"
                 ValueChanged="SldTimeValueChanged"/>
-            <Label Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" Content="Janvier"/>
-            <Label Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center" Content="Fevrier"/>
-            <Label Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Center" Content="Mars"/>
-            <Label Grid.Row="1" Grid.Column="3"  HorizontalAlignment="Center" Content="Avril"/>
-            <Label Grid.Row="1" Grid.Column="4"  HorizontalAlignment="Center" Content="Mai"/>
-            <Label Grid.Row="1" Grid.Column="5"  HorizontalAlignment="Center" Content="Juin"/>
-            <Label Grid.Row="1" Grid.Column="6"  HorizontalAlignment="Center" Content="Juillet"/>
-            <Label Grid.Row="1" Grid.Column="7"  HorizontalAlignment="Center" Content="Août"/>
-            <Label Grid.Row="1" Grid.Column="8"  HorizontalAlignment="Center" Content="Septembre"/>
-            <Label Grid.Row="1" Grid.Column="9"  HorizontalAlignment="Center" Content="Octobre"/>
-            <Label Grid.Row="1" Grid.Column="10" HorizontalAlignment="Center" Content="Novembre"/>
-            <Label Grid.Row="1" Grid.Column="11" HorizontalAlignment="Center" Content="Décembre"/>
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Janvier"   Grid.Row="1" Grid.Column="0"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Fevrier"   Grid.Row="1" Grid.Column="1"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Mars"      Grid.Row="1" Grid.Column="2"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Avril"     Grid.Row="1" Grid.Column="3"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Mai"       Grid.Row="1" Grid.Column="4"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Juin"      Grid.Row="1" Grid.Column="5"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Juillet"   Grid.Row="1" Grid.Column="6"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Août"      Grid.Row="1" Grid.Column="7"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Septembre" Grid.Row="1" Grid.Column="8"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Octobre"   Grid.Row="1" Grid.Column="9"   />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Novembre"  Grid.Row="1" Grid.Column="10"  />
+            <Label HorizontalAlignment="Center" FontSize="10" Content="Décembre"  Grid.Row="1" Grid.Column="11"  />
         </Grid>
     </Grid>
 </UserControl>
