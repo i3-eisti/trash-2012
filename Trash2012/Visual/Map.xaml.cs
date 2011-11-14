@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Trash2012.Model;
 using System.Windows.Media.Effects;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace Trash2012.Visual
 {
@@ -38,7 +40,8 @@ namespace Trash2012.Visual
         /// <summary>
         /// Every image of the component
         /// </summary>
-        private Dictionary<Image,IMapTile> GraphicTiles;
+        //private Dictionary<Tile, IMapTile> TilesVisualToModel;
+        public Tile[][] TilesVisual;
 
         public Map()
         {
@@ -50,8 +53,37 @@ namespace Trash2012.Visual
         {
             ///Selection handler
             {
-                GraphicTiles = new Dictionary<Image, IMapTile>();
                 Canvas.SetZIndex(OuterBorder, -5);
+            }
+            timer = new DispatcherTimer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = new TimeSpan(0, 0, 1);
+        }
+
+        public DispatcherTimer timer;
+        public int pos;
+        public int posmax;
+
+        public void Animate()
+        {
+            pos = 0;
+            posmax = MyTravel.Count;
+            timer.Start();
+        }
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if (pos < posmax)
+            {
+                if (pos > 0)
+                {
+                    TilesVisual[MyTravel.Get(pos - 1).Position.Y][MyTravel.Get(pos - 1).Position.X].CleanAnimation();
+                }
+                TilesVisual[MyTravel.Get(pos).Position.Y][MyTravel.Get(pos).Position.X].Animate();
+                pos++;
+            }
+            else
+            {
+                timer.Stop();
             }
         }
 
@@ -60,45 +92,30 @@ namespace Trash2012.Visual
             //compute tile size
             double tileWidth = MapContainer.Width / MyCity.Width;
             double tileHeight = MapContainer.Height / MyCity.Height;
+
             //reset graphic tiles's array
-            GraphicTiles.Clear();
+            TilesVisual = new Tile[MyCity.Height][];
             
             try
             {
                 for (int i = MyCity.Height; i-- > 0; )
                 {
+                    TilesVisual[i] = new Tile[MyCity.Width];
                     for (int j = MyCity.Width; j-- > 0; )
                     {
-                            Image img = new Image();
-                            img.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                                MyCity.Map[i][j].Tile.GetHbitmap(),
-                                IntPtr.Zero,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
-                            img.Width = tileWidth;
-                            img.Height = tileHeight;
-                            img.Stretch = Stretch.Fill;
-                            img.SetValue(Grid.ColumnProperty, j);
-                            img.SetValue(Grid.RowProperty, i);
-                            /// Supervise mouse event on every image
-                            img.MouseDown += SelectTile_MouseDown;
+                        Tile t = new Tile(MyCity, i, j, tileWidth, tileHeight);
+                        t.img.MouseDown += SelectTile_MouseDown;
+                        TilesVisual[i][j] = t;
 
-                            //wrap it into a border container,
-                            // to enable selection later
-                            Border bd = new Border();
-                            bd.BorderBrush = new SolidColorBrush(BORDER_COLOR);
-                            bd.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
-                            bd.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
-                            bd.Child = img;
+                        Border bd = new Border();
+                        bd.BorderBrush = new SolidColorBrush(BORDER_COLOR);
+                        bd.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
+                        bd.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
+                        bd.Child = t;
+                        Canvas.SetLeft(bd, Math.Ceiling(j * tileWidth) - j);
+                        Canvas.SetTop(bd, Math.Ceiling(i * tileHeight) - i);
 
-                            //record every image
-                            GraphicTiles.Add(img,MyCity.Map[i][j]);
-
-                            Canvas.SetLeft(bd, Math.Ceiling(j * tileWidth) - j);
-                            Canvas.SetTop(bd, Math.Ceiling(i * tileHeight) - i);
-                            //Canvas.SetLeft(img, Math.Ceiling(j * tileWidth) - j);
-                            //Canvas.SetTop(img, Math.Ceiling(i * tileHeight) - i);
-                            MapContainer.Children.Add(bd);
+                        MapContainer.Children.Add(bd);
                     }
                 }
             }
@@ -110,78 +127,9 @@ namespace Trash2012.Visual
 
         #region TileSelectionHandler
 
-        private List<Image> selectedImages = new List<Image>();
-        private List<IMapTile> selectedMapTiles = new List<IMapTile>();
         public Travel MyTravel  = new Travel();
 
-        /// <summary>
-        /// Last selected image
-        /// </summary>
-        public Image LastSelectedImage 
-        {
-            get
-            {
-                if (selectedImages.Count == 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return selectedImages.Last();
-                }
-            }
-        }
-        /// <summary>
-        /// All selected images, ordered from the first selected to the last selected.
-        /// INFO : Don't use internally
-        /// </summary>
-        public Stack<Image> SelectedImages 
-        {
-            get
-            {
-                Stack<Image> imgStack = new Stack<Image>(selectedImages);
-                return imgStack;
-            }
-        }
-        /// <summary>
-        /// Last corresponding selected IMapTile
-        /// </summary>
-        public IMapTile LastSelectedMapTile
-        {
-            get
-            {
-                if (selectedMapTiles.Count == 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return selectedMapTiles.Last();
-                }
-            }
-        }
-        /// <summary>
-        /// All corresponding selected map tiles, ordered from the first selected to the last selected
-        /// INFO : Don't use internally
-        /// </summary>
-        public Stack<IMapTile> SelectedMapTiles
-        {
-            get
-            {
-                Stack<IMapTile> tileStack = new Stack<IMapTile>(selectedMapTiles);
-                return tileStack;
-            }
-        }
-        /// <summary>
-        /// Fast checking is any image is selected on the map
-        /// </summary>
-        public Boolean IsAnyTileSelected 
-        {
-            get
-            {
-                return selectedImages.Count != 0;
-            }
-        }
+        #region DO NOT LOOK
 
         private static readonly Color BORDER_COLOR = Colors.Black;
         /// <summary>
@@ -195,21 +143,15 @@ namespace Trash2012.Visual
         /// <summary>
         /// Image's Border thickness when selection is activated
         /// </summary>
-        private static readonly int BORDER_THICKNESS_ACTIVATED = 4;
+        private static readonly int BORDER_THICKNESS_ACTIVATED = 1;
         /// <summary>
         /// Image's Border radius when selection is activated
         /// </summary>
         private static readonly int BORDER_RADIUS_ACTIVATED = 7;
 
-        /// <summary>
-        /// Check wheter an image is already selected or not
-        /// </summary>
-        /// <param name="imgTile">Image to check</param>
-        /// <returns>if image is selected or not</returns>
-        private bool IsImageSelected(Image imgTile)
-        {
-            return SelectedImages.Contains(imgTile);
-        }
+        
+
+        #endregion
 
         /// <summary>
         /// Handle tile selection by mouse pressure
@@ -218,23 +160,26 @@ namespace Trash2012.Visual
         /// <param name="e">whatever bro</param>
         private void SelectTile_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Image selectedImage = (Image)sender;
-            IMapTile selectedTile = GraphicTiles[selectedImage];
-            Border imgContainer = (Border)selectedImage.Parent;
+            Tile selectedVisualTile = 
+                (Tile)(
+                    (
+                        (Canvas)(
+                            (
+                                (Image)sender
+                            ).Parent
+                        )
+                    ).Parent
+                );
 
-            //int height_pos = (int) (e.GetPosition(MapContainer).X / selectedImage.Height);
-            //int width_pos = (int)(e.GetPosition(MapContainer).Y / selectedImage.Width);
+            IMapTile selectedTile = MyCity.Map[selectedVisualTile.X][selectedVisualTile.Y];
+            Border imgContainer = (Border)selectedVisualTile.Parent;
 
-            if (!IsImageSelected(selectedImage)) //not yet selected
+            if (!MyTravel.Contains(selectedTile))
             {
                 if (MyTravel.Add(selectedTile))
                 {
-                    //Update properties
-                    selectedImages.Add(selectedImage);
-                    selectedMapTiles.Add(selectedTile);
 
-
-
+                    //selectedVisualTile.Animate();
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
                     imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
 
@@ -242,22 +187,24 @@ namespace Trash2012.Visual
                     //make it stand out above
                     Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
                     Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
-                    Canvas.SetZIndex(imgContainer, selectedImages.Count);
+                    Canvas.SetZIndex(imgContainer, 1);
                 }
             }
             else //already selected
             {
-                selectedImages.Remove(selectedImage);
-                selectedMapTiles.Remove(selectedTile);
+                if (MyTravel.Remove(selectedTile))
+                {
+                    //selectedVisualTile.CleanAnimation();
 
-                //clean previous effect
-                imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
-                imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
+                    //clean previous effect
+                    imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
+                    imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
 
-                //put it down
-                Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_ACTIVATED - BORDER_THICKNESS_UNACTIVATED);
-                Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_ACTIVATED - BORDER_THICKNESS_UNACTIVATED);
-                Canvas.SetZIndex(imgContainer, 0);
+                    //put it down
+                    Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_ACTIVATED - BORDER_THICKNESS_UNACTIVATED);
+                    Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_ACTIVATED - BORDER_THICKNESS_UNACTIVATED);
+                    Canvas.SetZIndex(imgContainer, 0);
+                }
             }
         }
 

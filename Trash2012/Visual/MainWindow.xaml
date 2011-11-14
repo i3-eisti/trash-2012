@@ -11,7 +11,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
-            <Button Content="Démarer une partie" />
+            <Button Content="Démarer une partie" Click="Button_Click" />
             <Button Content="Quitter" />
         </StackPanel>
 

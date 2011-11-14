@@ -9,6 +9,14 @@ namespace Trash2012.Model
     {
         private List<IRoadTile> tiles;
 
+        public int Count
+        {
+            get
+            {
+                return tiles.Count;
+            }
+        }
+
         public enum Extremity{
             TOP = 1,
             BOTTOM = 2,
@@ -174,6 +182,49 @@ namespace Trash2012.Model
             }
             return false;
 
+        }
+
+
+
+        public bool Contains(IMapTile tile)
+        {
+            if (tile is IRoadTile)
+            {
+                IRoadTile road = ((IRoadTile)tile);
+                foreach (IRoadTile item in tiles)
+                {
+                    if (item.Position.X == tile.Position.X && item.Position.Y == tile.Position.Y)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool Remove(IMapTile tile)
+        {
+            if (tile is IRoadTile)
+            {
+                IRoadTile road = ((IRoadTile)tile);
+                int i = tiles.IndexOf(road);
+                if (i == 0)
+                {
+                    tiles.Remove(road);
+                    return true;
+                }
+                if(i == tiles.Count-1)
+                {
+                    tiles.Remove(road);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public IMapTile Get(int i)
+        {
+            return tiles[i];
         }
     }
 }
