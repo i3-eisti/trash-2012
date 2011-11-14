@@ -100,6 +100,7 @@
     <Compile Include="Engine\MapLoader.cs" />
     <Compile Include="Visual\ShopItem.xaml.cs">
       <DependentUpon>ShopItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Visual\Tile.xaml.cs">
       <DependentUpon>Tile.xaml</DependentUpon>
     </Compile>
@@ -143,6 +144,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Visual\ShopItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Visual\Tile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -251,7 +255,6 @@
     <Resource Include="Resources\calendar_logo_30_30.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Resource Include="Resources\trash_background.png" />
   </ItemGroup>
   <ItemGroup>
