@@ -15,9 +15,6 @@ namespace Trash2012.Visual
         {
             get { return _game.City; }
         }
-        public MainWindow() : this(new Game(MapLoader.loadDefaultMap()))
-        {
-        }
 
         public MainWindow(Game game)
         {
@@ -67,5 +64,12 @@ namespace Trash2012.Visual
             ));
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (MyMap.MyTravel.Count > 0)
+            {
+                MyMap.Animate();
+            }
+        }
     }
 }

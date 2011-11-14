@@ -25,7 +25,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="IndianRed">
+        <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
             <Button Content="Quitter" />
         </StackPanel>
 
