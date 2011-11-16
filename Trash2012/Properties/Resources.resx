@@ -124,6 +124,18 @@
   <data name="DefaultMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\default.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="HouseHorizontalEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\house1-empty.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HouseHorizontalFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\house1-full.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HouseVerticalEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\house2-empty.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HouseVerticalFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\house2-full.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NewGameAnnounce" xml:space="preserve">
     <value>Une ville est en proie à la saleté et aux déchets qui s'accumulent !
 Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</value>

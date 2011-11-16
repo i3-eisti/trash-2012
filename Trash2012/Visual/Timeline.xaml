@@ -49,7 +49,7 @@
                 Maximum="365" Minimum="0"
                 Ticks="31.0, 60.0, 91.0, 121.0, 152.0, 182.0, 213.0, 244.0, 274.0, 305.0, 335.0, 365.0" 
                 TickPlacement="BottomRight"
-                ValueChanged="SldTimeValueChanged"/>
+                ValueChanged="SldTimeValueChanged" IsEnabled="False" />
             <Label HorizontalAlignment="Center" FontSize="10" Content="Janvier"   Grid.Row="1" Grid.Column="0"   />
             <Label HorizontalAlignment="Center" FontSize="10" Content="Fevrier"   Grid.Row="1" Grid.Column="1"   />
             <Label HorizontalAlignment="Center" FontSize="10" Content="Mars"      Grid.Row="1" Grid.Column="2"   />

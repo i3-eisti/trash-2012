@@ -13,7 +13,7 @@ namespace Trash2012.Model
         public DateTime CurrentDate 
         {
             get { return _currentDate; }
-            private set
+            set
             {
                 _currentDate = value;
                 OnDateChange(_currentDate);
@@ -39,11 +39,29 @@ namespace Trash2012.Model
 
         #region Game Event
 
+        /// <summary>
+        /// Apply a travel to a game city
+        /// </summary>
+        /// <param name="dailyTravel">truck travel</param>
+        /// <returns>total collected garbage</returns>
+        public int ApplyTravel(Travel dailyTravel)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Citizens throw new garbage everyday, that is why this method simulates
+        /// </summary>
+        public void ApplyDailyGarbage()
+        {
+            throw new NotImplementedException();
+        }
+
         #region Date changed handler (e.g payday)
 
-        private delegate void DateHandler(DateTime dateEvent);
+        public delegate void DateHandler(DateTime dateEvent);
 
-        private List<DateHandler> dateChangeHandlers = new List<DateHandler>();
+        public List<DateHandler> dateChangeHandlers = new List<DateHandler>();
 
         private void OnDateChange(DateTime newDate)
         {

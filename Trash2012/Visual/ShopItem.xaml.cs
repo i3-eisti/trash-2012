@@ -39,6 +39,11 @@ namespace Trash2012.Visual
             set { ItemPrice.Text = string.Format("{0:C}",value); }
         }
 
+        public bool IsPressed
+        {
+            get { return BuyButton.IsPressed; }
+        }
+
         public delegate void BuyActionHandler(ShopItem item);
 
         #region Button Behavior Handler

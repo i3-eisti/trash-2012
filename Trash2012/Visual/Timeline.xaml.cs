@@ -20,25 +20,32 @@ namespace Trash2012.Visual
 
         private void UserInitialization()
         {
-            CurrentDate = Trash2012.Model.Game.TRASH2012_BEGIN;
+            CurrentDate = Model.Game.TRASH2012_BEGIN;
             UpdateDateIcon();
         }
 
         /// <summary>
         /// Current game date
-        /// TODO Bind it to a model component
         /// </summary>
-        public DateTime CurrentDate { get; private set; }
+        public DateTime CurrentDate
+        {
+            get { return _date; }
+            set
+            {
+                if(value.Year != 2012)
+                    throw new ArgumentException(
+                        "This game takes place in 2012, not " + value.Year + " !");
+
+                _date = value;
+                sldTime.Value = value.DayOfYear;
+            }
+        }
+
+        private DateTime _date;
 
         private void SldTimeValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            UpdateCurrentDate();
             UpdateDateIcon();
-        }
-
-        private void UpdateCurrentDate()
-        {
-            CurrentDate = Model.Game.TRASH2012_BEGIN.AddDays((int)sldTime.Value);
         }
 
         #region Icon Handler

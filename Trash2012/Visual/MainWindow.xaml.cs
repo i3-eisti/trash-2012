@@ -50,8 +50,7 @@ namespace Trash2012.Visual
                 "Une ville est en proie à la saleté et aux déchets qui s'accumulent !\nAidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !",
                 "Nouvelle Partie",
                 MessageBoxButton.OK,
-                MessageBoxImage.Information
-                );
+                MessageBoxImage.Information);
             displayAnnounce = false;
         }
 
@@ -71,5 +70,37 @@ namespace Trash2012.Visual
                 MyMap.Animate();
             }
         }
+
+        private void bNextDay_Click(object sender, RoutedEventArgs e)
+        {
+            //1. Shop interactions
+
+            //2. Truck Travel
+            //Travel dailyTravel = MyMap.MyTravel;
+            Travel dailyTravel = null;
+            if(dailyTravel != null)
+            {
+                //TODO Apply travel on current map
+                int collectedGarbage = _game.ApplyTravel(dailyTravel);
+                //TODO Summarize collected garbage
+                //TODO Display a beautiful screen for that
+            }
+            else
+            {
+                Console.WriteLine(string.Format(
+                    "No daily travel on {0}", _game.CurrentDate
+                ));
+            }
+
+            //3. City garbage update
+            //_game.ApplyDailyGarbage();
+
+            //4. Go to the next day
+            _game.CurrentDate = _game.CurrentDate.AddDays(1);
+
+            //5. Update UI Components
+            GameTimeline.CurrentDate = _game.CurrentDate;
+        }
+
     }
 }

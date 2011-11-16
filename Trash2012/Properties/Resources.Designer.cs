@@ -29,7 +29,7 @@ namespace Trash2012.Properties {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Resources() {
+        internal Resources() {
         }
         
         /// <summary>
@@ -71,6 +71,34 @@ namespace Trash2012.Properties {
             get {
                 object obj = ResourceManager.GetObject("DefaultMap", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap HouseHorizontalEmpty {
+            get {
+                object obj = ResourceManager.GetObject("HouseHorizontalEmpty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap HouseHorizontalFull {
+            get {
+                object obj = ResourceManager.GetObject("HouseHorizontalFull", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap HouseVerticalEmpty {
+            get {
+                object obj = ResourceManager.GetObject("HouseVerticalEmpty", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap HouseVerticalFull {
+            get {
+                object obj = ResourceManager.GetObject("HouseVerticalFull", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

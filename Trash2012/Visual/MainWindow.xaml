@@ -32,7 +32,7 @@
         </StackPanel>
 
         <my:Timeline Grid.Row="1"
-            x:Name="YearTimeline"
+            x:Name="GameTimeline"
             Margin="5" />
         
         <Grid Grid.Row="2">
@@ -65,7 +65,7 @@
                 Content="Jour Suivant"
                 Grid.Row="1"
                 Grid.Column="1" 
-                HorizontalAlignment="Center"/>
+                HorizontalAlignment="Center" Click="bNextDay_Click" />
             
         </Grid>
 
@@ -85,7 +85,7 @@
                             Text="Camion recycleur de papier"
                             Price="250"
                             BuyHandler="TruckShopItemHandler"
-                            Style="{StaticResource ShopButton}"/>
+                            Style="{StaticResource ShopButton}" />
                         
                     </StackPanel>
                 </TabItem>

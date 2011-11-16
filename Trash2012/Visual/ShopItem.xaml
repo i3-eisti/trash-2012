@@ -11,7 +11,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Button
+    <ToggleButton
         Name="BuyButton" Click="BuyButton_Click">
         <Grid>
             <Grid.RowDefinitions>
@@ -44,5 +44,5 @@
                     Style="{StaticResource ShopItemPrice}"/>
             </Grid>
         </Grid>
-    </Button>
+    </ToggleButton>
 </UserControl>

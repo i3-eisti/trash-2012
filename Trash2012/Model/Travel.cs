@@ -17,7 +17,8 @@ namespace Trash2012.Model
             }
         }
 
-        public enum Extremity{
+        public enum Extremity
+        {
             TOP = 1,
             BOTTOM = 2,
             LEFT = 3,
@@ -33,7 +34,7 @@ namespace Trash2012.Model
         {
             if (tile is IRoadTile)
             {
-                IRoadTile road = ((IRoadTile) tile);
+                IRoadTile road = ((IRoadTile)tile);
                 if (tiles.Count == 0)
                 {
                     tiles.Add(road);
@@ -43,8 +44,12 @@ namespace Trash2012.Model
                 {
                     if (IsTypeCompatible(tiles.Last(), road))
                     {
-                        tiles.Add(road);
-                        return true;
+                        if (!this.Contains(road))
+                        {
+                            tiles.Add(road);
+                            Console.WriteLine("Ajout OK : Count = " + tiles.Count);
+                            return true;
+                        }
                     }
                 }
             }
@@ -66,17 +71,18 @@ namespace Trash2012.Model
                 return false;
             }
 
-
+            // L : J'ai changé les tests qui m'avaient l'air bizares.
             if (diffX == 0)
             {
-                if (diffY != -1)
+                if (diffY == -1 || diffY == 1)
                 {
                     return true;
                 }
+
             }
-            else
+            else if (diffY == 0)
             {
-                if (diffY == 0)
+                if (diffX == -1 || diffX == 1)
                 {
                     return true;
                 }
@@ -85,7 +91,7 @@ namespace Trash2012.Model
         }
 
         /// <summary>
-        /// Compares two IRoadTile to knwo if they are bound each other
+        /// Compares two IRoadTile to know if they are bound to each other
         /// </summary>
         /// <param name="a">IRoadTile</param>
         /// <param name="b">IRoadTile</param>
@@ -161,7 +167,7 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.TopBottomLeft
                         || a.Type == RoadTile.RoadType.TopBottomRight
                         || a.Type == RoadTile.RoadType.BottomLeftRight);
-                    
+
                 case Extremity.LEFT:
                     return
                         (a.Type == RoadTile.RoadType.Horizontal
@@ -202,20 +208,38 @@ namespace Trash2012.Model
             return false;
         }
 
+        public int ContainsAndIndex(IMapTile tile)
+        {
+            Console.WriteLine("Position : " + tile.Position.X + " - " + tile.Position.Y);
+            if (tile is IRoadTile)
+            {
+                IRoadTile road = ((IRoadTile)tile);
+                for (int i = 0; i < tiles.Count; i++)
+                {
+                    IRoadTile item = tiles[i];
+                    if (item.Position.X == tile.Position.X && item.Position.Y == tile.Position.Y)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
         public bool Remove(IMapTile tile)
         {
             if (tile is IRoadTile)
             {
                 IRoadTile road = ((IRoadTile)tile);
-                int i = tiles.IndexOf(road);
+                int i = this.ContainsAndIndex(road);
                 if (i == 0)
                 {
-                    tiles.Remove(road);
+                    tiles.RemoveAt(0);
                     return true;
                 }
-                if(i == tiles.Count-1)
+                if (i == tiles.Count - 1)
                 {
-                    tiles.Remove(road);
+                    tiles.RemoveAt(tiles.Count - 1);
                     return true;
                 }
             }
