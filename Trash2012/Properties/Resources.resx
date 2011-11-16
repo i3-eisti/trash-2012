@@ -124,9 +124,24 @@
   <data name="DefaultMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\default.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="LeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftBottom_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftRight.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftRight_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftRight(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NewGameAnnounce" xml:space="preserve">
     <value>Une ville est en proie à la saleté et aux déchets qui s'accumulent !
 Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</value>
+  </data>
+  <data name="RightLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RightLeft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TilePlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road0.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,5 +175,14 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   </data>
   <data name="TileRoadVertical" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TopBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopBottom_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TopBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopLeft_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TopLeft(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

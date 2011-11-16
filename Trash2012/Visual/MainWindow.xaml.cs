@@ -64,12 +64,9 @@ namespace Trash2012.Visual
             ));
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void NextRoundButton_Click(object sender, RoutedEventArgs e)
         {
-            if (MyMap.MyTravel.Count > 0)
-            {
-                MyMap.Animate();
-            }
+            MyMap.Animate();
         }
     }
 }
