@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Trash2012.Model;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -65,24 +62,24 @@ namespace Trash2012.Engine
         //Tile swallower attempt to read map tile
         class TileSwallower : MapBuilder, IMapBuilder<TileSwallower>
         {
-            private static IMapTile MapCorrespondor(int tileCode)
+            private static int MapCorrespondor(int tileCode)
             {
                 switch (tileCode)
                 {
                     case 0:
-                         return new BackgroundTile(BackgroundTile.BackgroundType.Plain);
-                    case 1 : 
-                         return new RoadTile(RoadTile.RoadType.Horizontal);
+                         return (int)BackgroundTile.BackgroundType.Plain;
+                    case 1 :
+                         return (int)RoadTile.RoadType.Horizontal;
                     case 2:
-                         return new RoadTile(RoadTile.RoadType.Vertical);
+                         return (int)RoadTile.RoadType.Vertical;
                     case 3:
-                         return new RoadTile(RoadTile.RoadType.TopLeft);
+                         return (int)RoadTile.RoadType.TopLeft;
                     case 4:
-                         return new RoadTile(RoadTile.RoadType.TopRight);
+                         return (int)RoadTile.RoadType.TopRight;
                     case 5:
-                         return new RoadTile(RoadTile.RoadType.BottomLeft);
+                         return (int)RoadTile.RoadType.BottomLeft;
                     case 6:
-                         return new RoadTile(RoadTile.RoadType.BottomRight); 
+                         return (int)RoadTile.RoadType.BottomRight; 
                     default:
                          throw new ArgumentException("Unknown tile code : " + tileCode);
                 }
@@ -124,14 +121,39 @@ namespace Trash2012.Engine
             public TileSwallower swallow(string line)
             {
                 // '\d' represents a single so that we can extract a single 
-                Regex tileExtractor = new Regex(@"(\d)");
+                Regex tileExtractor = new Regex(@"(\d+)-(\d+)-(\d+)");
                 MatchCollection tileMatchs = tileExtractor.Matches(line);
 
                 foreach(Match tileMatch in tileMatchs)
                 {
-                    //read tile code
-                    int tileCode = int.Parse( tileMatch.Value );
-                    AddTile(MapCorrespondor(tileCode));
+                    //read tile code, house flag and garbage amount
+                    int tileCode = int.Parse( tileMatch.Groups[1].Value );
+                    bool hasHouse = int.Parse( tileMatch.Groups[2].Value ) == 1;
+                    int garbageAmount = int.Parse( tileMatch.Groups[3].Value );
+
+
+                    IMapTile tile; //empty tile
+                    var tileType = MapCorrespondor(tileCode); //tile orientation
+                    if(tileCode == 0) //Plain
+                    {
+                        tile = new BackgroundTile((BackgroundTile.BackgroundType)tileType);
+                    }
+                    else
+                    {
+                        if(hasHouse)
+                        {
+                            tile = new HouseTile(
+                                (RoadTile.RoadType)tileType,
+                                TrashType.Paper,
+                                garbageAmount);
+                        }
+                        else
+                        {
+                            tile = new RoadTile(
+                                (RoadTile.RoadType)tileType);
+                        }
+                    }
+                    AddTile(tile);
                     //decrease remaining needed item
                     remainingTilesToComplete--;
                 }
@@ -154,7 +176,7 @@ namespace Trash2012.Engine
         public static IMapTile[][] loadMapFromFile(string filepath)
         {
             //swallow that file !
-            using (Stream stream = new System.IO.FileStream(filepath,FileMode.Open))
+            using (Stream stream = new FileStream(filepath,FileMode.Open))
             {
                 return loadMap(stream);
             }
@@ -176,7 +198,7 @@ namespace Trash2012.Engine
             IMapBuilder<TileSwallower> swallower = new DimensionSwallower();
 
             //swallow that file !
-            using (StreamReader stream = new System.IO.StreamReader(inputStream))
+            using (StreamReader stream = new StreamReader(inputStream))
             {
                 //iterate through lines
                 while((lineBuffer = stream.ReadLine()) != null)

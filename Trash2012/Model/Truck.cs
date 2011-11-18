@@ -74,7 +74,7 @@ namespace Trash2012.Model
 
             var maxSwallowable = Math.Min(
                 garbage.Amount,
-                MaxCapacity - Capacity
+                Capacity
             );
             Capacity -= maxSwallowable;
             return maxSwallowable;

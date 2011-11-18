@@ -180,6 +180,11 @@ namespace Trash2012.Model
         public HouseTile(RoadType t, TrashType ttype,int quantity = 0) : base(t)
         {
             Garbage = new Trash(ttype, quantity);
+            switch (t)
+            {
+                case RoadType.Horizontal: Tile = quantity == 0 ? Resources.HouseHorizontalEmpty : Resources.HouseHorizontalFull; break;
+                case RoadType.Vertical: Tile = quantity == 0 ? Resources.HouseVerticalEmpty : Resources.HouseVerticalFull; break;
+            }
         }
     }
 
