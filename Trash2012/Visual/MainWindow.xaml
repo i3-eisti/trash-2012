@@ -81,10 +81,11 @@
                         HorizontalAlignment="Center" VerticalAlignment="Center">
                         
                         <my:ShopItem
+                            x:Name="PaperTruckBuyer"
                             Source="/Trash2012;component/Resources/truck.png"
                             Text="Camion recycleur de papier"
                             Price="250"
-                            BuyHandler="TruckShopItemHandler"
+                            BuyHandler="CheckOtherBuyableItem"
                             Style="{StaticResource ShopButton}" />
                         
                     </StackPanel>

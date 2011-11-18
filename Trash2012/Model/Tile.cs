@@ -29,9 +29,9 @@ namespace Trash2012.Model
     /// <summary>
     /// Tile which represents house elements
     /// </summary>
-    public interface IHouseTile : IMapTile
+    public interface IHouseTile : IRoadTile
     {
-        int GarbageQuantity { get; set; }
+        Trash Garbage { get; set; }
     }
 
     //All interface above map to corresponding class
@@ -168,75 +168,19 @@ namespace Trash2012.Model
     /// <summary>
     /// Specific MapTile which represents House tile
     /// </summary>
-    public class HouseTile : AbstractTile<HouseTile.HouseType>, IHouseTile
+    public class HouseTile : RoadTile, IHouseTile
     {
-        public enum HouseType { 
-            Horizontal,
-            Vertical
-        }
-
-        private static Bitmap selectTile(HouseType houseType)
-        {
-            switch (houseType)
-            {
-                case HouseType.Horizontal:
-                    return Resources.HouseHorizontalEmpty;
-                case HouseType.Vertical:
-                    return Resources.HouseVerticalEmpty;
-                default:
-                    throw new ArgumentException("Unknown house type: " + houseType);
-            }
-        }
-
         public override int GetHashCode()
         {
             return Type.ToString().GetHashCode() * 31 + 17;
         }
 
-        private int _quantity;
-        public int GarbageQuantity
-        {
-            get { return _quantity; }
-            set
-            {
-                _quantity = value;
-                UpdateHouseTile(_quantity);
-            }
-        }
+        public Trash Garbage { get; set; }
 
-        private void UpdateHouseTile(int garbageQuantity)
+        public HouseTile(RoadType t, TrashType ttype,int quantity = 0) : base(t)
         {
-            if (garbageQuantity > 0)
-            {
-                switch (Type)
-                {
-                    case HouseType.Horizontal:
-                        Tile = Resources.HouseHorizontalFull;
-                        break;
-                    case HouseType.Vertical:
-                        Tile = Resources.HouseVerticalFull;
-                        break;
-                    default:
-                        throw new ArgumentException("Unknown house type: " + Type);
-                }
-            }
-            else
-            {
-                switch (Type)
-                {
-                    case HouseType.Horizontal:
-                        Tile = Resources.HouseHorizontalEmpty;
-                        break;
-                    case HouseType.Vertical:
-                        Tile = Resources.HouseVerticalEmpty;
-                        break;
-                    default:
-                        throw new ArgumentException("Unknown house type: " + Type);
-                }
-            }
+            Garbage = new Trash(ttype, quantity);
         }
-
-        public HouseTile(HouseType t) : base(selectTile(t), t) { }
     }
 
 }

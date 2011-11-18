@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Trash2012.Model
 {
-    public class Travel
+    public class Travel : IEnumerable<IRoadTile>
     {
         private List<IRoadTile> tiles;
 
@@ -249,6 +250,21 @@ namespace Trash2012.Model
         public IMapTile Get(int i)
         {
             return tiles[i];
+        }
+
+        public IRoadTile this[int idx]
+        {
+            get { return tiles[idx]; }
+        }
+
+        public IEnumerator<IRoadTile> GetEnumerator()
+        {
+            return tiles.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

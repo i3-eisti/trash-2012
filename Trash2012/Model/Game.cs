@@ -30,6 +30,9 @@ namespace Trash2012.Model
             _currentDate = TRASH2012_BEGIN;
             Company = new Company();
 
+            var newTruck = new Truck(TrashType.Paper, 25, 1f);
+            Company.Trucks.Add(newTruck);
+
             dateChangeHandlers.Add( PayDay_Handler );
         }
 
@@ -43,10 +46,27 @@ namespace Trash2012.Model
         /// Apply a travel to a game city
         /// </summary>
         /// <param name="dailyTravel">truck travel</param>
+        /// <param name="assignedTruck">truck</param>
         /// <returns>total collected garbage</returns>
-        public int ApplyTravel(Travel dailyTravel)
+        public int ApplyTravel(Travel dailyTravel, Truck assignedTruck)
         {
-            throw new NotImplementedException();
+            int garbageAccumulation = 0;
+            foreach (var tile in dailyTravel)
+            {
+                if (assignedTruck.IsFull)
+                    break;
+                if (!(tile is IHouseTile)) 
+                    continue;
+
+                var tilHouse = (IHouseTile) tile;
+                var collectedGarbage = assignedTruck.Swallow(tilHouse.Garbage);
+                garbageAccumulation += collectedGarbage;
+                tilHouse.Garbage = new Trash(
+                    tilHouse.Garbage.Type,
+                    tilHouse.Garbage.Amount - collectedGarbage
+                );
+            }
+            return garbageAccumulation;
         }
 
         /// <summary>

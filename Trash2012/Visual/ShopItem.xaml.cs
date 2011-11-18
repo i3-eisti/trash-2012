@@ -1,5 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
+using Trash2012.Model;
 
 namespace Trash2012.Visual
 {
@@ -39,9 +42,49 @@ namespace Trash2012.Visual
             set { ItemPrice.Text = string.Format("{0:C}",value); }
         }
 
-        public bool IsPressed
+        public Truck GetArticle()
         {
-            get { return BuyButton.IsPressed; }
+            return new Truck(
+                TrashType.Paper,
+                100,
+                1f);
+        }
+
+        public bool IsBuyed
+        {
+            get { return BuyButton.IsChecked ?? false; }
+            set { BuyButton.IsChecked = value; }
+        }
+
+        new public bool IsEnabled
+        {
+            get { return BuyButton.IsEnabled; }
+            set
+            {
+                var enabled = value;
+                //If button is curently pressed, unpress it by simulating a cick on it
+                if (!enabled && BuyButton.IsEnabled && IsBuyed)
+                {
+                    BuyButton.IsChecked = false;
+                }
+                BuyButton.IsEnabled = enabled;
+
+                //update tooltip
+                if (enabled)
+                    BuyButton.ToolTip = null;
+                else
+                {
+                    StackPanel container = new StackPanel();
+                    TextBlock block = new TextBlock
+                    {
+                        Text = "Vous n'avez pas assez d'argent pour acheter cet article !",
+                        FontWeight = FontWeights.Bold
+                    };
+                    container.Children.Add(block);
+
+                    BuyButton.ToolTip = container;
+                }
+            }
         }
 
         public delegate void BuyActionHandler(ShopItem item);

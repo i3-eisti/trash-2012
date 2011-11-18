@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Trash2012.Model
 {
@@ -20,7 +17,7 @@ namespace Trash2012.Model
     public struct Trash 
     {
         public readonly TrashType Type;
-        public readonly int Amount;
+        public int Amount;
 
         public Trash(TrashType t, int a)
         {
@@ -39,6 +36,10 @@ namespace Trash2012.Model
         public TrashType HandledResource { get; private set; }
         public int Capacity { get; private set; }
         public readonly int MaxCapacity;
+        public bool IsFull
+        {
+            get { return Capacity == 0; }
+        }
 
         public float Consumption { get; private set; }
 
@@ -62,17 +63,21 @@ namespace Trash2012.Model
         ///     throws an exception if the garbage type cannot be handled 
         ///     or if there is no enough place to swallow the gabage.
         /// </summary>
-        /// <param name="trash">
+        /// <param name="garbage">
         ///     Trash to be swallowed
         /// </param>
-        public void Swallow(Trash trash)
+        /// <returns>collected trash</returns>
+        public int Swallow(Trash garbage)
         {
-            if (!CanHandle(trash.Type))
-                throw new ArgumentException("Unhandled garbage type : " + trash.Type);
-            if (Capacity < trash.Amount)
-                throw new ArgumentException(
-                    "Not enough place remaining : garbage amount("+trash.Amount+") - remaining place("+Capacity+")");
-            Capacity -= trash.Amount;
+            if (!CanHandle(garbage.Type))
+                return 0; //Unhandled garbage
+
+            var maxSwallowable = Math.Min(
+                garbage.Amount,
+                MaxCapacity - Capacity
+            );
+            Capacity -= maxSwallowable;
+            return maxSwallowable;
         }
 
         /// <summary>
@@ -80,8 +85,7 @@ namespace Trash2012.Model
         /// </summary>
         public void Reset()
         {
-            if (MaxCapacity != Capacity)
-                Capacity = MaxCapacity;
+            Capacity = MaxCapacity;
         }
     }
 }

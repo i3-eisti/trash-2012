@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using Trash2012.Engine;
 using Trash2012.Model;
@@ -16,9 +17,16 @@ namespace Trash2012.Visual
             get { return _game.City; }
         }
 
+        public List<ShopItem> BuyableItems { get; private set; }
+
         public MainWindow(Game game)
         {
             InitializeComponent();
+
+            List<ShopItem> items = new List<ShopItem>(1);
+            items.Add(PaperTruckBuyer);
+            BuyableItems = items;
+
             _game = game;
             OnGameStart(_game);
         }
@@ -28,9 +36,8 @@ namespace Trash2012.Visual
         private void OnGameStart(Game game)
         {
             MyMap.MyCity = _game.City;
-            GameDashboard.TruckQuantity = game.Company.Trucks.Count;
-            GameDashboard.InhabitantQuantity = game.City.PeopleNumber;
-            GameDashboard.MoneyQuantity = game.Company.Gold.Current;
+            UpdateGameDashboard(game);
+            UpdateBuyableItem(game);
         }
 
         #endregion
@@ -71,18 +78,38 @@ namespace Trash2012.Visual
             }
         }
 
+
+        private List<ShopItem> currentlyPushed = new List<ShopItem>(1);
+        private void CheckOtherBuyableItem(ShopItem item)
+        {
+            currentlyPushed.Add(item);
+            foreach (var buyableItem in BuyableItems)
+            {
+                if (currentlyPushed.Contains(buyableItem)) continue;
+                buyableItem.IsEnabled = buyableItem.Price <= _game.Company.Gold.Current;
+            }
+        }
+
         private void bNextDay_Click(object sender, RoutedEventArgs e)
         {
             //1. Shop interactions
+            foreach (var buyableItem in BuyableItems)
+            {
+                if(buyableItem.IsBuyed) // User pressed the button
+                {
+                    var buyedTruck = buyableItem.GetArticle();
+                    _game.Company.Gold -= buyableItem.Price;
+                    _game.Company.Trucks.Add(buyedTruck);
+                }
+            }
 
             //2. Truck Travel
-            //Travel dailyTravel = MyMap.MyTravel;
-            Travel dailyTravel = null;
+            var dailyTravel = MyMap.MyTravel;
+            //Travel dailyTravel = null;
             if(dailyTravel != null)
             {
-                //TODO Apply travel on current map
-                int collectedGarbage = _game.ApplyTravel(dailyTravel);
-                //TODO Summarize collected garbage
+                var companyTruck = _game.Company.Trucks[0];
+                int collectedGarbage = _game.ApplyTravel(dailyTravel, companyTruck);
                 //TODO Display a beautiful screen for that
             }
             else
@@ -99,8 +126,37 @@ namespace Trash2012.Visual
             _game.CurrentDate = _game.CurrentDate.AddDays(1);
 
             //5. Update UI Components
-            GameTimeline.CurrentDate = _game.CurrentDate;
+            UpdateTimeline(_game);
+            UpdateGameDashboard(_game);
+            UpdateBuyableItem(_game);
+            currentlyPushed.Clear();
         }
+
+        #region UI Update
+
+        private void UpdateTimeline(Game game)
+        {
+            GameTimeline.CurrentDate = game.CurrentDate;
+        }
+
+        private void UpdateGameDashboard(Game game)
+        {
+            GameDashboard.TruckQuantity = game.Company.Trucks.Count;
+            GameDashboard.InhabitantQuantity = game.City.PeopleNumber;
+            GameDashboard.MoneyQuantity = game.Company.Gold.Current;
+        }
+
+        private void UpdateBuyableItem(Game game)
+        {
+            foreach (var buyableItem in BuyableItems)
+            {
+                //Buyable item are enabled only if the company has enough money to buy it
+                buyableItem.IsBuyed = false;
+                buyableItem.IsEnabled = buyableItem.Price <= game.Company.Gold.Current;
+            }
+        }
+
+        #endregion
 
     }
 }
