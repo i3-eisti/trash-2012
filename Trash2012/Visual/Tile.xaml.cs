@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Trash2012.Model;
+using Trash2012.Engine;
 
 namespace Trash2012.Visual
 {
@@ -23,6 +24,8 @@ namespace Trash2012.Visual
         public int X { get; set; }
         public int Y { get; set; }
         public IMapTile Model;
+
+        GifImage gif;
 
         public Tile(City MyCity, int i, int j, double tileWidth, double tileHeight)
         {
@@ -39,6 +42,34 @@ namespace Trash2012.Visual
             img.Width = tileWidth;
             img.Height = tileHeight;
             img.Stretch = Stretch.Fill;
+            Canvas.SetZIndex(img, 1);
+
+            gif = new GifImage(Properties.Resources.LeftRight, img.Width, img.Height);
+            if (Model is IRoadTile)
+            {
+                IRoadTile road = (IRoadTile)Model;
+                if (road.Type == RoadTile.RoadType.Horizontal)
+                {
+                    gif = new GifImage(Properties.Resources.LeftRight_long_, img.Width, img.Height);
+                }
+                if (road.Type == RoadTile.RoadType.BottomLeft)
+                {
+                    gif = new GifImage(Properties.Resources.LeftBottom_long_, img.Width, img.Height);
+                }
+                if (road.Type == RoadTile.RoadType.Vertical)
+                {
+                    gif = new GifImage(Properties.Resources.TopBottom_long_, img.Width, img.Height);
+                }
+                if (road.Type == RoadTile.RoadType.TopRight)
+                {
+                    gif = new GifImage(Properties.Resources.TopLeft_long_, img.Width, img.Height);
+                }
+                
+            }
+
+            Canvas.SetZIndex(gif, 2);
+            TileCanvas.Children.Add(gif);
+
             
             
 
@@ -47,33 +78,14 @@ namespace Trash2012.Visual
             
         }
 
-        public void Animate()
+        public void StartAnimate()
         {
-            //Canvas.SetZIndex(truckimg, 1);
-            //if (Model is IRoadTile)
-            //{
-            //    IRoadTile road = (IRoadTile) Model;
-            //    if (road.Type == RoadTile.RoadType.Horizontal)
-            //    {
-            //        VisualStateManager.GoToState(this, "LeftRight", true);
-            //    }
-            //    if (road.Type == RoadTile.RoadType.BottomLeft)
-            //    {
-            //        VisualStateManager.GoToState(this, "LeftBottom", true);
-            //    }
-            //    if (road.Type == RoadTile.RoadType.TopLeft)
-            //    {
-            //        VisualStateManager.GoToState(this, "TopLeft", true);
-            //    }
-            //}
-            //Canvas.SetZIndex(truckimg, 1);
-            
+            gif.StartAnimate();            
         }
 
-        public void CleanAnimation()
+        public void StopAnimate()
         {
-            VisualStateManager.GoToState(this, "Base", true);
-            truckimg.Visibility = System.Windows.Visibility.Collapsed;
+            gif.StopAnimate();
         }
     }
 }

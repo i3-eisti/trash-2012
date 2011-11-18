@@ -59,7 +59,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -77,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Engine\GifImage.cs" />
     <Compile Include="Model\Game.cs" />
     <!--Compile Include="Model\Travel.cs" /-->
     <Compile Include="Model\Tile.cs" />
@@ -273,6 +273,51 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\house2-full.jpg" />
+    <None Include="Resources\LeftRight.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightLeft.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\LeftBottom.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\LeftRight.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TopBottom.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\LeftRight%28long%29.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\LeftBottom%28long%29.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TopBottom%28long%29.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TopLeft%28long%29.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Animation\Intro\intro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Intro\intro1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Intro\intro2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Intro\intro3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Intro\CamionIntro.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

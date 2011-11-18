@@ -121,6 +121,12 @@
   <data name="CalendarBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendar_logo_30_30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CamionIntro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\CamionIntro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CustomMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\custom.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="DefaultMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\default.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -136,9 +142,36 @@
   <data name="HouseVerticalFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\house2-full.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="intro1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="intro2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="intro3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftBottom_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftRight.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LeftRight_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\LeftRight(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NewGameAnnounce" xml:space="preserve">
     <value>Une ville est en proie à la saleté et aux déchets qui s'accumulent !
 Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</value>
+  </data>
+  <data name="RightLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RightLeft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TilePlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road0.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,5 +205,14 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   </data>
   <data name="TileRoadVertical" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TopBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopBottom_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TopBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TopLeft_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TopLeft(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

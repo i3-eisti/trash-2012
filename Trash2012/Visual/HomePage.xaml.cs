@@ -17,7 +17,7 @@ namespace Trash2012.Visual
         private void bStart_Click(object sender, RoutedEventArgs e)
         {
             Game newGame = new Game(MapLoader.loadMapFromFile(@"D:\devel\Trash2012\Trash2012\Resources\default.trash-map"));
-            MainWindow gameWindow = new MainWindow(newGame);
+            MainWindow gameWindow = new MainWindow();
             this.Close();
             gameWindow.Show();
         }

@@ -50,35 +50,67 @@ namespace Trash2012.Visual
             {
                 Canvas.SetZIndex(OuterBorder, -5);
             }
+
             timer = new DispatcherTimer();
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 680);
         }
 
         public DispatcherTimer timer;
-        public int pos;
-        public int posmax;
+        int pos;
+        int posmax;
+        bool previousActive;
+        bool previousPreviousActive;
 
         public void Animate()
         {
+            previousActive = false;
+            previousPreviousActive = false;
             pos = 0;
             posmax = MyTravel.Count;
             timer.Start();
         }
+
         void timer_Tick(object sender, EventArgs e)
         {
             if (pos < posmax)
             {
-                if (pos > 0)
+                if (previousActive)
                 {
-                    TilesVisual[MyTravel.Get(pos - 1).Position.Y][MyTravel.Get(pos - 1).Position.X].CleanAnimation();
+                    if (previousPreviousActive)
+                    {
+                        TilesVisual[MyTravel.Get(pos - 2).Position.Y][MyTravel.Get(pos - 2).Position.X].StopAnimate();
+                    }
+                    previousPreviousActive = true;
                 }
-                TilesVisual[MyTravel.Get(pos).Position.Y][MyTravel.Get(pos).Position.X].Animate();
+
+                TilesVisual[MyTravel.Get(pos).Position.Y][MyTravel.Get(pos).Position.X].StartAnimate();
+                previousActive = true;
                 pos++;
             }
             else
             {
-                timer.Stop();
+                if (previousPreviousActive)
+                {
+                    TilesVisual[MyTravel.Get(posmax - 2).Position.Y][MyTravel.Get(posmax - 2).Position.X].StopAnimate();
+                    previousPreviousActive = false;
+                }
+                else
+                {
+                    //if (pos == posmax)
+                    //{
+                    //    pos++;
+                    //}
+                    //else
+                    //{
+                        if (previousActive)
+                        {
+                            TilesVisual[MyTravel.Get(posmax - 1).Position.Y][MyTravel.Get(posmax - 1).Position.X].StopAnimate();
+                            previousActive = false;
+                            timer.Stop();
+                        }
+                    //}
+                }
             }
         }
 
@@ -105,7 +137,7 @@ namespace Trash2012.Visual
                     for (int j = MyCity.Width; j-- > 0; )
                     {
                         Tile t = new Tile(MyCity, i, j, tileWidth, tileHeight);
-                        t.img.MouseDown += SelectTile_MouseDown;
+                        t.MouseDown += SelectTile_MouseDown;
                         TilesVisual[i][j] = t;
 
                         Border bd = new Border();
@@ -164,17 +196,7 @@ namespace Trash2012.Visual
         /// <param name="e">whatever bro</param>
         private void SelectTile_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Tile selectedVisualTile = 
-                (Tile)(
-                    (
-                        (Canvas)(
-                            (
-                                (Image)sender
-                            ).Parent
-                        )
-                    ).Parent
-                );
-
+            Tile selectedVisualTile =(Tile)sender;
             IMapTile selectedTile = MyCity.Map[selectedVisualTile.X][selectedVisualTile.Y];
             Border imgContainer = (Border)selectedVisualTile.Parent;
 

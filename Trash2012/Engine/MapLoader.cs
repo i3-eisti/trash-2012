@@ -184,7 +184,8 @@ namespace Trash2012.Engine
 
         public static IMapTile[][] loadDefaultMap()
         {
-            return loadMap(new MemoryStream(Resources.DefaultMap));
+            //return loadMap(new MemoryStream(Resources.DefaultMap));
+            return loadMap(new MemoryStream(Resources.CustomMap));
         }
 
         // Summary:

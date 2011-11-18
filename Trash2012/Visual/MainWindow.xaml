@@ -1,11 +1,15 @@
 ﻿<Window xmlns:my="clr-namespace:Trash2012.Visual" x:Class="Trash2012.Visual.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         Title="Trash2012"
+		Icon="/Trash2012;component/Resources/icon.png"
         Loaded="Trash2012_Loaded" 
-        SizeToContent="WidthAndHeight" 
+        Width="900" Height="680"
         WindowStartupLocation="CenterScreen" 
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+		mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,91 +17,134 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid 
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Name="RootGrid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+    <Canvas>
 
-        <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
-            <Button Content="Quitter" />
-        </StackPanel>
-
-        <my:Timeline Grid.Row="1"
-            x:Name="GameTimeline"
-            Margin="5" />
-        
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <Grid 
+			Name="RootGrid" 
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Canvas.Top="0" Canvas.Left="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+				<RowDefinition />
+				<RowDefinition Height="Auto" />
+                <!--RowDefinition Height="400" /-->
+                <!--RowDefinition  /-->
             </Grid.RowDefinitions>
-            
-            <my:Dashboard 
-                x:Name="GameDashboard"
-                Grid.Column="0"
-                Grid.RowSpan="2"
-                HorizontalAlignment="Left"
-                Margin="5"/>
-            
-            <my:Map 
-                x:Name="MyMap" 
-                Margin="5"
-                Grid.Row="0"
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                Height="380" Width="380"/>
-            
-            <Button 
-                Name="bNextDay"
-                Content="Jour Suivant"
-                Grid.Row="1"
-                Grid.Column="1" 
-                HorizontalAlignment="Center" Click="bNextDay_Click" />
-            
-        </Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="3" Orientation="Vertical">
-            
-            <TabControl 
-                x:Name="Tabs" Margin="5">
-                
-                <TabItem Header="Boutique">
-                    <StackPanel 
-                        Margin="8"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center" VerticalAlignment="Center">
-                        
-                        <my:ShopItem
-                            x:Name="PaperTruckBuyer"
-                            Source="/Trash2012;component/Resources/truck.png"
-                            Text="Camion recycleur de papier"
-                            Price="250"
-                            BuyHandler="CheckOtherBuyableItem"
-                            Style="{StaticResource ShopButton}" />
-                        
-                    </StackPanel>
-                </TabItem>
-                
-                <TabItem Header="Entreprise">
-                    
-                </TabItem>
-                
-            </TabControl>
-        </StackPanel>
+            <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
+                <Button Content="Quitter" />
+            </StackPanel>
+
+            <my:Timeline Grid.Row="1"
+                x:Name="GameTimeline"
+                Margin="5" />
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+                <my:Dashboard 
+					x:Name="GameDashboard"
+					Grid.Column="0"
+					Grid.RowSpan="2"
+					HorizontalAlignment="Left"
+					Margin="5"/>
+
+                <my:Map 
+					x:Name="MyMap" 
+					Grid.Column="2"
+					Margin="5"
+					Grid.Row="0"
+					HorizontalAlignment="Right"
+					Height="380" Width="380"/>
+				
+				<Button 
+					Name="bNextDay"
+					Content="Jour Suivant"
+					Grid.Row="1"
+					Grid.Column="2" 
+					HorizontalAlignment="Center" Click="bNextDay_Click" />
+				
+			</Grid>
+
+			<StackPanel Grid.Row="3" Orientation="Vertical">
+				
+				<TabControl 
+					x:Name="Tabs" Margin="5">
+					
+					<TabItem Header="Boutique">
+						<StackPanel 
+							Margin="8"
+							Orientation="Horizontal"
+							HorizontalAlignment="Center" VerticalAlignment="Center">
+							
+							<my:ShopItem
+								x:Name="PaperTruckBuyer"
+								Source="/Trash2012;component/Resources/truck.png"
+								Text="Camion recycleur de papier"
+								Price="250"
+								BuyHandler="CheckOtherBuyableItem"
+								Style="{StaticResource ShopButton}" />
+							
+						</StackPanel>
+					</TabItem>
+					
+					<TabItem Header="Entreprise">
+						
+					</TabItem>
+					
+				</TabControl>
+			</StackPanel>
 
 
-    </Grid>
+		</Grid>
+
+        <Canvas Name="StartCanvas">
+            <Image Name="Intro" Stretch="UniformToFill" 
+                Width="900"
+                Height="660"/>
+            <Image Name="CamionIntro" Stretch="Fill" Width="150" Height="131" Visibility="Collapsed" Canvas.Top="290" Canvas.Left="900" />
+            <Grid 
+                Name="StartGrid"
+                Width="900"
+                Height="660"
+			    Canvas.Top="0" Canvas.Left="0">
+                <Grid.Background>
+                    <ImageBrush
+                        ImageSource="/Trash2012;component/Resources/trash_background.png"
+                        Stretch="UniformToFill"/>
+                    <!--Image Name="StartImage"  Width="900" Height="633" Stretch="Fill" Source="/Trash2012;component/Resources/trash_background.png" /-->
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="12*"/>
+                    <RowDefinition />
+                    <RowDefinition Height=".8*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Name="bStart"
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Content="Nouvelle Partie" 
+                    Visibility="Collapsed"
+                    Style="{DynamicResource HomeButton}" Click="bStart_Click" />
+            </Grid>
+        </Canvas>
+
+        
+    </Canvas>
 </Window>

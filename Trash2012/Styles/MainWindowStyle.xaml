@@ -6,5 +6,14 @@
         <Setter Property="Width" Value="160"/>
         <Setter Property="Height" Value="90"/>
     </Style>
+    
+    <Style TargetType="Button" x:Key="HomeButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="Width" Value="300"/>
+    </Style>
 
 </ResourceDictionary>
