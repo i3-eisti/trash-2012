@@ -121,8 +121,26 @@
   <data name="CalendarBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendar_logo_30_30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CamionIntro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\CamionIntro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CustomMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\custom.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="DefaultMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\default.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="intro1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="intro2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="intro3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Intro\intro3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\LeftBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

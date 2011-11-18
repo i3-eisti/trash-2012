@@ -29,8 +29,8 @@ namespace Trash2012.Visual
         private void bStart_Click(object sender, RoutedEventArgs e)
         {
             Game newGame = new Game(MapLoader.loadDefaultMap());
-            MainWindow gameWindow = new MainWindow(newGame);
-            gameWindow.Show();
+            //MainWindow gameWindow = new MainWindow(newGame);
+            //gameWindow.Show();
             this.Close();
         }
 

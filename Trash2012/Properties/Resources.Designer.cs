@@ -67,10 +67,52 @@ namespace Trash2012.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap CamionIntro {
+            get {
+                object obj = ResourceManager.GetObject("CamionIntro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static byte[] CustomMap {
+            get {
+                object obj = ResourceManager.GetObject("CustomMap", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         public static byte[] DefaultMap {
             get {
                 object obj = ResourceManager.GetObject("DefaultMap", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap intro {
+            get {
+                object obj = ResourceManager.GetObject("intro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap intro1 {
+            get {
+                object obj = ResourceManager.GetObject("intro1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap intro2 {
+            get {
+                object obj = ResourceManager.GetObject("intro2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap intro3 {
+            get {
+                object obj = ResourceManager.GetObject("intro3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

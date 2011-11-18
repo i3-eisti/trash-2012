@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Trash2012" Icon="/Trash2012;component/Resources/icon.png"
-        Width="Auto" Height="680"
+        Width="916" Height="672"
         WindowStartupLocation="CenterScreen"
-        Loaded="Trash2012_Loaded">
+        Loaded="Trash2012_Loaded" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignWidth="916" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,6 +13,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Canvas>
+
         <Grid Name="RootGrid" Canvas.Top="0" Canvas.Left="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -87,12 +88,15 @@
 
 
         </Grid>
+
+        <Canvas Name="StartCanvas">
+            <Image Name="Intro" Stretch="Fill" Width="900" />
+            <Image Name="StartImage"  Width="900" Height="633" Stretch="Fill" Source="/Trash2012;component/Resources/trash_background.png" />
+            <Image Name="CamionIntro" Stretch="Fill" Width="150" Height="131" Visibility="Collapsed" Canvas.Top="290" Canvas.Left="900" />
+            <Button Name="bStart" Width="100" Height="60" Content="Nouvelle Partie" Canvas.Left="400" Canvas.Top="500" Visibility="Collapsed" Click="bStart_Click" />
+        </Canvas>
+
         
-        
-        <!--<Grid Name="StartGrid" Canvas.Top="0" Canvas.Left="0">
-            <Button Name="bStart"
-                Content="Nouvelle Partie" />
-        </Grid>-->
     </Canvas>
     
 </Window>
