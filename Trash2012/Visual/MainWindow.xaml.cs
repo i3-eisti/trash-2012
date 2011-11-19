@@ -17,6 +17,17 @@ namespace Trash2012.Visual
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Game Configuration
+        
+        //Configure the game here for more simplicity 
+        private readonly IMapTile[][] _choosenMap =
+            MapLoader.loadCustomMap();
+        //Intro Animation timer interval
+        private bool _playAnimation = false;
+        private readonly int[] _timerInterval = {0, 0, 0, 0, 100}; 
+        
+        #endregion
+
         public City GameCity
         {
             get { return _game.City; }
@@ -28,17 +39,24 @@ namespace Trash2012.Visual
         {
             InitializeComponent();
 
-            List<ShopItem> items = new List<ShopItem>(1);
-            items.Add(PaperTruckBuyer);
-            BuyableItems = items;
+            BuyableItems = new List<ShopItem>(1) { PaperTruckBuyer };
 			
             InitializeComponent();
-            intro_timer = new DispatcherTimer();
-            intro_timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            intro_timer.Tick += new EventHandler(intro_timer_Tick);
-        }
-
-        
+            if (_playAnimation)
+            {
+                intro_timer = new DispatcherTimer
+                                  {
+                                      Interval =
+                                          new TimeSpan(_timerInterval[0], _timerInterval[1], _timerInterval[2],
+                                                       _timerInterval[3], _timerInterval[4])
+                                  };
+                intro_timer.Tick += intro_timer_Tick;
+            }
+            else
+            {
+                bStart.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+            }
+        }       
 
         #region Game Events
 
@@ -53,26 +71,42 @@ namespace Trash2012.Visual
 
         #region Hidden members
 
+        /// <summary>
+        /// Game backend model
+        /// </summary>
         private Game _game;
-        private bool displayAnnounce = true;
+        /// <summary>
+        /// If new game announce should be displayed
+        /// </summary>
+        private bool _displayAnnounce = true;
+
+        /// <summary>
+        /// Memory to remember shop pushed buttons every turns
+        /// </summary>
+        private readonly List<ShopItem> _currentlyPushed = new List<ShopItem>(1);
 
         #endregion
 
+        #region Intro Animation
+        
         DispatcherTimer intro_timer;
         private void Trash2012_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                                Properties.Resources.intro.GetHbitmap(),
-                                IntPtr.Zero,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
-            this.CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                                Properties.Resources.CamionIntro.GetHbitmap(),
-                                IntPtr.Zero,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions());
+            if (_playAnimation)
+            {
+                this.Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                    Properties.Resources.intro.GetHbitmap(),
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+                this.CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                    Properties.Resources.CamionIntro.GetHbitmap(),
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
 
-            intro_timer.Start();
+                intro_timer.Start();
+            }
         }
 
         int intro_counter = 0;
@@ -189,24 +223,15 @@ namespace Trash2012.Visual
             intro_counter++;
         }
 
-        private void TruckShopItemHandler(ShopItem item)
-        {
-            Console.WriteLine(string.Format(
-                "Bought a '{0}' truck which costs {1:C}!",
-                item.Text,
-                item.Price
-            ));
-        }
+        #endregion
 
         private void bStart_Click(object sender, RoutedEventArgs e)
         {
-            //VisualStateManager.GoToState(this, "GameState", true);s
-            //_game = new Game(MapLoader.loadDefaultMap());
-            _game = new Game(MapLoader.loadMapFromFile(@"D:\devel\Trash2012\Trash2012\Resources\default.trash-map"));
+            _game = new Game(_choosenMap);
             OnGameStart(_game);
             StartCanvas.Visibility = Visibility.Collapsed;
             StartGrid.Visibility = Visibility.Collapsed;
-            if (!displayAnnounce) return;
+            if (!_displayAnnounce) return;
             MessageBox.Show(
                 this,
                 "Une ville est en proie à la saleté et aux déchets qui s'accumulent !\nAidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !",
@@ -214,16 +239,15 @@ namespace Trash2012.Visual
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
                 );
-            displayAnnounce = false;
+            _displayAnnounce = false;
         }
 
 
-        private List<ShopItem> currentlyPushed = new List<ShopItem>(1);
         private void CheckOtherBuyableItem(ShopItem item)
         {
-            currentlyPushed.Add(item);
+            _currentlyPushed.Add(item);
             foreach (var buyableItem in BuyableItems.Where(
-                                            buyableItem => !currentlyPushed.Contains(buyableItem)))
+                                            buyableItem => !_currentlyPushed.Contains(buyableItem)))
             {
                 buyableItem.IsEnabled = buyableItem.Price <= _game.Company.Gold.Current;
             }
@@ -266,7 +290,7 @@ namespace Trash2012.Visual
             UpdateBuyableItem(_game);
             MyMap.Animate();
             UpdateTimeline(_game);
-            currentlyPushed.Clear();
+            _currentlyPushed.Clear();
         }
 
         #region UI Update
