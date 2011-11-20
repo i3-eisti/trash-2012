@@ -6,11 +6,11 @@ namespace Trash2012.Model
 
     public class Game
     {
-        public static readonly DateTime TRASH2012_BEGIN = new DateTime(2012, 1, 1);
+        public static readonly DateTime Trash2012Begin = new DateTime(2012, 1, 1);
 
         public static readonly int PAYDAY = 1000;
 
-        private int[] _dailyTrashRange = {0, 5};
+        private readonly int[] _dailyTrashRange = {0, 5};
 
         public DateTime CurrentDate 
         {
@@ -18,9 +18,11 @@ namespace Trash2012.Model
             set
             {
                 _currentDate = value;
-                OnDateChange(_currentDate);
+                DateChangeEvents.OnDateChange(_currentDate);
             }
         }
+
+        public readonly DateChangeEvent DateChangeEvents = new DateChangeEvent();
 
         public City City { get; private set; }
         public Company Company { get; private set; }
@@ -29,13 +31,11 @@ namespace Trash2012.Model
             IMapTile[][] cityMap
         ) {
             City = new City(cityMap);
-            _currentDate = TRASH2012_BEGIN;
+            _currentDate = Trash2012Begin;
             Company = new Company();
 
             var newTruck = new Truck(TrashType.Paper, 25, 1f);
             Company.Trucks.Add(newTruck);
-
-            dateChangeHandlers.Add( PayDay_Handler );
         }
 
         #region Save/ Load
@@ -90,28 +90,26 @@ namespace Trash2012.Model
             }
         }
 
-        #region Date changed handler (e.g payday)
-
-        public delegate void DateHandler(DateTime dateEvent);
-
-        public List<DateHandler> dateChangeHandlers = new List<DateHandler>();
-
-        private void OnDateChange(DateTime newDate)
+        public class DateChangeEvent
         {
-            foreach (DateHandler handler in dateChangeHandlers)
-                handler(newDate);
-        }
 
-        private void PayDay_Handler(DateTime newDate)
-        {
-            //every month, receive payday
-            if (newDate.Day == 1)
+            public delegate void DateHandler(DateTime dateEvent);
+
+            public readonly List<DateHandler> _dateChangeHandlers = new List<DateHandler>();
+
+            public void OnDateChange(DateTime newDate)
             {
-                Company.Gold += PAYDAY;
+                foreach (var handler in _dateChangeHandlers)
+                    handler(newDate);
             }
+
+            public void Add(DateHandler handler)
+            {
+                _dateChangeHandlers.Add(handler);
+            }
+
         }
         
-        #endregion
 
         #endregion
 

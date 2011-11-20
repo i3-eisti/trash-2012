@@ -28,6 +28,7 @@ namespace Trash2012.Visual
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
         private const long DashboardAnimationTick = 730000;
+        private readonly int[] _monthlyRevenueRange = {900, 1200};
 
         #endregion
 
@@ -64,9 +65,28 @@ namespace Trash2012.Visual
 
         private void OnGameStart(Game game)
         {
-            MyMap.MyCity = _game.City;
+            MyMap.MyCity = game.City;
+            game.DateChangeEvents.Add(PaydayEvent);
+
             UpdateGameDashboard(game);
             UpdateBuyableItem(game);
+        }
+
+        private void PaydayEvent(DateTime newDate)
+        {
+            //every month, receive payday
+            if (newDate.Day == 1)
+            {
+                var r = new Random();
+                var revenue = r.Next(_monthlyRevenueRange[0], _monthlyRevenueRange[1]);
+                _game.Company.Gold += revenue; 
+                MessageBox.Show(
+                    this,
+                    string.Format("It's payday ! You have earn {0:C} this month !", revenue),
+                    "Monthly revenue",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Exclamation);
+            }
         }
 
         #endregion
@@ -405,8 +425,6 @@ namespace Trash2012.Visual
         }
 
         #endregion
-
-
 
     }
 }

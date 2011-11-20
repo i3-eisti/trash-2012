@@ -20,7 +20,7 @@ namespace Trash2012.Visual
 
         private void UserInitialization()
         {
-            CurrentDate = Model.Game.TRASH2012_BEGIN;
+            CurrentDate = Model.Game.Trash2012Begin;
             UpdateDateIcon();
         }
 
