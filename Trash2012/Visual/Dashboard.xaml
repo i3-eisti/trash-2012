@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Name="city" Height="Auto"/>
                 <RowDefinition Name="inhabitant" Height="Auto"/>
+                <RowDefinition Name="garbage" Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="8"/>
@@ -54,6 +55,7 @@
                     Grid.Column="2"/>
             <Label 
                     Name="quantityTruck" 
+                    Content="0"
                     Style="{StaticResource Quantity}"
                     Grid.Column="4" 
                     Grid.Row="2" />
@@ -67,6 +69,7 @@
                     Grid.Column="2"/>
             <Label 
                     Name="quantityMoney" 
+                    Content="0"
                     Style="{StaticResource Quantity}"
                     Grid.Column="4" 
                     Grid.Row="3" />
@@ -89,9 +92,24 @@
                     Grid.Row="6"  HorizontalAlignment="Left" />
                 <Label 
                     Name="quantityInhabitant"
+                    Content="0"
                     Style="{StaticResource Quantity}" 
                     Grid.Column="4" 
                     Grid.Row="6" />
+            
+                <!-- Garbage -->
+                <Image 
+                    Name="iconGarbage" 
+                    Style="{StaticResource Icon}"
+                    Source="/Trash2012;component/Resources/bin-bag.png"
+                    Grid.Column="2" 
+                    Grid.Row="7"  HorizontalAlignment="Left" />
+                <Label 
+                    Name="quantityGarbage"
+                    Content="0"
+                    Style="{StaticResource Quantity}" 
+                    Grid.Column="4" 
+                    Grid.Row="7" />
 
         </Grid>
     </Border>

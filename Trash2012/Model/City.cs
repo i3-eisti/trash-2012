@@ -12,7 +12,23 @@ namespace Trash2012.Model
     {
         //cannot access both size with [,] notation
         public IMapTile[][] Map { get; private set; }
-        public int PeopleNumber { get; private set; }
+        public readonly int PeopleNumber;
+        public int GarbageQuantity
+        {
+            get
+            {
+                var garbage = 0;
+                for (var i = Height; i-- > 0; )
+                {
+                    for (var j = Width; j-- > 0; )
+                    {
+                        if (Map[i][j] is IHouseTile) 
+                            garbage += ((IHouseTile)Map[i][j]).Garbage.Amount;
+                    }
+                }
+                return garbage;
+            }
+        }
         public int Width { get; set; }
         public int Height { get; set; }
 

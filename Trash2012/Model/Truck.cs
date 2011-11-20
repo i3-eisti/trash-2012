@@ -14,7 +14,7 @@ namespace Trash2012.Model
         Organic = Paper | Plastic
     }
 
-    public struct Trash 
+    public class Trash 
     {
         public readonly TrashType Type;
         public int Amount;

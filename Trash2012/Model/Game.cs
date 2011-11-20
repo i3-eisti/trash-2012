@@ -10,6 +10,8 @@ namespace Trash2012.Model
 
         public static readonly int PAYDAY = 1000;
 
+        private int[] _dailyTrashRange = {0, 5};
+
         public DateTime CurrentDate 
         {
             get { return _currentDate; }
@@ -74,7 +76,18 @@ namespace Trash2012.Model
         /// </summary>
         public void ApplyDailyGarbage()
         {
-            throw new NotImplementedException();
+            int w = City.Width,
+                h = City.Height;
+            var m = City.Map;
+            var r = new Random();
+            for (var i = h; i-- > 0; )
+            {
+                for (var j = w; j-- > 0; )
+                {
+                    if (m[i][j] is IHouseTile)
+                        ((IHouseTile)m[i][j]).Garbage.Amount += r.Next(_dailyTrashRange[0], _dailyTrashRange[1]);
+                }
+            }
         }
 
         #region Date changed handler (e.g payday)
