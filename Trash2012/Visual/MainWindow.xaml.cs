@@ -110,16 +110,28 @@ namespace Trash2012.Visual
         {
             if (PlayIntroAnimation)
             {
-                this.Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                    Properties.Resources.intro.GetHbitmap(),
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
-                this.CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                    Properties.Resources.CamionIntro.GetHbitmap(),
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
+				this.Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+									Properties.Resources.intro.GetHbitmap(),
+									IntPtr.Zero,
+									Int32Rect.Empty,
+									BitmapSizeOptions.FromEmptyOptions());
+				this.CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+									Properties.Resources.CamionIntro.GetHbitmap(),
+									IntPtr.Zero,
+									Int32Rect.Empty,
+									BitmapSizeOptions.FromEmptyOptions());
+				try
+				{
+					music = new MediaElement();
+					music.LoadedBehavior = MediaState.Manual;
+					music.UnloadedBehavior = MediaState.Manual;
+					music.Source = new Uri(@"C:\Users\One-One\Desktop\Projet Trash\trash-2012\Trash2012\Resources\Music\music.mp3");
+					music.Play();
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
 
                 _gameTimer.Start();
             }
@@ -131,6 +143,7 @@ namespace Trash2012.Visual
         bool step3 = false;
         bool step4 = false;
         bool step5 = false;
+        MediaElement music;
 
         void intro_timer_Tick(object sender, EventArgs e)
         {

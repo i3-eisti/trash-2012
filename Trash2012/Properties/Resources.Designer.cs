@@ -94,24 +94,10 @@ namespace Trash2012.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-		
-        public static System.Drawing.Bitmap intro {
-            get {
-                object obj = ResourceManager.GetObject("intro", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
         
         public static System.Drawing.Bitmap HouseHorizontalFull {
             get {
                 object obj = ResourceManager.GetObject("HouseHorizontalFull", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-		
-        public static System.Drawing.Bitmap intro1 {
-            get {
-                object obj = ResourceManager.GetObject("intro1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -122,13 +108,6 @@ namespace Trash2012.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-		
-        public static System.Drawing.Bitmap intro2 {
-            get {
-                object obj = ResourceManager.GetObject("intro2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
         
         public static System.Drawing.Bitmap HouseVerticalFull {
             get {
@@ -136,7 +115,28 @@ namespace Trash2012.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-		
+        
+        public static System.Drawing.Bitmap intro {
+            get {
+                object obj = ResourceManager.GetObject("intro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap intro1 {
+            get {
+                object obj = ResourceManager.GetObject("intro1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap intro2 {
+            get {
+                object obj = ResourceManager.GetObject("intro2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap intro3 {
             get {
                 object obj = ResourceManager.GetObject("intro3", resourceCulture);
@@ -169,6 +169,13 @@ namespace Trash2012.Properties {
             get {
                 object obj = ResourceManager.GetObject("LeftRight_long_", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static byte[] music {
+            get {
+                object obj = ResourceManager.GetObject("music", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
