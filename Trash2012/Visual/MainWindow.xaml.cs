@@ -20,11 +20,11 @@ namespace Trash2012.Visual
         //Configure the game here for more simplicity 
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
-        private const bool PlayIntroAnimation = false;
+        private const bool PlayIntroAnimation = true;
         /// <summary>
         /// If new game announce should be displayed
         /// </summary>
-        private bool _displayAnnounce = false;
+        private bool _displayAnnounce = true;
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
         private const long DashboardAnimationTick = 730000;
@@ -125,7 +125,7 @@ namespace Trash2012.Visual
 					music = new MediaElement();
 					music.LoadedBehavior = MediaState.Manual;
 					music.UnloadedBehavior = MediaState.Manual;
-					music.Source = new Uri(@"C:\Users\One-One\Desktop\Projet Trash\trash-2012\Trash2012\Resources\Music\music.mp3");
+                    music.Source = new Uri(@"D:\devel\Trash2012\Trash2012\Resources\Music\music.mp3");
 					music.Play();
 				}
 				catch (Exception ex)
