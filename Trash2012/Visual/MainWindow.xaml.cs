@@ -20,11 +20,11 @@ namespace Trash2012.Visual
         //Configure the game here for more simplicity 
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
-        private const bool PlayIntroAnimation = true;
+        private const bool PlayIntroAnimation = false;
         /// <summary>
         /// If new game announce should be displayed
         /// </summary>
-        private bool _displayAnnounce = true;
+        private bool _displayAnnounce = false;
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
         private const long DashboardAnimationTick = 730000;
@@ -110,23 +110,25 @@ namespace Trash2012.Visual
         {
             if (PlayIntroAnimation)
             {
-				this.Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+				Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
 									Properties.Resources.intro.GetHbitmap(),
 									IntPtr.Zero,
 									Int32Rect.Empty,
 									BitmapSizeOptions.FromEmptyOptions());
-				this.CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+				CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
 									Properties.Resources.CamionIntro.GetHbitmap(),
 									IntPtr.Zero,
 									Int32Rect.Empty,
 									BitmapSizeOptions.FromEmptyOptions());
 				try
 				{
-					music = new MediaElement();
-					music.LoadedBehavior = MediaState.Manual;
-					music.UnloadedBehavior = MediaState.Manual;
-                    music.Source = new Uri(@"D:\devel\Trash2012\Trash2012\Resources\Music\music.mp3");
-					music.Play();
+				    music = new MediaElement
+				    {
+				        LoadedBehavior = MediaState.Manual,
+				        UnloadedBehavior = MediaState.Manual,
+				        Source = new Uri(@"D:\devel\Trash2012\Trash2012\Resources\Music\music.mp3")
+				    };
+				    music.Play();
 				}
 				catch (Exception ex)
 				{
@@ -271,7 +273,6 @@ namespace Trash2012.Visual
             _displayAnnounce = false;
         }
 
-
         private void CheckOtherBuyableItem(ShopItem item)
         {
             _currentlyPushed.Add(item);
@@ -314,6 +315,7 @@ namespace Trash2012.Visual
             _game.CurrentDate = _game.CurrentDate.AddDays(1);
 
             //5. Update UI Components
+            MyMap.Animate();
             UpdateGameDashboard(_game, animate: true);
             UpdateBuyableItem(_game);
             UpdateTimeline(_game);

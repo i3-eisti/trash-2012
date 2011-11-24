@@ -76,7 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Engine\Animation.cs" />
     <Compile Include="Engine\GifImage.cs" />
+    <Compile Include="Engine\ImageManager.cs" />
     <Compile Include="Model\Game.cs" />
     <!--Compile Include="Model\Travel.cs" /-->
     <Compile Include="Model\Tile.cs" />

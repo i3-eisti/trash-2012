@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Trash2012.Model
 {
@@ -20,10 +19,10 @@ namespace Trash2012.Model
 
         public enum Extremity
         {
-            TOP = 1,
-            BOTTOM = 2,
-            LEFT = 3,
-            RIGHT = 4
+            Top,
+            Bottom,
+            Left,
+            Right
         }
 
         public Travel()
@@ -106,41 +105,41 @@ namespace Trash2012.Model
             {
                 if (diffY == 1)
                 {
-                    a_commun_border_with_b = Extremity.TOP;
+                    a_commun_border_with_b = Extremity.Top;
                 }
                 else
                 {
-                    a_commun_border_with_b = Extremity.BOTTOM;
+                    a_commun_border_with_b = Extremity.Bottom;
                 }
             }
             else
             {
                 if (diffX == 1)
                 {
-                    a_commun_border_with_b = Extremity.LEFT;
+                    a_commun_border_with_b = Extremity.Left;
                 }
                 else
                 {
-                    a_commun_border_with_b = Extremity.RIGHT;
+                    a_commun_border_with_b = Extremity.Right;
                 }
             }
 
             switch (a_commun_border_with_b)
             {
-                case Extremity.TOP:
-                    if (HasExtremity(a, Extremity.TOP) && HasExtremity(b, Extremity.BOTTOM))
+                case Extremity.Top:
+                    if (HasExtremity(a, Extremity.Top) && HasExtremity(b, Extremity.Bottom))
                         return true;
                     break;
-                case Extremity.BOTTOM:
-                    if (HasExtremity(a, Extremity.BOTTOM) && HasExtremity(b, Extremity.TOP))
+                case Extremity.Bottom:
+                    if (HasExtremity(a, Extremity.Bottom) && HasExtremity(b, Extremity.Top))
                         return true;
                     break;
-                case Extremity.LEFT: //LEFT
-                    if (HasExtremity(a, Extremity.LEFT) && HasExtremity(b, Extremity.RIGHT))
+                case Extremity.Left: //LEFT
+                    if (HasExtremity(a, Extremity.Left) && HasExtremity(b, Extremity.Right))
                         return true;
                     break;
-                case Extremity.RIGHT: //RIGHT
-                    if (HasExtremity(a, Extremity.RIGHT) && HasExtremity(b, Extremity.LEFT))
+                case Extremity.Right: //RIGHT
+                    if (HasExtremity(a, Extremity.Right) && HasExtremity(b, Extremity.Left))
                         return true;
                     break;
             }
@@ -151,7 +150,7 @@ namespace Trash2012.Model
         {
             switch (x)
             {
-                case Extremity.TOP:
+                case Extremity.Top:
                     return
                         (a.Type == RoadTile.RoadType.Vertical
                         || a.Type == RoadTile.RoadType.TopLeft
@@ -160,7 +159,7 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.TopBottomRight
                         || a.Type == RoadTile.RoadType.TopLeftRight);
 
-                case Extremity.BOTTOM:
+                case Extremity.Bottom:
                     return
                         (a.Type == RoadTile.RoadType.Vertical
                         || a.Type == RoadTile.RoadType.BottomLeft
@@ -169,7 +168,7 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.TopBottomRight
                         || a.Type == RoadTile.RoadType.BottomLeftRight);
 
-                case Extremity.LEFT:
+                case Extremity.Left:
                     return
                         (a.Type == RoadTile.RoadType.Horizontal
                         || a.Type == RoadTile.RoadType.TopLeft
@@ -178,7 +177,7 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.TopLeftRight
                         || a.Type == RoadTile.RoadType.BottomLeftRight);
 
-                case Extremity.RIGHT:
+                case Extremity.Right:
                     return
                         (a.Type == RoadTile.RoadType.Horizontal
                         || a.Type == RoadTile.RoadType.TopRight
@@ -190,8 +189,6 @@ namespace Trash2012.Model
             return false;
 
         }
-
-
 
         public bool Contains(IMapTile tile)
         {

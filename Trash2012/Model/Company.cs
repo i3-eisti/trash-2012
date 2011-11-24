@@ -39,7 +39,7 @@ namespace Trash2012.Model
             else  Current += quantity;
         }
 
-        #region Syntatic Sugar Helpers
+        #region Syntaxic Sugar Helpers
 
         public static implicit operator Resource(int value)
         {

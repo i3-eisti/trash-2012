@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Media.Animation;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using System.Runtime.InteropServices;
 using System.Drawing;
@@ -33,24 +29,38 @@ namespace Trash2012.Engine
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
-            this.Loaded += new RoutedEventHandler(AnimatedGIFControl_Loaded);
-            this.Unloaded += new RoutedEventHandler(AnimatedGIFControl_Unloaded);
+            Loaded += AnimatedGIFControl_Loaded;
+            Unloaded += AnimatedGIFControl_Unloaded;
         }
 
-        public GifImage(Bitmap MyBitmap, double width, double height)
-        {
-            _bitmap = MyBitmap;
-            Width = width;
-            Height = height;
+        public int FrameCount { get; set; }
 
-            _bitmapSource = GetBitmapSource();
-            Source = _bitmapSource;
+        public const int BeforeEndStep = 7;
+        public const int EndStep = 11;
+
+        public int CurrentFrame;
+        public Action BeforeEndCallback { get; set; }
+        public Action EndCallback { get; set; }
+
+        public bool IsAnimationActive { get; private set; }
+
+        public GifImage()
+        {
+            CurrentFrame = 0;
+            FrameCount = 50;
+
+            BeforeEndCallback = delegate() { };
+            EndCallback = delegate() { };
+
+            IsAnimationActive = false;
+
+            _bitmap = null;
+            Stretch = Stretch.UniformToFill;
         }
 
         /// <summary>
         /// Load the embedded image for the Image.Source
         /// </summary>
-
         void AnimatedGIFControl_Loaded(object sender, RoutedEventArgs e)
         {
             // Get GIF image from Resources
@@ -76,9 +86,42 @@ namespace Trash2012.Engine
         /// <summary>
         /// Start animation
         /// </summary>
-        public void StartAnimate()
+        public void StartAnimate(TruckAnimation animation)
         {
-            ImageAnimator.Animate(_bitmap, OnFrameChanged);
+            if(IsAnimationActive)
+                StopAnimate();
+
+            switch (animation)
+            {
+                case TruckAnimation.Left2Right:
+                    _bitmap = Properties.Resources.LeftRight_long_;
+                    break;
+                case TruckAnimation.Left2Bottom:
+                    _bitmap = Properties.Resources.LeftBottom_long_;
+                    break;
+                case TruckAnimation.Top2Bottom:
+                    _bitmap = Properties.Resources.TopBottom_long_;
+                    break;
+                case TruckAnimation.Top2Right:
+                    _bitmap = Properties.Resources.TruckTopRight;
+                    break;
+                default:
+                    Console.Error.WriteLine("Unhandled animation: " + animation);
+                    _bitmap = Properties.Resources.TopBottom_long_; //FIXME Not the good one !!!
+                    break;
+            }
+
+            _bitmapSource = GetBitmapSource();
+            Source = _bitmapSource;
+            CurrentFrame = 0;
+
+            IsAnimationActive = true;
+            LaunchAnimation();
+        }
+
+        private void LaunchAnimation()
+        {
+            if (_bitmap != null) ImageAnimator.Animate(_bitmap, OnFrameChanged);
         }
 
         /// <summary>
@@ -86,7 +129,11 @@ namespace Trash2012.Engine
         /// </summary>
         public void StopAnimate()
         {
-            ImageAnimator.StopAnimate(_bitmap, OnFrameChanged);
+            if (_bitmap != null)
+            {
+                IsAnimationActive = false;
+                ImageAnimator.StopAnimate(_bitmap, OnFrameChanged);
+            }
         }
 
         /// <summary>
@@ -94,13 +141,24 @@ namespace Trash2012.Engine
         /// </summary>
         private void OnFrameChanged(object sender, EventArgs e)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.Normal,
+            Dispatcher.BeginInvoke(DispatcherPriority.Send,
                                    new FrameUpdatedEventHandler(FrameUpdatedCallback));
         }
 
         private void FrameUpdatedCallback()
         {
-            ImageAnimator.UpdateFrames();
+            ImageAnimator.UpdateFrames(_bitmap);
+
+            CurrentFrame++;
+            switch (CurrentFrame)
+            {
+                case BeforeEndStep:
+                    BeforeEndCallback();
+                    break;
+                case EndStep:
+                    EndCallback();
+                    break;
+            }
 
             if (_bitmapSource != null)
                 _bitmapSource.Freeze();
@@ -114,7 +172,6 @@ namespace Trash2012.Engine
         private BitmapSource GetBitmapSource()
         {
             IntPtr handle = IntPtr.Zero;
-
             try
             {
                 handle = _bitmap.GetHbitmap();

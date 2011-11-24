@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Trash2012.Engine;
 using Trash2012.Model;
-using System.Windows.Media.Effects;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace Trash2012.Visual
@@ -50,67 +46,132 @@ namespace Trash2012.Visual
             {
                 Canvas.SetZIndex(OuterBorder, -5);
             }
-
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 680);
         }
 
-        public DispatcherTimer timer;
-        int pos;
-        int posmax;
-        bool previousActive;
-        bool previousPreviousActive;
+        private Travel.Extremity _from;
+        int _pos;
+        int _posmax;
+
+        private delegate void AnimationEventHandler();
 
         public void Animate()
         {
-            previousActive = false;
-            previousPreviousActive = false;
-            pos = 0;
-            posmax = MyTravel.Count;
-            timer.Start();
+            _pos = 0;
+            _posmax = MyTravel.Count - 1;
+            Dispatcher.BeginInvoke(DispatcherPriority.Send,
+                                   new AnimationEventHandler(NextAnimation));
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        private void NextAnimation()
         {
-            if (pos < posmax)
+            if(_pos == _posmax)
             {
-                if (previousActive)
-                {
-                    if (previousPreviousActive)
-                    {
-                        TilesVisual[MyTravel.Get(pos - 2).Position.Y][MyTravel.Get(pos - 2).Position.X].StopAnimate();
-                    }
-                    previousPreviousActive = true;
-                }
+                //c : current, , n : next
+                int cx = MyTravel[_pos].Position.X,
+                    cy = MyTravel[_pos].Position.Y;
 
-                TilesVisual[MyTravel.Get(pos).Position.Y][MyTravel.Get(pos).Position.X].StartAnimate();
-                previousActive = true;
-                pos++;
+                var from =
+                    _from == Travel.Extremity.Right ? Travel.Extremity.Left :
+                    _from == Travel.Extremity.Left ? Travel.Extremity.Right :
+                    _from == Travel.Extremity.Top ? Travel.Extremity.Bottom :
+                                                    Travel.Extremity.Top; ;
+                var to =
+                    cx == 0 ? Travel.Extremity.Left :
+                    cx == my_city.Width ? Travel.Extremity.Right :
+                    cy == 0 ? Travel.Extremity.Top :
+                              Travel.Extremity.Bottom;
+
+                var animationLayer = TilesVisual[cy][cx].SecondLayer;
+                //cancel callback for next animation
+                animationLayer.BeforeEndCallback =
+                    () => Dispatcher.BeginInvoke(DispatcherPriority.Send,
+                                                new AnimationEventHandler(NextAnimation));
+                //Stop animation at end
+                animationLayer.EndCallback =
+                    animationLayer.StopAnimate;
+
+                _pos++;
+
+                //After all those computation, start animation
+                animationLayer.StartAnimate(
+                    Animations.FindNext(from, to));
             }
-            else
+            else if(_pos == 0)
             {
-                if (previousPreviousActive)
-                {
-                    TilesVisual[MyTravel.Get(posmax - 2).Position.Y][MyTravel.Get(posmax - 2).Position.X].StopAnimate();
-                    previousPreviousActive = false;
-                }
-                else
-                {
-                    //if (pos == posmax)
-                    //{
-                    //    pos++;
-                    //}
-                    //else
-                    //{
-                        if (previousActive)
-                        {
-                            TilesVisual[MyTravel.Get(posmax - 1).Position.Y][MyTravel.Get(posmax - 1).Position.X].StopAnimate();
-                            previousActive = false;
-                            timer.Stop();
-                        }
-                    //}
-                }
+                //c : current, , n : next
+                int cx = MyTravel[_pos].Position.X,
+                    cy = MyTravel[_pos].Position.Y,
+                    nx = MyTravel[_pos + 1].Position.X,
+                    ny = MyTravel[_pos + 1].Position.Y;
+
+                var from =
+                    cx == 0 ? Travel.Extremity.Left :
+                    cx == my_city.Width ? Travel.Extremity.Right :
+                    cy == 0 ? Travel.Extremity.Top :
+                              Travel.Extremity.Bottom;
+
+                var to =
+                    cx < nx ? Travel.Extremity.Right :
+                    cx > nx ? Travel.Extremity.Left :
+                    cy < ny ? Travel.Extremity.Bottom :
+                              Travel.Extremity.Top;
+
+                var animationLayer = TilesVisual[cy][cx].SecondLayer;
+
+                //Slightly before animation's end start the next one
+                animationLayer.BeforeEndCallback =
+                    () => Dispatcher.BeginInvoke(DispatcherPriority.Send,
+                                                new AnimationEventHandler(NextAnimation));
+                //Stop animation at end
+                animationLayer.EndCallback =
+                    animationLayer.StopAnimate;
+
+                //remember direction
+                _from = to;
+                //increment travel idx
+                _pos++;
+
+                //After all those computation, start animation
+                animationLayer.StartAnimate(
+                    Animations.FindNext(from, to));
+            }
+            else if(_pos < _posmax)
+            {
+                //c : current, , n : next
+                int cx = MyTravel[_pos].Position.X,
+                    cy = MyTravel[_pos].Position.Y,
+                    nx = MyTravel[_pos + 1].Position.X,
+                    ny = MyTravel[_pos + 1].Position.Y;
+
+                var from = 
+                    _from == Travel.Extremity.Right ? Travel.Extremity.Left :
+                    _from == Travel.Extremity.Left ? Travel.Extremity.Right :
+                    _from == Travel.Extremity.Top ? Travel.Extremity.Bottom :
+                                                    Travel.Extremity.Top;
+                var to =
+                    cx < nx ? Travel.Extremity.Right :
+                    cx > nx ? Travel.Extremity.Left :
+                    cy < ny ? Travel.Extremity.Bottom :
+                              Travel.Extremity.Top;
+
+                var animationLayer = TilesVisual[cy][cx].SecondLayer;
+
+                //Slightly before animation's end start the next one
+                animationLayer.BeforeEndCallback = 
+                    () => Dispatcher.BeginInvoke(DispatcherPriority.Send,
+                                                new AnimationEventHandler(NextAnimation));
+                //Stop animation at end
+                animationLayer.EndCallback =
+                    animationLayer.StopAnimate;
+
+                //remember direction
+                _from = to;
+                //increment travel idx
+                _pos++;
+
+                //After all those computation, start animation
+                animationLayer.StartAnimate(
+                    Animations.FindNext(from, to));
             }
         }
 
@@ -118,11 +179,11 @@ namespace Trash2012.Visual
         {
             //compute tile size
             double tileWidth = 
-                (this.Width - 
+                (Width - 
                     OuterBorder.BorderThickness.Left -
                     OuterBorder.BorderThickness.Right ) / MyCity.Width;
             double tileHeight = 
-                (this.Height - 
+                (Height - 
                     OuterBorder.BorderThickness.Top -
                     OuterBorder.BorderThickness.Bottom) / MyCity.Height;
 
@@ -131,24 +192,26 @@ namespace Trash2012.Visual
             
             try
             {
-                for (int i = MyCity.Height; i-- > 0; )
+                for (var i = MyCity.Height; i-- > 0; )
                 {
                     TilesVisual[i] = new Tile[MyCity.Width];
-                    for (int j = MyCity.Width; j-- > 0; )
+                    for (var j = MyCity.Width; j-- > 0; )
                     {
-                        Tile t = new Tile(MyCity, i, j, tileWidth, tileHeight);
-                        t.MouseDown += SelectTile_MouseDown;
-                        TilesVisual[i][j] = t;
+                        var tile = new Tile(MyCity.Map[i][j], i, j, tileWidth, tileHeight);
+                        tile.MouseDown += SelectTile_MouseDown;
+                        TilesVisual[i][j] = tile;
 
-                        Border bd = new Border();
-                        bd.BorderBrush = new SolidColorBrush(BORDER_COLOR);
-                        bd.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
-                        bd.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
-                        bd.Child = t;
-                        Canvas.SetLeft(bd, Math.Ceiling(j * tileWidth) - j);
-                        Canvas.SetTop(bd, Math.Ceiling(i * tileHeight) - i);
+                        var border = new Border
+                        {
+                            BorderBrush = new SolidColorBrush(BORDER_COLOR),
+                            BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED),
+                            CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED),
+                            Child = tile
+                        };
+                        Canvas.SetLeft(border, Math.Ceiling(j * tileWidth) - j);
+                        Canvas.SetTop(border, Math.Ceiling(i * tileHeight) - i);
 
-                        MapContainer.Children.Add(bd);
+                        MapContainer.Children.Add(border);
                     }
                 }
             }
