@@ -8,6 +8,7 @@
         Loaded="Trash2012_Loaded" 
         Width="900" Height="680"
         WindowStartupLocation="CenterScreen" 
+        SizeToContent="Manual"
         ResizeMode="NoResize"
 		mc:Ignorable="d">
     <Window.Resources>
@@ -29,25 +30,23 @@
                 <RowDefinition Height="Auto" />
 				<RowDefinition />
 				<RowDefinition Height="Auto" />
-                <!--RowDefinition Height="400" /-->
-                <!--RowDefinition  /-->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="895" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
                 <Button Content="Quitter" />
             </StackPanel>
 
-            <my:Timeline Grid.Row="1"
-                x:Name="GameTimeline"
+            <my:Timeline Grid.Row="1" Grid.Column="0"
+                x:Name="GameTimeline" HorizontalContentAlignment="Center"
                 Margin="5" />
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
                     <ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
 				<Grid.RowDefinitions>
@@ -58,9 +57,19 @@
                 <my:Dashboard 
 					x:Name="GameDashboard"
 					Grid.Column="0"
-					Grid.RowSpan="2"
 					HorizontalAlignment="Left"
-					Margin="5"/>
+					Margin="5,5,0,5"/>
+                
+                <Grid 
+                    x:Name="AssetsContainer" 
+                    Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <my:Assests x:Name="MyAssets" Grid.Row="0" Margin="0,5,5,5" />    
+                </Grid>
+                
 
                 <my:Map 
 					x:Name="MyMap" 
@@ -92,7 +101,7 @@
 							
 							<my:ShopItem
 								x:Name="PaperTruckBuyer"
-								Source="/Trash2012;component/Resources/truck.png"
+								Source="/Trash2012;component/Resources/TruckPaper.png"
 								Text="Camion recycleur de papier"
 								Price="250"
 								BuyHandler="CheckOtherBuyableItem"

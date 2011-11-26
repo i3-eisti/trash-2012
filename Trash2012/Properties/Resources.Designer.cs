@@ -293,5 +293,12 @@ namespace Trash2012.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        public static System.Drawing.Bitmap TruckPaper {
+            get {
+                object obj = ResourceManager.GetObject("TruckPaper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

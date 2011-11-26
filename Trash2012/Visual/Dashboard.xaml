@@ -13,7 +13,7 @@
     </UserControl.Resources>
     <Border 
             Name="OuterBorder" 
-            BorderThickness="12" CornerRadius="6" 
+            BorderThickness="12" CornerRadius="6,0,6,6" 
             BorderBrush="Gainsboro" Background="Gainsboro">
         <Grid>
             <Grid.RowDefinitions>
