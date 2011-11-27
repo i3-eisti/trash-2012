@@ -49,6 +49,10 @@ namespace Trash2012.Visual
             BuyableItems = new List<ShopItem>(1) { PaperTruckBuyer };
 			
             InitializeComponent();
+
+            MyMap.MyMainWindow = this;
+            MyAssets.MyMainWindow = this;
+
             if (PlayIntroAnimation)
             {
                 _gameTimer.Interval = new TimeSpan(_introInterval[0], _introInterval[1], _introInterval[2],
@@ -70,6 +74,7 @@ namespace Trash2012.Visual
 
             UpdateGameDashboard(game);
             UpdateBuyableItem(game);
+            MyAssets.UpdateAssests(game);
         }
 
         private void PaydayEvent(DateTime newDate)
@@ -294,19 +299,19 @@ namespace Trash2012.Visual
             }
 
             //2. Truck Travel
-            var dailyTravel = MyMap.MyTravel;
+            //var dailyTravel = MyMap.MyTravel;
             //Travel dailyTravel = null;
-            if(dailyTravel != null)
-            {
-                var companyTruck = _game.Company.Trucks[0];
-                var collectedGarbage = _game.ApplyTravel(dailyTravel, companyTruck);
-            }
-            else
-            {
-                Console.WriteLine(string.Format(
-                    "No daily travel on {0}", _game.CurrentDate
-                ));
-            }
+            //if(dailyTravel != null)
+            //{
+            //    var companyTruck = _game.Company.Trucks[0];
+            //    var collectedGarbage = _game.ApplyTravel(dailyTravel, companyTruck);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(string.Format(
+            //        "No daily travel on {0}", _game.CurrentDate
+            //    ));
+            //}
 
             //3. City garbage update
             _game.ApplyDailyGarbage();

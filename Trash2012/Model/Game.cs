@@ -34,8 +34,10 @@ namespace Trash2012.Model
             _currentDate = Trash2012Begin;
             Company = new Company();
 
-            var newTruck = new Truck(TrashType.Paper, 25, 1f);
-            Company.Trucks.Add(newTruck);
+            var newTruck1 = new Truck(TrashType.Paper, 25, 1f);
+            var newTruck2 = new Truck(TrashType.Paper, 25, 1f);
+            Company.Trucks.Add(newTruck1);
+            Company.Trucks.Add(newTruck2);
         }
 
         #region Save/ Load

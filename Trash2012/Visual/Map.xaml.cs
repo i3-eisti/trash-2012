@@ -34,6 +34,8 @@ namespace Trash2012.Visual
         //private Dictionary<Tile, IMapTile> TilesVisualToModel;
         public Tile[][] TilesVisual;
 
+        public MainWindow MyMainWindow;
+
         public Map()
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace Trash2012.Visual
             }
         }
 
-        private Travel.Extremity _from;
+        private Travel.Extremity _formerFrom;
         int _pos;
         int _posmax;
 
@@ -56,14 +58,17 @@ namespace Trash2012.Visual
 
         public void Animate()
         {
+            var truck = ((TruckButton)MyMainWindow.MyAssets.MyListView.SelectedItem).MyTruck;
             _pos = 0;
-            _posmax = MyTravel.Count - 1;
+            _posmax = truck.Travel.Count - 1;
             Dispatcher.BeginInvoke(DispatcherPriority.Send,
                                    new AnimationEventHandler(NextAnimation));
         }
 
         private void NextAnimation()
         {
+            var truck = ((TruckButton)MyMainWindow.MyAssets.MyListView.SelectedItem).MyTruck;
+            var MyTravel = truck.Travel;
             if(_pos == _posmax)
             {
                 //c : current, , n : next
@@ -71,9 +76,9 @@ namespace Trash2012.Visual
                     cy = MyTravel[_pos].Position.Y;
 
                 var from =
-                    _from == Travel.Extremity.Right ? Travel.Extremity.Left :
-                    _from == Travel.Extremity.Left ? Travel.Extremity.Right :
-                    _from == Travel.Extremity.Top ? Travel.Extremity.Bottom :
+                    _formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
+                    _formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
+                    _formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
                                                     Travel.Extremity.Top; ;
                 var to =
                     cx == 0 ? Travel.Extremity.Left :
@@ -127,7 +132,7 @@ namespace Trash2012.Visual
                     animationLayer.StopAnimate;
 
                 //remember direction
-                _from = to;
+                _formerFrom = to;
                 //increment travel idx
                 _pos++;
 
@@ -144,9 +149,9 @@ namespace Trash2012.Visual
                     ny = MyTravel[_pos + 1].Position.Y;
 
                 var from = 
-                    _from == Travel.Extremity.Right ? Travel.Extremity.Left :
-                    _from == Travel.Extremity.Left ? Travel.Extremity.Right :
-                    _from == Travel.Extremity.Top ? Travel.Extremity.Bottom :
+                    _formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
+                    _formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
+                    _formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
                                                     Travel.Extremity.Top;
                 var to =
                     cx < nx ? Travel.Extremity.Right :
@@ -165,7 +170,7 @@ namespace Trash2012.Visual
                     animationLayer.StopAnimate;
 
                 //remember direction
-                _from = to;
+                _formerFrom = to;
                 //increment travel idx
                 _pos++;
 
@@ -223,7 +228,7 @@ namespace Trash2012.Visual
 
         #region TileSelectionHandler
 
-        public Travel MyTravel  = new Travel();
+        //public Travel MyTravel  = new Travel();
 
         #region DO NOT LOOK
 
@@ -259,13 +264,15 @@ namespace Trash2012.Visual
         /// <param name="e">whatever bro</param>
         private void SelectTile_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            Truck MyTruck = ((TruckButton)MyMainWindow.MyAssets.MyListView.SelectedItem).MyTruck;
+
             Tile selectedVisualTile =(Tile)sender;
             IMapTile selectedTile = MyCity.Map[selectedVisualTile.X][selectedVisualTile.Y];
             Border imgContainer = (Border)selectedVisualTile.Parent;
 
-            if (!MyTravel.Contains(selectedTile))
+            if (!MyTruck.Travel.Contains(selectedTile))
             {
-                if (MyTravel.Add(selectedTile))
+                if (MyTruck.Travel.Add(selectedTile))
                 {
 
                     //selectedVisualTile.Animate();
@@ -281,7 +288,7 @@ namespace Trash2012.Visual
             }
             else //already selected
             {
-                if (MyTravel.Remove(selectedTile))
+                if (MyTruck.Travel.Remove(selectedTile))
                 {
                     //selectedVisualTile.CleanAnimation();
 
@@ -298,5 +305,31 @@ namespace Trash2012.Visual
         }
 
         #endregion
+
+        public void SetTravel(Travel MyTravel)
+        {
+            ClearTravel();
+            for(int i=0; i< MyTravel.Count; i++)
+            {
+                int X = MyTravel.Get(i).Position.X;
+                int Y = MyTravel.Get(i).Position.Y;
+                Border imgContainer = (Border)TilesVisual[Y][X].Parent;
+                imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
+                imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
+            }
+        }
+
+        public void ClearTravel()
+        {
+            for (int i = MyCity.Height; i-- > 0; )
+            {
+                for (int j = MyCity.Width; j-- > 0; )
+                {
+                    Border imgContainer = (Border)TilesVisual[i][j].Parent;
+                    imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
+                    imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
+                }
+            }
+        }
     }
 }

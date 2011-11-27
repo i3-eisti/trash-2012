@@ -43,12 +43,15 @@ namespace Trash2012.Model
 
         public float Consumption { get; private set; }
 
+        public Travel Travel;
+
         public Truck(TrashType type, int capacity, float consumption)
         {
             HandledResource = type;
             MaxCapacity = capacity;
             Capacity = capacity;
             Consumption = consumption;
+            Travel = new Travel();
         }
 
         /// Summary:
