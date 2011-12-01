@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Drawing;
 using Trash2012.Model;
 
 namespace Trash2012.Engine
@@ -22,6 +23,37 @@ namespace Trash2012.Engine
 
     public class Animations
     {
+
+        public static Bitmap FindResource(TruckAnimation animation)
+        {
+            switch (animation)
+            {
+                case TruckAnimation.Left2Right:
+                    return Properties.Resources.TruckLeftRight;
+                case TruckAnimation.Left2Bottom:
+                    return Properties.Resources.TruckLeftBottom;
+                case TruckAnimation.Top2Bottom:
+                    return Properties.Resources.TruckTopBottom;
+                case TruckAnimation.Top2Right:
+                    return Properties.Resources.TruckTopRight;
+                default:
+                    Console.Error.WriteLine("Unhandled animation: " + animation);
+                    return Properties.Resources.TruckTopBottom; //FIXME Not the good one !!!
+            }
+        }
+
+        public static Bitmap FindResource(BackgroundTile.BackgroundType animation)
+        {
+            switch (animation)
+            {
+                case BackgroundTile.BackgroundType.Plain:
+                    return Properties.Resources.TilePlain;
+                default:
+                    Console.Error.WriteLine("Unhandled animation: " + animation);
+                    return Properties.Resources.TruckTopBottom; //FIXME Not the good one !!!
+            }
+        }
+
         public static TruckAnimation FindNext(
             Travel.Extremity from,
             Travel.Extremity to) 

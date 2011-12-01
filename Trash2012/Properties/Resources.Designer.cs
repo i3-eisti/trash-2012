@@ -88,30 +88,16 @@ namespace Trash2012.Properties {
             }
         }
         
-        public static System.Drawing.Bitmap HouseHorizontalEmpty {
+        public static System.Drawing.Bitmap GarbageEmpty {
             get {
-                object obj = ResourceManager.GetObject("HouseHorizontalEmpty", resourceCulture);
+                object obj = ResourceManager.GetObject("GarbageEmpty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap HouseHorizontalFull {
+        public static System.Drawing.Bitmap GarbageFull {
             get {
-                object obj = ResourceManager.GetObject("HouseHorizontalFull", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static System.Drawing.Bitmap HouseVerticalEmpty {
-            get {
-                object obj = ResourceManager.GetObject("HouseVerticalEmpty", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static System.Drawing.Bitmap HouseVerticalFull {
-            get {
-                object obj = ResourceManager.GetObject("HouseVerticalFull", resourceCulture);
+                object obj = ResourceManager.GetObject("GarbageFull", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -144,34 +130,6 @@ namespace Trash2012.Properties {
             }
         }
         
-        public static System.Drawing.Bitmap LeftBottom {
-            get {
-                object obj = ResourceManager.GetObject("LeftBottom", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static System.Drawing.Bitmap LeftBottom_long_ {
-            get {
-                object obj = ResourceManager.GetObject("LeftBottom_long_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static System.Drawing.Bitmap LeftRight {
-            get {
-                object obj = ResourceManager.GetObject("LeftRight", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static System.Drawing.Bitmap LeftRight_long_ {
-            get {
-                object obj = ResourceManager.GetObject("LeftRight_long_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         public static byte[] music {
             get {
                 object obj = ResourceManager.GetObject("music", resourceCulture);
@@ -189,9 +147,9 @@ namespace Trash2012.Properties {
             }
         }
         
-        public static System.Drawing.Bitmap RightLeft {
+        public static System.Drawing.Bitmap NormalHouse {
             get {
-                object obj = ResourceManager.GetObject("RightLeft", resourceCulture);
+                object obj = ResourceManager.GetObject("NormalHouse", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,23 +231,16 @@ namespace Trash2012.Properties {
             }
         }
         
-        public static System.Drawing.Bitmap TopBottom {
+        public static System.Drawing.Bitmap TruckLeftBottom {
             get {
-                object obj = ResourceManager.GetObject("TopBottom", resourceCulture);
+                object obj = ResourceManager.GetObject("TruckLeftBottom", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
-        public static System.Drawing.Bitmap TopBottom_long_ {
+        public static System.Drawing.Bitmap TruckLeftRight {
             get {
-                object obj = ResourceManager.GetObject("TopBottom_long_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static System.Drawing.Bitmap TruckTopRight {
-            get {
-                object obj = ResourceManager.GetObject("TruckTopRight", resourceCulture);
+                object obj = ResourceManager.GetObject("TruckLeftRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -297,6 +248,20 @@ namespace Trash2012.Properties {
         public static System.Drawing.Bitmap TruckPaper {
             get {
                 object obj = ResourceManager.GetObject("TruckPaper", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap TruckTopBottom {
+            get {
+                object obj = ResourceManager.GetObject("TruckTopBottom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap TruckTopRight {
+            get {
+                object obj = ResourceManager.GetObject("TruckTopRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

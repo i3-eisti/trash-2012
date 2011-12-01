@@ -130,18 +130,6 @@
   <data name="DefaultMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\default.trash-map;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="HouseHorizontalEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\house1-empty.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HouseHorizontalFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\house1-full.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HouseVerticalEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\house2-empty.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="HouseVerticalFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\house2-full.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="intro" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\Intro\intro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -154,24 +142,15 @@
   <data name="intro3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\Intro\intro3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\LeftBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LeftBottom_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TruckLeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\LeftBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="LeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\LeftRight.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LeftRight_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TruckLeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\LeftRight(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NewGameAnnounce" xml:space="preserve">
     <value>Une ville est en proie à la saleté et aux déchets qui s'accumulent !
 Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</value>
-  </data>
-  <data name="RightLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RightLeft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TilePlain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road0.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -206,10 +185,7 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   <data name="TileRoadVertical" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TopBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\TopBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TopBottom_long_" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TruckTopBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\TopBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TruckTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -220,5 +196,14 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   </data>
   <data name="TruckPaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TruckPaper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GarbageEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\garbage-empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GarbageFull" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\garbage-full.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NormalHouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -39,6 +39,7 @@ namespace Trash2012.Engine
         public const int EndStep = 11;
 
         public int CurrentFrame;
+        public bool Looped { get; set; }
         public Action BeforeEndCallback { get; set; }
         public Action EndCallback { get; set; }
 
@@ -80,56 +81,47 @@ namespace Trash2012.Engine
         /// </summary>
         private void AnimatedGIFControl_Unloaded(object sender, RoutedEventArgs e)
         {
-            StopAnimate();
+            StopAnimation();
         }
 
         /// <summary>
         /// Start animation
         /// </summary>
-        public void StartAnimate(TruckAnimation animation)
+        public void StartAnimation(TruckAnimation animation)
         {
-            if(IsAnimationActive)
-                StopAnimate();
+            StartAnimation(Animations.FindResource(animation), false);
+        }
 
-            switch (animation)
-            {
-                case TruckAnimation.Left2Right:
-                    _bitmap = Properties.Resources.LeftRight_long_;
-                    break;
-                case TruckAnimation.Left2Bottom:
-                    _bitmap = Properties.Resources.LeftBottom_long_;
-                    break;
-                case TruckAnimation.Top2Bottom:
-                    _bitmap = Properties.Resources.TopBottom_long_;
-                    break;
-                case TruckAnimation.Top2Right:
-                    _bitmap = Properties.Resources.TruckTopRight;
-                    break;
-                default:
-                    Console.Error.WriteLine("Unhandled animation: " + animation);
-                    _bitmap = Properties.Resources.TopBottom_long_; //FIXME Not the good one !!!
-                    break;
-            }
+        public void StartAnimation(Bitmap bmp, bool loop = true)
+        {
+            if (IsAnimationActive)
+                StopAnimation();
+
+            _bitmap = bmp;
 
             _bitmapSource = GetBitmapSource();
             Source = _bitmapSource;
             CurrentFrame = 0;
+            Looped = loop;
 
-            IsAnimationActive = true;
             LaunchAnimation();
         }
 
         private void LaunchAnimation()
         {
-            if (_bitmap != null) ImageAnimator.Animate(_bitmap, OnFrameChanged);
+            if (_bitmap != null && !IsAnimationActive)
+            {
+                IsAnimationActive = true;
+                ImageAnimator.Animate(_bitmap, OnFrameChanged);
+            }
         }
 
         /// <summary>
         /// Stop animation
         /// </summary>
-        public void StopAnimate()
+        public void StopAnimation()
         {
-            if (_bitmap != null)
+            if (_bitmap != null && IsAnimationActive)
             {
                 IsAnimationActive = false;
                 ImageAnimator.StopAnimate(_bitmap, OnFrameChanged);
@@ -149,15 +141,18 @@ namespace Trash2012.Engine
         {
             ImageAnimator.UpdateFrames(_bitmap);
 
-            CurrentFrame++;
-            switch (CurrentFrame)
+            CurrentFrame = (CurrentFrame + 1) % FrameCount;
+            if (!Looped)
             {
-                case BeforeEndStep:
-                    BeforeEndCallback();
-                    break;
-                case EndStep:
-                    EndCallback();
-                    break;
+                switch (CurrentFrame)
+                {
+                    case BeforeEndStep:
+                        BeforeEndCallback();
+                        break;
+                    case EndStep:
+                        EndCallback();
+                        break;
+                }
             }
 
             if (_bitmapSource != null)

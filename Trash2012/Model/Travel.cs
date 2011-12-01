@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Trash2012.Visual;
 
 namespace Trash2012.Model
 {
-    public class Travel : IEnumerable<IRoadTile>
+    public class Travel : IEnumerable<VisualTile>
     {
-        private List<IRoadTile> tiles;
+        private List<VisualTile> tiles;
 
         public int Count
         {
@@ -27,26 +28,25 @@ namespace Trash2012.Model
 
         public Travel()
         {
-            tiles = new List<IRoadTile>();
+            tiles = new List<VisualTile>();
         }
 
-        public bool Add(IMapTile tile)
+        public bool Add(VisualTile tile)
         {
-            if (tile is IRoadTile)
+            if (tile.ModelTile is IRoadTile)
             {
-                IRoadTile road = ((IRoadTile)tile);
                 if (tiles.Count == 0)
                 {
-                    tiles.Add(road);
+                    tiles.Add(tile);
                     return true;
                 }
-                if (IsPositionCompatible(tiles.Last(), road))
+                if (IsPositionCompatible(tiles.Last().ModelTile as IRoadTile, tile.ModelTile as IRoadTile))
                 {
-                    if (IsTypeCompatible(tiles.Last(), road))
+                    if (IsTypeCompatible(tiles.Last().ModelTile as IRoadTile, tile.ModelTile as IRoadTile))
                     {
-                        if (!this.Contains(road))
+                        if (!this.Contains(tile.ModelTile as IRoadTile))
                         {
-                            tiles.Add(road);
+                            tiles.Add(tile);
                             Console.WriteLine("Ajout OK : Count = " + tiles.Count);
                             return true;
                         }
@@ -194,14 +194,8 @@ namespace Trash2012.Model
         {
             if (tile is IRoadTile)
             {
-                IRoadTile road = ((IRoadTile)tile);
-                foreach (IRoadTile item in tiles)
-                {
-                    if (item.Position.X == tile.Position.X && item.Position.Y == tile.Position.Y)
-                    {
-                        return true;
-                    }
-                }
+                return tiles.Any(
+                    item => item.ModelTile.Position.X == tile.Position.X && item.ModelTile.Position.Y == tile.Position.Y);
             }
             return false;
         }
@@ -211,11 +205,10 @@ namespace Trash2012.Model
             Console.WriteLine("Position : " + tile.Position.X + " - " + tile.Position.Y);
             if (tile is IRoadTile)
             {
-                IRoadTile road = ((IRoadTile)tile);
-                for (int i = 0; i < tiles.Count; i++)
+                for(int i = 0; i < tiles.Count; i++)
                 {
-                    IRoadTile item = tiles[i];
-                    if (item.Position.X == tile.Position.X && item.Position.Y == tile.Position.Y)
+                    var item = tiles[i];
+                    if (item.ModelTile.Position.X == tile.Position.X && item.ModelTile.Position.Y == tile.Position.Y)
                     {
                         return i;
                     }
@@ -244,17 +237,17 @@ namespace Trash2012.Model
             return false;
         }
 
-        public IMapTile Get(int i)
+        public VisualTile Get(int i)
         {
             return tiles[i];
         }
 
-        public IRoadTile this[int idx]
+        public VisualTile this[int idx]
         {
             get { return tiles[idx]; }
         }
 
-        public IEnumerator<IRoadTile> GetEnumerator()
+        public IEnumerator<VisualTile> GetEnumerator()
         {
             return tiles.GetEnumerator();
         }

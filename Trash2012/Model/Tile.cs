@@ -9,7 +9,6 @@ namespace Trash2012.Model
     /// </summary>
     public interface IMapTile
     {
-        Bitmap Tile { get; }
         Point Position { get; set; }
     }
     /// <summary>
@@ -31,6 +30,7 @@ namespace Trash2012.Model
     /// </summary>
     public interface IHouseTile : IRoadTile
     {
+        HouseTile.THouse HouseType { get; }
         Trash Garbage { get; set; }
     }
 
@@ -38,10 +38,6 @@ namespace Trash2012.Model
 
     public abstract class AbstractTile<TileType>
     {
-        /// <summary>
-        /// Tile's image
-        /// </summary>
-        public Bitmap Tile { get; set; }
         /// <summary>
         /// Position of the tile in the Map (grid)
         /// </summary>
@@ -51,9 +47,8 @@ namespace Trash2012.Model
         /// </summary>
         public TileType Type { get; private set; }
 
-        protected AbstractTile(Bitmap img, TileType t)
+        protected AbstractTile(TileType t)
         {
-            Tile = img;
             Type = t;
         }
 
@@ -75,28 +70,12 @@ namespace Trash2012.Model
             Plain
         }
 
-        /// <summary>
-        ///     Internal method for selecting correct Bitmap
-        /// </summary>
-        /// <param name="type">BackgroundTile type</param>
-        /// <returns>corresponding BitMap</returns>
-        private static Bitmap selectTile(BackgroundType type)
-        {
-            switch (type)
-            {
-                case BackgroundType.Plain:
-                    return Resources.TilePlain;
-                default:
-                    throw new ArgumentException("Unknown Map BackgroundType : " + type);
-            }
-        }
-
         public override int GetHashCode()
         {
             return Type.ToString().GetHashCode() * 31 + 11;
         }
 
-        public BackgroundTile(BackgroundType type) : base(selectTile(type), type) { }
+        public BackgroundTile(BackgroundType type) : base(type) { }
     }
 
     /// <summary>
@@ -109,52 +88,16 @@ namespace Trash2012.Model
         /// </summary>
         public enum RoadType
         {
-            Horizontal,
-            Vertical,
-            TopLeft,            //              TOP
-            TopRight,           //            |     |
-            BottomLeft,         //            |     |
-            BottomRight,        //      ______|     |______
-            TopBottomLeft,      // LEFT                     RIGHT
-            TopBottomRight,     //      ______       ______              
+            Horizontal,         //              TOP
+            Vertical,           //            |     |
+            TopLeft,            //            |     |
+            TopRight,           //      ______|     |______
+            BottomLeft,         // LEFT                     RIGHT
+            BottomRight,        //      ______       ______      
+            TopBottomLeft,      //            |     |
+            TopBottomRight,     //            |     |        
             TopLeftRight,       //            |     |
-            BottomLeftRight     //            |     |
-            //            |     |
-            //            BOTTOM  
-        }
-
-        /// <summary>
-        ///     Internal method for selecting correct Bitmap
-        /// </summary>
-        /// <param name="type">MapTile type</param>
-        /// <returns>corresponding BitMap</returns>
-        private static Bitmap selectTile(RoadTile.RoadType dir)
-        {
-            switch (dir)
-            {
-                case RoadType.Horizontal:
-                    return Resources.TileRoadHorizontal;
-                case RoadType.Vertical:
-                    return Resources.TileRoadVertical;
-                case RoadType.TopLeft:
-                    return Resources.TileRoadTopLeft;
-                case RoadType.TopRight:
-                    return Resources.TileRoadTopRight;
-                case RoadType.BottomLeft:
-                    return Resources.TileRoadBottomLeft;
-                case RoadType.BottomRight:
-                    return Resources.TileRoadBottomRight;
-                case RoadType.TopBottomLeft:
-                    return Resources.TileRoadTopBottomLeft;
-                case RoadType.TopBottomRight:
-                    return Resources.TileRoadTopBottomRight;
-                case RoadType.TopLeftRight:
-                    return Resources.TileRoadTopLeftRight;
-                case RoadType.BottomLeftRight:
-                    return Resources.TileRoadBottomLeftRight;
-                default:
-                    throw new ArgumentException("Unknown Road Direction : " + dir);
-            }
+            BottomLeftRight     //            BOTTOM 
         }
 
         public override int GetHashCode()
@@ -162,7 +105,7 @@ namespace Trash2012.Model
             return Type.ToString().GetHashCode() * 31 + 13;
         }
 
-        public RoadTile(RoadTile.RoadType dir) : base(selectTile(dir), dir) { }
+        public RoadTile(RoadTile.RoadType dir) : base(dir) { }
     }
 
     /// <summary>
@@ -170,21 +113,23 @@ namespace Trash2012.Model
     /// </summary>
     public class HouseTile : RoadTile, IHouseTile
     {
+        public enum THouse
+        {
+            Normal
+        }
+
         public override int GetHashCode()
         {
             return Type.ToString().GetHashCode() * 31 + 17;
         }
 
         public Trash Garbage { get; set; }
+        public THouse HouseType { get; private set; }
 
-        public HouseTile(RoadType t, TrashType ttype,int quantity = 0) : base(t)
+        public HouseTile(RoadType t, TrashType ttype, int quantity = 0) : base(t)
         {
             Garbage = new Trash(ttype, quantity);
-            switch (t)
-            {
-                case RoadType.Horizontal: Tile = quantity == 0 ? Resources.HouseHorizontalEmpty : Resources.HouseHorizontalFull; break;
-                case RoadType.Vertical: Tile = quantity == 0 ? Resources.HouseVerticalEmpty : Resources.HouseVerticalFull; break;
-            }
+            HouseType = THouse.Normal;
         }
     }
 

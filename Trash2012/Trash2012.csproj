@@ -107,8 +107,8 @@
     <Compile Include="Visual\ShopItem.xaml.cs">
       <DependentUpon>ShopItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Visual\Tile.xaml.cs">
-      <DependentUpon>Tile.xaml</DependentUpon>
+    <Compile Include="Visual\VisualTile.xaml.cs">
+      <DependentUpon>VisualTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visual\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
@@ -160,7 +160,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Visual\Tile.xaml">
+    <Page Include="Visual\VisualTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -345,6 +345,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\TruckPaper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\RightBottom.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\house.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\garbage-empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\garbage-full.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

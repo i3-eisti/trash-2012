@@ -299,19 +299,13 @@ namespace Trash2012.Visual
             }
 
             //2. Truck Travel
-            //var dailyTravel = MyMap.MyTravel;
-            //Travel dailyTravel = null;
-            //if(dailyTravel != null)
-            //{
-            //    var companyTruck = _game.Company.Trucks[0];
-            //    var collectedGarbage = _game.ApplyTravel(dailyTravel, companyTruck);
-            //}
-            //else
-            //{
-            //    Console.WriteLine(string.Format(
-            //        "No daily travel on {0}", _game.CurrentDate
-            //    ));
-            //}
+            foreach (var truckButton in MyAssets.buttons)
+            {
+                var dailyTravel = truckButton.MyTruck.Travel;
+                var companyTruck = _game.Company.Trucks[0];
+                var collectedGarbage = _game.ApplyTravel(dailyTravel, companyTruck);
+                Console.WriteLine(string.Format("{0} garbage collected.", collectedGarbage));
+            }
 
             //3. City garbage update
             _game.ApplyDailyGarbage();
@@ -321,6 +315,7 @@ namespace Trash2012.Visual
 
             //5. Update UI Components
             MyMap.Animate();
+            UpdateMap(_game);
             UpdateGameDashboard(_game, animate: true);
             UpdateBuyableItem(_game);
             UpdateTimeline(_game);
@@ -328,6 +323,13 @@ namespace Trash2012.Visual
         }
 
         #region UI Update
+
+        private void UpdateMap(Game game)
+        {
+            for (var i = game.City.Height; i-- > 0; )
+                for (var j = game.City.Width; j-- > 0; )
+                    MyMap.TilesVisual[i][j].Update();
+        }
 
         private void UpdateTimeline(Game game)
         {
@@ -390,7 +392,6 @@ namespace Trash2012.Visual
                 GameDashboard.GarbageQuantity = game.City.GarbageQuantity;
             }
         }
-
         private void DashboardTruckAnimate(object sender, EventArgs e)
         {
             var timer = sender as DispatcherTimer;
