@@ -1,6 +1,7 @@
 ﻿
 using System;
 using Trash2012.Model;
+using System.Drawing;
 
 namespace Trash2012.Engine
 {
@@ -20,8 +21,24 @@ namespace Trash2012.Engine
         Bottom2Right
     }
 
+    public enum BackgroundAnimation
+    {
+        House1
+    }
+
     public class Animations
     {
+        public static Bitmap FindResource(BackgroundAnimation animation)
+        {
+            switch (animation)
+            {
+                case BackgroundAnimation.House1:
+                    return Properties.Resources.House1_top;
+                default:
+                    throw new ArgumentException("Animation introuvable: " + animation);
+            }
+        }
+
         public static TruckAnimation FindNext(
             Travel.Extremity from,
             Travel.Extremity to) 
