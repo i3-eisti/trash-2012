@@ -60,6 +60,20 @@ namespace Trash2012.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap BlueHouseBot {
+            get {
+                object obj = ResourceManager.GetObject("BlueHouseBot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap BlueHouseTop {
+            get {
+                object obj = ResourceManager.GetObject("BlueHouseTop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap CalendarBackground {
             get {
                 object obj = ResourceManager.GetObject("CalendarBackground", resourceCulture);
@@ -126,6 +140,13 @@ namespace Trash2012.Properties {
         public static System.Drawing.Bitmap intro3 {
             get {
                 object obj = ResourceManager.GetObject("intro3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Missing {
+            get {
+                object obj = ResourceManager.GetObject("Missing", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

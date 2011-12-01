@@ -67,7 +67,8 @@ namespace Trash2012.Model
         /// </summary>
         public enum BackgroundType
         {
-            Plain
+            Plain,
+            BlueHouse
         }
 
         public override int GetHashCode()
@@ -115,7 +116,8 @@ namespace Trash2012.Model
     {
         public enum THouse
         {
-            Normal
+            Normal,
+            Blue
         }
 
         public override int GetHashCode()
@@ -126,10 +128,10 @@ namespace Trash2012.Model
         public Trash Garbage { get; set; }
         public THouse HouseType { get; private set; }
 
-        public HouseTile(RoadType t, TrashType ttype, int quantity = 0) : base(t)
+        public HouseTile(RoadType t, THouse ht, TrashType ttype, int quantity = 0) : base(t)
         {
             Garbage = new Trash(ttype, quantity);
-            HouseType = THouse.Normal;
+            HouseType = ht;
         }
     }
 

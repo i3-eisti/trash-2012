@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Trash2012.Model;
 using Trash2012.Engine;
-using Image = System.Windows.Controls.Image;
 using Size = System.Windows.Size;
 
 namespace Trash2012.Visual
@@ -22,6 +21,7 @@ namespace Trash2012.Visual
         public GifImage FirstLayer { get; set; }
         public GifImage SecondLayer { get; set; }
         public GifImage ThirdLayer { get; set; }
+        public GifImage FourthLayer { get; set; }
 
         public VisualTile(
             IMapTile modelTile, 
@@ -47,7 +47,7 @@ namespace Trash2012.Visual
             else if (ModelTile is IRoadTile)
             {
                 var type = ((IRoadTile)ModelTile).Type;
-                bmp = SelectBitmap(type);
+                bmp = Animations.FindResource(type);
             }
             else
             {
@@ -81,14 +81,22 @@ namespace Trash2012.Visual
                 Height = dimension.Height,
                 Stretch = Stretch.UniformToFill
             };
+            FourthLayer = new GifImage
+            {
+                Width = dimension.Width, 
+                Height = dimension.Height,
+                Stretch = Stretch.UniformToFill
+            };
 
             Canvas.SetZIndex(FirstLayer, 10);
             Canvas.SetZIndex(SecondLayer, 40);
             Canvas.SetZIndex(ThirdLayer,  70);
+            Canvas.SetZIndex(FourthLayer, 100);
 
-            TileCanvas.Children.Add(SecondLayer);
             TileCanvas.Children.Add(FirstLayer);
+            TileCanvas.Children.Add(SecondLayer);
             TileCanvas.Children.Add(ThirdLayer);
+            TileCanvas.Children.Add(FourthLayer);
 
             Update();
         }
@@ -98,7 +106,7 @@ namespace Trash2012.Visual
             if (ModelTile is IHouseTile)
             {
                 var houseTile = ModelTile as IHouseTile;
-                var bmpHouse = SelectBitmap(houseTile.HouseType);
+                var bmpHouse = Animations.FindResource(houseTile.HouseType);
                 if (ImageAnimator.CanAnimate(bmpHouse))
                 {
                     //Here put some code for animated background
@@ -119,46 +127,6 @@ namespace Trash2012.Visual
                 {
                     ThirdLayer.Source = ImageManager.Bitmap2ImageSource(bmpGarbage);
                 }
-            }
-        }
-
-        public static Bitmap SelectBitmap(RoadTile.RoadType type)
-        {
-            switch (type)
-            {
-                case RoadTile.RoadType.Horizontal:
-                    return Properties.Resources.TileRoadHorizontal;
-                case RoadTile.RoadType.Vertical:
-                    return Properties.Resources.TileRoadVertical;
-                case RoadTile.RoadType.TopLeft:
-                    return Properties.Resources.TileRoadTopLeft;
-                case RoadTile.RoadType.TopRight:
-                    return Properties.Resources.TileRoadTopRight;
-                case RoadTile.RoadType.BottomLeft:
-                    return Properties.Resources.TileRoadBottomLeft;
-                case RoadTile.RoadType.BottomRight:
-                    return Properties.Resources.TileRoadBottomRight;
-                case RoadTile.RoadType.TopBottomLeft:
-                    return Properties.Resources.TileRoadTopBottomLeft;
-                case RoadTile.RoadType.TopBottomRight:
-                    return Properties.Resources.TileRoadTopBottomRight;
-                case RoadTile.RoadType.TopLeftRight:
-                    return Properties.Resources.TileRoadTopLeftRight;
-                case RoadTile.RoadType.BottomLeftRight:
-                    return Properties.Resources.TileRoadBottomLeftRight;
-                default:
-                    throw new ArgumentException("Unhandled animation bitmap tile: " + type);
-            }
-        }
-
-        public static Bitmap SelectBitmap(HouseTile.THouse type)
-        {
-            switch (type)
-            {
-                case HouseTile.THouse.Normal:
-                    return Properties.Resources.NormalHouse;
-                default:
-                    throw new ArgumentException("Unhandled animation bitmap tile: " + type);
             }
         }
 

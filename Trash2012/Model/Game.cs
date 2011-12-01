@@ -10,7 +10,7 @@ namespace Trash2012.Model
 
         public static readonly int PAYDAY = 1000;
 
-        private readonly int[] _dailyTrashRange = {0, 5};
+        private readonly int[] _dailyTrashRange = {0, 0};
 
         public DateTime CurrentDate 
         {

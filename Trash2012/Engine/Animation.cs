@@ -38,7 +38,7 @@ namespace Trash2012.Engine
                     return Properties.Resources.TruckTopRight;
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + animation);
-                    return Properties.Resources.TruckTopBottom; //FIXME Not the good one !!!
+                    return Properties.Resources.Missing; //FIXME Not the good one !!!
             }
         }
 
@@ -48,9 +48,54 @@ namespace Trash2012.Engine
             {
                 case BackgroundTile.BackgroundType.Plain:
                     return Properties.Resources.TilePlain;
+                case BackgroundTile.BackgroundType.BlueHouse:
+                    return Properties.Resources.BlueHouseTop;
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + animation);
-                    return Properties.Resources.TruckTopBottom; //FIXME Not the good one !!!
+                    return Properties.Resources.Missing; //FIXME Not the good one !!!
+            }
+        }
+
+        public static Bitmap FindResource(RoadTile.RoadType type)
+        {
+            switch (type)
+            {
+                case RoadTile.RoadType.Horizontal:
+                    return Properties.Resources.TileRoadHorizontal;
+                case RoadTile.RoadType.Vertical:
+                    return Properties.Resources.TileRoadVertical;
+                case RoadTile.RoadType.TopLeft:
+                    return Properties.Resources.TileRoadTopLeft;
+                case RoadTile.RoadType.TopRight:
+                    return Properties.Resources.TileRoadTopRight;
+                case RoadTile.RoadType.BottomLeft:
+                    return Properties.Resources.TileRoadBottomLeft;
+                case RoadTile.RoadType.BottomRight:
+                    return Properties.Resources.TileRoadBottomRight;
+                case RoadTile.RoadType.TopBottomLeft:
+                    return Properties.Resources.TileRoadTopBottomLeft;
+                case RoadTile.RoadType.TopBottomRight:
+                    return Properties.Resources.TileRoadTopBottomRight;
+                case RoadTile.RoadType.TopLeftRight:
+                    return Properties.Resources.TileRoadTopLeftRight;
+                case RoadTile.RoadType.BottomLeftRight:
+                    return Properties.Resources.TileRoadBottomLeftRight;
+                default:
+                    throw new ArgumentException("Unhandled animation bitmap tile: " + type);
+            }
+        }
+
+        public static Bitmap FindResource(HouseTile.THouse type)
+        {
+            switch (type)
+            {
+                case HouseTile.THouse.Normal:
+                    return Properties.Resources.NormalHouse;
+                case HouseTile.THouse.Blue:
+                    return Properties.Resources.BlueHouseBot;
+                default:
+                    Console.Error.WriteLine("Unhandled animation: " + type);
+                    return Properties.Resources.Missing; //FIXME Not the good one !!!
             }
         }
 

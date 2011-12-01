@@ -197,6 +197,12 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   <data name="TruckPaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TruckPaper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="BlueHouseBot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House1_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BlueHouseTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House1_top.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GarbageEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\garbage-empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -205,5 +211,8 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   </data>
   <data name="NormalHouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\house.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Missing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\troll_face.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

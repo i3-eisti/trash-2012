@@ -9,6 +9,54 @@ namespace Trash2012.Engine
 {
     public class MapLoader
     {
+
+        private static BackgroundTile.BackgroundType BackgroundCorrespondor(int tileCode)
+        {
+            switch (tileCode)
+            {
+                case 0:
+                    return BackgroundTile.BackgroundType.Plain;
+                case 1:
+                    return BackgroundTile.BackgroundType.BlueHouse;
+                default:
+                    throw new ArgumentException("Unknown tile code : " + tileCode);
+            }
+        }
+        
+        private static RoadTile.RoadType RoadCorrespondor(int tileCode)
+        {
+            switch (tileCode)
+            {
+                case 1:
+                    return RoadTile.RoadType.Horizontal;
+                case 2:
+                    return RoadTile.RoadType.Vertical;
+                case 3:
+                    return RoadTile.RoadType.TopLeft;
+                case 4:
+                    return RoadTile.RoadType.TopRight;
+                case 5:
+                    return RoadTile.RoadType.BottomLeft;
+                case 6:
+                    return RoadTile.RoadType.BottomRight;
+                default:
+                    throw new ArgumentException("Unknown tile code : " + tileCode);
+            }
+        }
+        
+        private static HouseTile.THouse HouseCorrespondor(int tileCode)
+        {
+            switch (tileCode)
+            {
+                case 1:
+                    return HouseTile.THouse.Normal;
+                case 2:
+                    return HouseTile.THouse.Blue;
+                default:
+                    throw new ArgumentException("Unknown tile code : " + tileCode);
+            }
+        }
+
         #region MapSwallower
 
         abstract class MapBuilder {}
@@ -33,8 +81,8 @@ namespace Trash2012.Engine
                 {
                     try
                     {
-                        int width = int.Parse(m.Groups[1].Value);
-                        int height = int.Parse(m.Groups[2].Value);
+                        int width = Int32.Parse(m.Groups[1].Value);
+                        int height = Int32.Parse(m.Groups[2].Value);
                         return new TileSwallower(width, height);
                     }
                     catch (Exception)
@@ -62,28 +110,6 @@ namespace Trash2012.Engine
         //Tile swallower attempt to read map tile
         class TileSwallower : MapBuilder, IMapBuilder<TileSwallower>
         {
-            private static int MapCorrespondor(int tileCode)
-            {
-                switch (tileCode)
-                {
-                    case 0:
-                         return (int)BackgroundTile.BackgroundType.Plain;
-                    case 1 :
-                         return (int)RoadTile.RoadType.Horizontal;
-                    case 2:
-                         return (int)RoadTile.RoadType.Vertical;
-                    case 3:
-                         return (int)RoadTile.RoadType.TopLeft;
-                    case 4:
-                         return (int)RoadTile.RoadType.TopRight;
-                    case 5:
-                         return (int)RoadTile.RoadType.BottomLeft;
-                    case 6:
-                         return (int)RoadTile.RoadType.BottomRight; 
-                    default:
-                         throw new ArgumentException("Unknown tile code : " + tileCode);
-                }
-            }
 
             private int width;
             private int height;
@@ -121,37 +147,39 @@ namespace Trash2012.Engine
             public TileSwallower swallow(string line)
             {
                 // '\d' represents a single so that we can extract a single 
-                Regex tileExtractor = new Regex(@"(\d+)-(\d+)-(\d+)");
+                Regex tileExtractor = new Regex(@"(\d+)-(\d+)-(\d+)-(\d+)");
                 MatchCollection tileMatchs = tileExtractor.Matches(line);
 
                 foreach(Match tileMatch in tileMatchs)
                 {
                     //read tile code, house flag and garbage amount
-                    int tileCode = int.Parse( tileMatch.Groups[1].Value );
-                    bool hasHouse = int.Parse( tileMatch.Groups[2].Value ) == 1;
-                    int garbageAmount = int.Parse( tileMatch.Groups[3].Value );
+                    var backgroundCode = Int32.Parse( tileMatch.Groups[1].Value );
+                    var roadCode = Int32.Parse( tileMatch.Groups[2].Value );
+                    var houseCode = Int32.Parse( tileMatch.Groups[3].Value );
+                    var garbageAmount = Int32.Parse( tileMatch.Groups[4].Value );
 
+                    var hasRoad = roadCode > 0;
+                    var hasHouse = houseCode > 0;
 
                     IMapTile tile; //empty tile
-                    var tileType = MapCorrespondor(tileCode); //tile orientation
-                    if(tileCode == 0) //Plain
+                    if(hasRoad) //Plain
                     {
-                        tile = new BackgroundTile((BackgroundTile.BackgroundType)tileType);
-                    }
-                    else
-                    {
-                        if(hasHouse)
+                        var roadType = RoadCorrespondor(roadCode); //tile orientation
+                        tile = new RoadTile(roadType);
+                        if (hasHouse)
                         {
+                            var houseType = HouseCorrespondor(houseCode);
                             tile = new HouseTile(
-                                (RoadTile.RoadType)tileType,
+                                roadType,
+                                houseType,
                                 TrashType.Paper,
                                 garbageAmount);
                         }
-                        else
-                        {
-                            tile = new RoadTile(
-                                (RoadTile.RoadType)tileType);
-                        }
+                    }
+                    else
+                    {
+                        var backgroundType = BackgroundCorrespondor(backgroundCode); //tile orientation
+                        tile = new BackgroundTile(backgroundType);
                     }
                     AddTile(tile);
                     //decrease remaining needed item
@@ -168,7 +196,6 @@ namespace Trash2012.Engine
                     throw new Exception("Not enough data to build a complete city");
                 return tiles;
             }
-
         }
 
         #endregion
