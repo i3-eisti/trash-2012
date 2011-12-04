@@ -339,6 +339,11 @@ namespace Trash2012.Visual
         {
             _game.ApplyDailyGarbage();
             _recentEvent = _game.ApplyRandomEvent();
+            if (_recentEvent.HasValue)
+            {
+                Console.WriteLine("Recent event occured : " + _recentEvent.Value.Message);
+                _recentEvent.Value.Effect();
+            }
         }
 
         private void DateUpdate()
@@ -354,14 +359,41 @@ namespace Trash2012.Visual
 
         private void UIUpdate()
         {
+            MyMap.ClearTravel();
+            MyMap.IsSelectionEnabled = false;
+            foreach (var shopItem in BuyableItems)
+            {
+                shopItem.IsEnabled = false;
+            }
+            foreach (var button in MyAssets.buttons)
+                button.IsEnabled = false;
+
+            HandleRandomEvent(_game, _recentEvent, () =>
             UpdateMap(_game, () => 
             UpdateGameDashboard(_game, () => 
-            UpdateBuyableItem(_game, () => 
-            UpdateTimeline(_game, delegate {
+            UpdateBuyableItem(_game, () =>
+            UpdateTimeline(_game, delegate
+            {
+                MyMap.IsSelectionEnabled = true;
+                foreach (var button in MyAssets.buttons)
+                    button.IsEnabled = true;
                 //reset temporary values
                 _currentlyPushed.Clear();
                 _recentEvent = null;
-            }))));
+            })))));
+        }
+
+        private void HandleRandomEvent(Game game, Game.GameEvent? gameEvent, Action doneCallback)
+        {
+            if(gameEvent.HasValue)
+            {
+                MessageBox.Show(
+                    gameEvent.Value.Message,
+                    "Un évènement inattendue !",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            UpdateGameDashboard(_game, doneCallback);
         }
 
         private void UpdateMap(Game game, Action doneCallback)
@@ -371,11 +403,15 @@ namespace Trash2012.Visual
 
         private void AnimateTruck(Game game, int truckPosition, Action doneCallback)
         {
-            if(truckPosition < game.Company.Trucks.Count)
+            if (truckPosition < game.Company.Trucks.Count)
             {
-                MyMap.Animate(
-                    game.Company.Trucks[truckPosition],
-                    () => AnimateTruck(game, truckPosition + 1, doneCallback));   
+                var truck = game.Company.Trucks[truckPosition];
+                if (truck.Travel.Count > 0)
+                    MyMap.Animate(
+                        truck,
+                        () => AnimateTruck(game, truckPosition + 1, doneCallback));
+                else
+                    AnimateTruck(game, truckPosition + 1, doneCallback);
             }
             else
             {

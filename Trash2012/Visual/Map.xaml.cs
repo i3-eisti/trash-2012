@@ -28,6 +28,8 @@ namespace Trash2012.Visual
             }
         }
 
+        public bool IsSelectionEnabled { get; set; }
+
         /// <summary>
         /// Every image of the component
         /// </summary>
@@ -47,6 +49,7 @@ namespace Trash2012.Visual
             //Selection handler
             {
                 Canvas.SetZIndex(OuterBorder, -5);
+                IsSelectionEnabled = true;
             }
         }
 
@@ -63,7 +66,7 @@ namespace Trash2012.Visual
         {
             var truck = args[0] as Truck;
             var pos = (int) args[1];
-            var _formerFrom = (Travel.Extremity) args[2];
+            var formerFrom = (Travel.Extremity) args[2];
             var animationEndCallback = args[3] as Action;
 
             var myTravel = truck.Travel;
@@ -75,9 +78,9 @@ namespace Trash2012.Visual
                     cy = myTravel[pos].ModelTile.Position.Y;
 
                 var from =
-                    _formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
-                    _formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
-                    _formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
+                    formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
+                    formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
+                    formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
                                                     Travel.Extremity.Top; ;
                 var to =
                     cx == 0 ? Travel.Extremity.Left :
@@ -147,9 +150,9 @@ namespace Trash2012.Visual
                     ny = myTravel[pos + 1].ModelTile.Position.Y;
 
                 var from = 
-                    _formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
-                    _formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
-                    _formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
+                    formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
+                    formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
+                    formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
                                                     Travel.Extremity.Top;
                 var to =
                     cx < nx ? Travel.Extremity.Right :
@@ -259,6 +262,8 @@ namespace Trash2012.Visual
         /// <param name="e">whatever bro</param>
         private void SelectTile_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!IsSelectionEnabled) return;
+
             var truckButton = MyMainWindow.MyAssets.MyListView.SelectedItem as TruckButton;
             if (truckButton == null) return;
             Truck MyTruck = truckButton.MyTruck;

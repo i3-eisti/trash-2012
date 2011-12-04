@@ -13,7 +13,7 @@ namespace Trash2012.Model
         private readonly int[] _dailyTrashRange = {0, 5};
         private readonly int[] _technoParadeTrashRange = {10, 50};
 
-        private const double RandomEventProbability = 0.1;
+        private const double RandomEventProbability = 0.3;
 
         public Random GameRandomness { get; private set; }
 
