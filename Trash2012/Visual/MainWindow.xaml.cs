@@ -398,6 +398,12 @@ namespace Trash2012.Visual
 
         private void UpdateMap(Game game, Action doneCallback)
         {
+            var width = game.City.Width;
+            var height = game.City.Height;
+            var m = MyMap.TilesVisual;
+            for (int i = height; i-- > 0; )
+                for (int j = width; j-- > 0; )
+                    m[i][j].Visited = false;
             AnimateTruck(game, 0, doneCallback);
         }
 
@@ -407,14 +413,23 @@ namespace Trash2012.Visual
             {
                 var truck = game.Company.Trucks[truckPosition];
                 if (truck.Travel.Count > 0)
+                {
                     MyMap.Animate(
                         truck,
                         () => AnimateTruck(game, truckPosition + 1, doneCallback));
+                }
                 else
                     AnimateTruck(game, truckPosition + 1, doneCallback);
             }
             else
             {
+                var width = game.City.Width;
+                var height = game.City.Height;
+                var m = MyMap.TilesVisual;
+                for (var i = height; i-- > 0; )
+                    for (var j = width; j-- > 0; )
+                        if(!m[i][j].Visited)
+                            m[i][j].Update();
                 doneCallback();
             }
         }

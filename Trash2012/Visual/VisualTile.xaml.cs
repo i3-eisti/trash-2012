@@ -14,6 +14,7 @@ namespace Trash2012.Visual
         public int X { get; set; }
         public int Y { get; set; }
 
+        public bool Visited { get; set; }
         public IMapTile ModelTile { get; private set; }
 
         public VisualTile(
@@ -95,6 +96,7 @@ namespace Trash2012.Visual
                     ThirdLayer.Source = ImageManager.Bitmap2ImageSource(bmpGarbage);
                 }
             }
+            Visited = true;
         }
 
     }
