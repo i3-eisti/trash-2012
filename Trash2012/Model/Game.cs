@@ -10,7 +10,12 @@ namespace Trash2012.Model
 
         public static readonly int PAYDAY = 1000;
 
-        private readonly int[] _dailyTrashRange = {0, 0};
+        private readonly int[] _dailyTrashRange = {0, 5};
+        private readonly int[] _technoParadeTrashRange = {10, 50};
+
+        private const double RandomEventProbability = 0.1;
+
+        public Random GameRandomness { get; private set; }
 
         public DateTime CurrentDate 
         {
@@ -38,6 +43,8 @@ namespace Trash2012.Model
             var newTruck2 = new Truck(TrashType.Paper, 25, 1f);
             Company.Trucks.Add(newTruck1);
             Company.Trucks.Add(newTruck2);
+
+            GameRandomness = new Random();
         }
 
         #region Save/ Load
@@ -73,6 +80,38 @@ namespace Trash2012.Model
             return garbageAccumulation;
         }
 
+        public GameEvent? ApplyRandomEvent()
+        {
+            if(GameRandomness.NextDouble() <= RandomEventProbability)
+            {
+                return new GameEvent()
+                {
+                    Message = "Techno parade ! Gros déchêt en perspective !",
+                    Effect = delegate ()
+                    {
+                        int w = City.Width,
+                            h = City.Height;
+                        var m = City.Map;
+                        for (var i = h; i-- > 0; )
+                        {
+                            for (var j = w; j-- > 0; )
+                            {
+                                if (m[i][j] is IHouseTile)
+                                    ((IHouseTile)m[i][j]).Garbage.Amount += GameRandomness.Next(_technoParadeTrashRange[0], _technoParadeTrashRange[1]);
+                            }
+                        }             
+                    }
+                };
+            }
+            return null;
+        }
+
+        public struct GameEvent
+        {
+            public string Message;
+            public Action Effect;
+        }
+
         /// <summary>
         /// Citizens throw new garbage everyday, that is why this method simulates
         /// </summary>
@@ -81,13 +120,12 @@ namespace Trash2012.Model
             int w = City.Width,
                 h = City.Height;
             var m = City.Map;
-            var r = new Random();
             for (var i = h; i-- > 0; )
             {
                 for (var j = w; j-- > 0; )
                 {
                     if (m[i][j] is IHouseTile)
-                        ((IHouseTile)m[i][j]).Garbage.Amount += r.Next(_dailyTrashRange[0], _dailyTrashRange[1]);
+                        ((IHouseTile)m[i][j]).Garbage.Amount += GameRandomness.Next(_dailyTrashRange[0], _dailyTrashRange[1]);
                 }
             }
         }
@@ -112,7 +150,6 @@ namespace Trash2012.Model
 
         }
         
-
         #endregion
 
         #region Hidden members

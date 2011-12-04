@@ -84,7 +84,7 @@
 					Content="Jour Suivant"
 					Grid.Row="1"
 					Grid.Column="2" 
-					HorizontalAlignment="Center" Click="bNextDay_Click" />
+					HorizontalAlignment="Center" Click="NextDayHandler" />
 				
 			</Grid>
 

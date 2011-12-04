@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Controls;
-using System.Windows.Media;
 using Trash2012.Model;
 using Trash2012.Engine;
 using Size = System.Windows.Size;
@@ -11,17 +9,12 @@ namespace Trash2012.Visual
     /// <summary>
     /// Interaction logic for Tile.xaml
     /// </summary>
-    public partial class VisualTile : UserControl
+    public partial class VisualTile
     {
         public int X { get; set; }
         public int Y { get; set; }
 
         public IMapTile ModelTile { get; private set; }
-
-        public GifImage FirstLayer { get; set; }
-        public GifImage SecondLayer { get; set; }
-        public GifImage ThirdLayer { get; set; }
-        public GifImage FourthLayer { get; set; }
 
         public VisualTile(
             IMapTile modelTile, 
@@ -54,12 +47,6 @@ namespace Trash2012.Visual
                 throw new ArgumentException("First layer must be filled with a bitmap");
             }
 
-            FirstLayer = new GifImage
-            {
-                Width = dimension.Width,
-                Height = dimension.Height,
-                Stretch = Stretch.UniformToFill
-            }; 
             if (ImageAnimator.CanAnimate(bmp))
             {
                 FirstLayer.StartAnimation(bmp, loop: true);
@@ -69,34 +56,14 @@ namespace Trash2012.Visual
                 FirstLayer.Source = ImageManager.Bitmap2ImageSource(bmp);
             }
 
-            SecondLayer = new GifImage
-            {
-                Width = dimension.Width,
-                Height = dimension.Height,
-                Stretch = Stretch.UniformToFill
-            };
-            ThirdLayer = new GifImage
-            {
-                Width = dimension.Width, 
-                Height = dimension.Height,
-                Stretch = Stretch.UniformToFill
-            };
-            FourthLayer = new GifImage
-            {
-                Width = dimension.Width, 
-                Height = dimension.Height,
-                Stretch = Stretch.UniformToFill
-            };
-
-            Canvas.SetZIndex(FirstLayer, 10);
-            Canvas.SetZIndex(SecondLayer, 40);
-            Canvas.SetZIndex(ThirdLayer,  70);
-            Canvas.SetZIndex(FourthLayer, 100);
-
-            TileCanvas.Children.Add(FirstLayer);
-            TileCanvas.Children.Add(SecondLayer);
-            TileCanvas.Children.Add(ThirdLayer);
-            TileCanvas.Children.Add(FourthLayer);
+            FirstLayer.Width = dimension.Width;
+            FirstLayer.Height = dimension.Height;
+            SecondLayer.Width = dimension.Width;
+            SecondLayer.Height = dimension.Height;
+            ThirdLayer.Width = dimension.Width;
+            ThirdLayer.Height = dimension.Height;
+            FourthLayer.Width = dimension.Width;
+            FourthLayer.Height = dimension.Height;
 
             Update();
         }

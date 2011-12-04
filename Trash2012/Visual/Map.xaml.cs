@@ -12,7 +12,7 @@ namespace Trash2012.Visual
     /// <summary>
     /// Interaction logic for Map.xaml
     /// </summary>
-    public partial class Map : UserControl
+    public partial class Map
     {
         private City my_city;
         public City MyCity
@@ -50,30 +50,29 @@ namespace Trash2012.Visual
             }
         }
 
-        private Travel.Extremity _formerFrom;
-        int _pos;
-        int _posmax;
+        private delegate void AnimationEventHandler(object[] args);
 
-        private delegate void AnimationEventHandler();
-
-        public void Animate()
+        public void Animate(Truck truck, Action animationEndCallback)
         {
-            var truck = ((TruckButton)MyMainWindow.MyAssets.MyListView.SelectedItem).MyTruck;
-            _pos = 0;
-            _posmax = truck.Travel.Count - 1;
             Dispatcher.BeginInvoke(DispatcherPriority.Send,
-                                   new AnimationEventHandler(NextAnimation));
+                                   new AnimationEventHandler(NextAnimation), 
+                                   new object[] { truck, 0, Travel.Extremity.Top, animationEndCallback });
         }
 
-        private void NextAnimation()
+        private void NextAnimation(object[] args)
         {
-            var truck = ((TruckButton)MyMainWindow.MyAssets.MyListView.SelectedItem).MyTruck;
+            var truck = args[0] as Truck;
+            var pos = (int) args[1];
+            var _formerFrom = (Travel.Extremity) args[2];
+            var animationEndCallback = args[3] as Action;
+
             var myTravel = truck.Travel;
-            if(_posmax != 0 && _pos == _posmax)
+            var posmax = truck.Travel.Count - 1; 
+            if(posmax != 0 && pos == posmax)
             {
                 //c : current, , n : next
-                int cx = myTravel[_pos].ModelTile.Position.X,
-                    cy = myTravel[_pos].ModelTile.Position.Y;
+                int cx = myTravel[pos].ModelTile.Position.X,
+                    cy = myTravel[pos].ModelTile.Position.Y;
 
                 var from =
                     _formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
@@ -90,24 +89,26 @@ namespace Trash2012.Visual
                 //cancel callback for next animation
                 animationLayer.BeforeEndCallback = delegate {};
                 //Stop animation at end
-                animationLayer.EndCallback =
-                    animationLayer.StopAnimation;
+                animationLayer.EndCallback = delegate
+                {
+                    animationLayer.StopAnimation();
+                    animationEndCallback();
+                };
 
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
                     Animations.FindNext(from, to));
-                myTravel[_pos].Update();
+                myTravel[pos].Update();
 
-                _pos++;
                 truck.Travel = new Travel();
             }
-            else if(_pos == 0)
+            else if(pos == 0)
             {
                 //c : current, , n : next
-                int cx = myTravel[_pos].ModelTile.Position.X,
-                    cy = myTravel[_pos].ModelTile.Position.Y,
-                    nx = myTravel[_pos + 1].ModelTile.Position.X,
-                    ny = myTravel[_pos + 1].ModelTile.Position.Y;
+                int cx = myTravel[pos].ModelTile.Position.X,
+                    cy = myTravel[pos].ModelTile.Position.Y,
+                    nx = myTravel[pos + 1].ModelTile.Position.X,
+                    ny = myTravel[pos + 1].ModelTile.Position.Y;
 
                 var from =
                     cx == 0 ? Travel.Extremity.Left :
@@ -126,7 +127,8 @@ namespace Trash2012.Visual
                 //Slightly before animation's end start the next one
                 animationLayer.BeforeEndCallback =
                     () => Dispatcher.BeginInvoke(DispatcherPriority.Send,
-                                                new AnimationEventHandler(NextAnimation));
+                                                new AnimationEventHandler(NextAnimation), 
+                                                new object[]{truck, pos + 1, to, animationEndCallback});
                 //Stop animation at end
                 animationLayer.EndCallback =
                     animationLayer.StopAnimation;
@@ -134,20 +136,15 @@ namespace Trash2012.Visual
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
                     Animations.FindNext(from, to));
-                myTravel[_pos].Update();
-
-                //remember direction
-                _formerFrom = to;
-                //increment travel idx
-                _pos++;
+                myTravel[pos].Update();
             }
-            else if(_pos < _posmax)
+            else if(pos < posmax)
             {
                 //c : current, , n : next
-                int cx = myTravel[_pos].ModelTile.Position.X,
-                    cy = myTravel[_pos].ModelTile.Position.Y,
-                    nx = myTravel[_pos + 1].ModelTile.Position.X,
-                    ny = myTravel[_pos + 1].ModelTile.Position.Y;
+                int cx = myTravel[pos].ModelTile.Position.X,
+                    cy = myTravel[pos].ModelTile.Position.Y,
+                    nx = myTravel[pos + 1].ModelTile.Position.X,
+                    ny = myTravel[pos + 1].ModelTile.Position.Y;
 
                 var from = 
                     _formerFrom == Travel.Extremity.Right ? Travel.Extremity.Left :
@@ -165,7 +162,8 @@ namespace Trash2012.Visual
                 //Slightly before animation's end start the next one
                 animationLayer.BeforeEndCallback = 
                     () => Dispatcher.BeginInvoke(DispatcherPriority.Send,
-                                                new AnimationEventHandler(NextAnimation));
+                                                new AnimationEventHandler(NextAnimation),
+                                                new object[] { truck, pos + 1, to, animationEndCallback });
                 //Stop animation at end
                 animationLayer.EndCallback =
                     animationLayer.StopAnimation;
@@ -173,12 +171,7 @@ namespace Trash2012.Visual
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
                     Animations.FindNext(from, to));
-                myTravel[_pos].Update();
-
-                //remember direction
-                _formerFrom = to;
-                //increment travel idx
-                _pos++;
+                myTravel[pos].Update();
             }
         }
 

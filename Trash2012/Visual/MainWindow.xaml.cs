@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using Trash2012.Engine;
 using Trash2012.Model;
@@ -13,7 +14,7 @@ namespace Trash2012.Visual
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         #region Game Configuration
         
@@ -72,8 +73,8 @@ namespace Trash2012.Visual
             MyMap.MyCity = game.City;
             game.DateChangeEvents.Add(PaydayEvent);
 
-            UpdateGameDashboard(game);
-            UpdateBuyableItem(game);
+            UpdateGameDashboard(game, delegate {});
+            UpdateBuyableItem(game, delegate { });
             MyAssets.UpdateAssests(game);
         }
 
@@ -288,109 +289,153 @@ namespace Trash2012.Visual
             }
         }
 
-        private void bNextDay_Click(object sender, RoutedEventArgs e)
+        private void NextDayHandler(object sender, RoutedEventArgs e)
+        {
+            GameUpdate();
+            UIUpdate();
+        }
+
+        #region Game Update
+
+        private void GameUpdate()
         {
             //1. Shop interactions
+            ShopUpdate();
+
+            //2. Truck Travel
+            TravelUpdate();
+
+            //3. City garbage update
+            CityUpdate();
+
+            //4. Go to the next day
+            DateUpdate();
+        }
+
+        private void ShopUpdate()
+        {
             foreach (var buyableItem in BuyableItems.Where(buyableItem => buyableItem.IsBuyed))
             {
                 var buyedTruck = buyableItem.GetArticle();
                 _game.Company.Gold -= buyableItem.Price;
                 _game.Company.Trucks.Add(buyedTruck);
             }
+        }
 
-            //2. Truck Travel
-            foreach (var truckButton in MyAssets.buttons)
+        private void TravelUpdate()
+        {
+            //LINQ FTW
+            foreach (var collectedGarbage in 
+                from truckButton in MyAssets.buttons 
+                select truckButton.MyTruck.Travel into dailyTravel 
+                let companyTruck = _game.Company.Trucks[0] 
+                select _game.ApplyTravel(dailyTravel, companyTruck))
             {
-                var dailyTravel = truckButton.MyTruck.Travel;
-                var companyTruck = _game.Company.Trucks[0];
-                var collectedGarbage = _game.ApplyTravel(dailyTravel, companyTruck);
                 Console.WriteLine(string.Format("{0} garbage collected.", collectedGarbage));
             }
-
-            //3. City garbage update
-            _game.ApplyDailyGarbage();
-
-            //4. Go to the next day
-            _game.CurrentDate = _game.CurrentDate.AddDays(1);
-
-            //5. Update UI Components
-            MyMap.Animate();
-            UpdateMap(_game);
-            UpdateGameDashboard(_game, animate: true);
-            UpdateBuyableItem(_game);
-            UpdateTimeline(_game);
-            _currentlyPushed.Clear();
         }
+
+        private void CityUpdate()
+        {
+            _game.ApplyDailyGarbage();
+            _recentEvent = _game.ApplyRandomEvent();
+        }
+
+        private void DateUpdate()
+        {
+            _game.CurrentDate = _game.CurrentDate.AddDays(1);
+        }
+
+        #endregion
 
         #region UI Update
 
-        private void UpdateMap(Game game)
+        private Game.GameEvent? _recentEvent;
+
+        private void UIUpdate()
         {
-            for (var i = game.City.Height; i-- > 0; )
-                for (var j = game.City.Width; j-- > 0; )
-                    MyMap.TilesVisual[i][j].Update();
+            UpdateMap(_game, () => 
+            UpdateGameDashboard(_game, () => 
+            UpdateBuyableItem(_game, () => 
+            UpdateTimeline(_game, delegate {
+                //reset temporary values
+                _currentlyPushed.Clear();
+                _recentEvent = null;
+            }))));
         }
 
-        private void UpdateTimeline(Game game)
+        private void UpdateMap(Game game, Action doneCallback)
+        {
+            AnimateTruck(game, 0, doneCallback);
+        }
+
+        private void AnimateTruck(Game game, int truckPosition, Action doneCallback)
+        {
+            if(truckPosition < game.Company.Trucks.Count)
+            {
+                MyMap.Animate(
+                    game.Company.Trucks[truckPosition],
+                    () => AnimateTruck(game, truckPosition + 1, doneCallback));   
+            }
+            else
+            {
+                doneCallback();
+            }
+        }
+
+        private void UpdateTimeline(Game game, Action doneCallback)
         {
             GameTimeline.CurrentDate = game.CurrentDate;
+            doneCallback();
         }
 
         #region Dashboard
 
-        private void UpdateGameDashboard(Game game, bool animate = false)
+        private void UpdateGameDashboard(Game game, Action doneCallback)
         {
-            if (animate)
-            {
-                int
-                    deltat = _game.Company.Trucks.Count - GameDashboard.TruckQuantity,
-                    deltam = _game.Company.Gold.Current - GameDashboard.MoneyQuantity,
-                    deltap = _game.City.PeopleNumber - GameDashboard.PeopleQuantity,
-                    deltag = _game.City.GarbageQuantity - GameDashboard.GarbageQuantity;
+            int
+                deltat = _game.Company.Trucks.Count - GameDashboard.TruckQuantity,
+                deltam = _game.Company.Gold.Current - GameDashboard.MoneyQuantity,
+                deltap = _game.City.PeopleNumber - GameDashboard.PeopleQuantity,
+                deltag = _game.City.GarbageQuantity - GameDashboard.GarbageQuantity;
                 
-                //trucks
-                if (deltat != 0)
-                {
-                    _dashboardTimer[0] = new DispatcherTimer();
-                    _dashboardTimer[0].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltat));
-                    _dashboardTimer[0].Tick += DashboardTruckAnimate;
-                    _dashboardTimer[0].Start();
-                }
-
-                //money
-                if (deltam != 0)
-                {
-                    _dashboardTimer[1] = new DispatcherTimer();
-                    _dashboardTimer[1].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltam));
-                    _dashboardTimer[1].Tick += DashboardMoneyAnimate;
-                    _dashboardTimer[1].Start();
-                }
-
-                //people
-                if (deltap != 0)
-                {
-                    _dashboardTimer[2] = new DispatcherTimer();
-                    _dashboardTimer[2].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltap));
-                    _dashboardTimer[2].Tick += DashboardPeopleAnimate;
-                    _dashboardTimer[2].Start();
-                }
-
-                //garbage
-                if (deltag != 0)
-                {
-                    _dashboardTimer[3] = new DispatcherTimer();
-                    _dashboardTimer[3].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltag));
-                    _dashboardTimer[3].Tick += DashboardGarbageAnimate;
-                    _dashboardTimer[3].Start();
-                }
-            }
-            else
+            //trucks
+            if (deltat != 0)
             {
-                GameDashboard.TruckQuantity = game.Company.Trucks.Count;
-                GameDashboard.MoneyQuantity = game.Company.Gold.Current;
-                GameDashboard.PeopleQuantity = game.City.PeopleNumber;
-                GameDashboard.GarbageQuantity = game.City.GarbageQuantity;
+                _dashboardTimer[0] = new DispatcherTimer();
+                _dashboardTimer[0].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltat));
+                _dashboardTimer[0].Tick += DashboardTruckAnimate;
+                _dashboardTimer[0].Start();
             }
+
+            //money
+            if (deltam != 0)
+            {
+                _dashboardTimer[1] = new DispatcherTimer();
+                _dashboardTimer[1].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltam));
+                _dashboardTimer[1].Tick += DashboardMoneyAnimate;
+                _dashboardTimer[1].Start();
+            }
+
+            //people
+            if (deltap != 0)
+            {
+                _dashboardTimer[2] = new DispatcherTimer();
+                _dashboardTimer[2].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltap));
+                _dashboardTimer[2].Tick += DashboardPeopleAnimate;
+                _dashboardTimer[2].Start();
+            }
+
+            //garbage
+            if (deltag != 0)
+            {
+                _dashboardTimer[3] = new DispatcherTimer();
+                _dashboardTimer[3].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltag));
+                _dashboardTimer[3].Tick += DashboardGarbageAnimate;
+                _dashboardTimer[3].Start();
+            }
+
+            doneCallback();
         }
         private void DashboardTruckAnimate(object sender, EventArgs e)
         {
@@ -435,7 +480,7 @@ namespace Trash2012.Visual
 
         #endregion
 
-        private void UpdateBuyableItem(Game game)
+        private void UpdateBuyableItem(Game game, Action doneCallback)
         {
             foreach (var buyableItem in BuyableItems)
             {
@@ -443,6 +488,7 @@ namespace Trash2012.Visual
                 buyableItem.IsBuyed = false;
                 buyableItem.IsEnabled = buyableItem.Price <= game.Company.Gold.Current;
             }
+            doneCallback();
         }
 
         #endregion

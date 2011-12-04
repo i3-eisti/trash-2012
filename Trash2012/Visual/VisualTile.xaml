@@ -9,5 +9,21 @@
         x:Name="TileCanvas" Panel.ZIndex="4"
         Height="{Binding MyTile, Path=Height}" Width="{Binding MyTile, Path=Height}"
         d:DataContext="{d:DesignInstance}">
+        <Engine:GifImage 
+            x:Name="FirstLayer" 
+            Stretch="UniformToFill"
+            Panel.ZIndex="10" />
+        <Engine:GifImage 
+            x:Name="SecondLayer" 
+            Stretch="UniformToFill"
+            Panel.ZIndex="40" />
+        <Engine:GifImage 
+            x:Name="ThirdLayer" 
+            Stretch="UniformToFill"
+            Panel.ZIndex="70" />
+        <Engine:GifImage 
+            x:Name="FourthLayer" 
+            Stretch="UniformToFill"
+            Panel.ZIndex="55" />
     </Canvas>
 </UserControl>
