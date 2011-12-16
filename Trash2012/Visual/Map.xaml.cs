@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Trash2012.Engine;
 using Trash2012.Model;
 using System.Windows.Threading;
+using System.Collections.Generic;
 
 namespace Trash2012.Visual
 {
@@ -38,19 +39,23 @@ namespace Trash2012.Visual
 
         public MainWindow MyMainWindow;
 
+        public int Position_X = 0;
+        public int Position_Y = 0;
+        public int MaxTiles = 5;
+        public int Tile_Size = 50;
+
         public Map()
         {
             InitializeComponent();
-            UserInitialization();
+            Canvas.SetZIndex(OuterBorder, -5);
+            IsSelectionEnabled = true;
+            this.MouseEnter += new MouseEventHandler(Map_MouseEnter);
+            //this.MouseDown += new MouseEventHandler(Map_MouseEnter);
         }
 
-        private void UserInitialization()
+        void Map_MouseEnter(object sender, MouseEventArgs e)
         {
-            //Selection handler
-            {
-                Canvas.SetZIndex(OuterBorder, -5);
-                IsSelectionEnabled = true;
-            }
+            MyMainWindow.Focus();
         }
 
         private delegate void AnimationEventHandler(object[] args);
@@ -100,7 +105,8 @@ namespace Trash2012.Visual
 
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
-                    Animations.FindNext(from, to));
+                    Animations.FindNextFrom(myTravel[pos].ModelTile, from));
+                
                 myTravel[pos].Update();
 
                 truck.Travel = new Travel();
@@ -138,7 +144,7 @@ namespace Trash2012.Visual
 
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
-                    Animations.FindNext(from, to));
+                    Animations.FindNextTo(myTravel[pos].ModelTile, to));
                 myTravel[pos].Update();
             }
             else if(pos < posmax)
@@ -180,6 +186,8 @@ namespace Trash2012.Visual
 
         public void SetCanvas()
         {
+            Tile_Size = (ActualWidth > 0) ? (int)((ActualWidth - 18) / MaxTiles) : 0;
+
             //compute tile size
             double tileWidth = 
                 (Width - 
@@ -189,6 +197,7 @@ namespace Trash2012.Visual
                 (Height - 
                     OuterBorder.BorderThickness.Top -
                     OuterBorder.BorderThickness.Bottom) / MyCity.Height;
+
 
             //reset graphic tiles's array
             TilesVisual = new VisualTile[MyCity.Height][];
@@ -211,10 +220,66 @@ namespace Trash2012.Visual
                             CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED),
                             Child = tile
                         };
-                        Canvas.SetLeft(border, Math.Ceiling(j * tileWidth) - j);
-                        Canvas.SetTop(border, Math.Ceiling(i * tileHeight) - i);
 
+                        Canvas.SetLeft(border, (Math.Ceiling(j * tileWidth) - j) + Position_X * Tile_Size);
+                        Canvas.SetTop(border, (Math.Ceiling(i * tileHeight) - i) + Position_Y * Tile_Size);
                         MapContainer.Children.Add(border);
+                        
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error when loading City map [converting ressource into image] : " + e.Message);
+            }
+        }
+
+        public void UpdateCanvas()
+        {
+            //MapContainer.Children.Clear();
+
+            Tile_Size = (ActualWidth > 0) ? (int)((ActualWidth - 18) / MaxTiles) : 0;
+
+
+
+            //reset graphic tiles's array
+            //TilesVisual = new VisualTile[MyCity.Height][];
+
+            try
+            {
+                for (var i = MyCity.Height; i-- > 0; )
+                {
+                    //TilesVisual[i] = new VisualTile[MyCity.Width];
+                    for (var j = MyCity.Width; j-- > 0; )
+                    {
+                        var tile = TilesVisual[i][j];
+                        tile.Update(Tile_Size, Tile_Size);
+                        var border = (Border) tile.Parent;
+
+                        
+                        bool add = true;
+                        if ((j * Tile_Size - j) + Position_X * Tile_Size < -j
+                            || (j * Tile_Size - j) + Position_X * Tile_Size > this.ActualWidth - Tile_Size - j
+                            || (i * Tile_Size - i) + Position_Y * Tile_Size < -i
+                            || (i * Tile_Size - i) + Position_Y * Tile_Size > this.ActualHeight - Tile_Size - i)
+                        {
+                            add = false;
+                        }
+                        if (add)
+                        {
+                            Canvas.SetLeft(border, (j * (Tile_Size-1) - j) + Position_X * Tile_Size);
+                            Canvas.SetTop(border, (i * (Tile_Size -1)- i) + Position_Y * Tile_Size);
+                            //MapContainer.Children.Add(border);
+                            border.Visibility = System.Windows.Visibility.Visible;
+                        }
+                        else
+                        {
+                            Canvas.SetLeft(border, (j * Tile_Size - j) + Position_X * Tile_Size);
+                            Canvas.SetTop(border, (i * Tile_Size - i) + Position_Y * Tile_Size);
+                            border.Visibility = System.Windows.Visibility.Collapsed;
+                        }
+
+
                     }
                 }
             }

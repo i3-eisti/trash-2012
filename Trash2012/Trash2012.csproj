@@ -264,12 +264,6 @@
     <Resource Include="Resources\road9.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\road1.1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\road4.1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\calendar_logo_30_30.png" />
   </ItemGroup>
   <ItemGroup>
@@ -278,7 +272,6 @@
   <ItemGroup>
     <Resource Include="Resources\inhabitant.png" />
     <Resource Include="Resources\money.png" />
-    <Resource Include="Resources\mytruck.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\house1-empty.jpg" />
@@ -291,36 +284,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\house2-full.jpg" />
-    <None Include="Resources\LeftRight.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RightLeft.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\LeftBottom.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\LeftRight.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\TopBottom.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\LeftRight%28long%29.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\LeftBottom%28long%29.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\TopBottom%28long%29.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\TopLeft%28long%29.gif" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Animation\Intro\intro.png" />
@@ -339,15 +305,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\bin-bag.png" />
-    <None Include="Resources\Music\music.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\TruckPaper.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Animation\RightBottom.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\house.png" />
@@ -366,6 +326,101 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\troll_face.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckBottomLeft.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckBottomRight.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckBottomTop.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckLeftBottom.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckLeftRight.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckLetfTop.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckRightBottom.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckRightLeft.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckRightTop.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckTopBottom.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckTopLeft.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\TruckAnimation\TruckTopRight.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\House3_top.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\House3_bot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\House2_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_BottomLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_BottomMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_BottomRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_MiddleLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_MiddleRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_TopLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_TopMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_TopRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_MiddleMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_Solo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Forest_Middle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\Dechetterie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\DechetterieBottomLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\DechetterieTopLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Animation\Décors\DechetterieTopRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Music\Music.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

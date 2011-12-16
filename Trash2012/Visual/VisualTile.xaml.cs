@@ -69,6 +69,23 @@ namespace Trash2012.Visual
             Update();
         }
 
+        public void Update(double tileWidth, double tileHeight)
+        {
+            var dimension = new Size(tileWidth, tileHeight);
+            Width = dimension.Width;
+            Height = dimension.Height;
+            FirstLayer.Width = dimension.Width;
+            FirstLayer.Height = dimension.Height;
+            SecondLayer.Width = dimension.Width;
+            SecondLayer.Height = dimension.Height;
+            ThirdLayer.Width = dimension.Width;
+            ThirdLayer.Height = dimension.Height;
+            FourthLayer.Width = dimension.Width;
+            FourthLayer.Height = dimension.Height;
+
+            Update();
+        }
+
         public void Update()
         {
             if (ModelTile is IHouseTile)

@@ -11,7 +11,7 @@ namespace Trash2012.Model
 
         public Company()
         {
-            Gold = new Resource("Or", 0, 10000, 1000);
+            Gold = new Resource("Or", 0, 10000000, 1000000);
             Trucks = new List<Truck>(10);
         }
 

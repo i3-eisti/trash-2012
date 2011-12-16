@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using Trash2012.Model;
+using Trash2012.Visual;
 
 namespace Trash2012.Engine
 {
@@ -30,12 +31,32 @@ namespace Trash2012.Engine
             {
                 case TruckAnimation.Left2Right:
                     return Properties.Resources.TruckLeftRight;
+                case TruckAnimation.Left2Top:
+                    return Properties.Resources.TruckLetfTop;
                 case TruckAnimation.Left2Bottom:
                     return Properties.Resources.TruckLeftBottom;
+                
+                case TruckAnimation.Right2Left:
+                    return Properties.Resources.TruckRightLeft;
+                case TruckAnimation.Right2Top:
+                    return Properties.Resources.TruckRightTop;
+                case TruckAnimation.Right2Bottom:
+                    return Properties.Resources.TruckRightBottom;
+
+                case TruckAnimation.Top2Left:
+                    return Properties.Resources.TruckTopLeft;
                 case TruckAnimation.Top2Bottom:
                     return Properties.Resources.TruckTopBottom;
                 case TruckAnimation.Top2Right:
                     return Properties.Resources.TruckTopRight;
+
+                case TruckAnimation.Bottom2Left:
+                    return Properties.Resources.TruckBottomLeft;
+                case TruckAnimation.Bottom2Top:
+                    return Properties.Resources.TruckBottomTop;
+                case TruckAnimation.Bottom2Right:
+                    return Properties.Resources.TruckBottomRight;
+
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + animation);
                     return Properties.Resources.Missing; //FIXME Not the good one !!!
@@ -50,6 +71,39 @@ namespace Trash2012.Engine
                     return Properties.Resources.TilePlain;
                 case BackgroundTile.BackgroundType.BlueHouse:
                     return Properties.Resources.BlueHouseTop;
+                case BackgroundTile.BackgroundType.RedHouse:
+                    return Properties.Resources.RedHouseTop;
+                case BackgroundTile.BackgroundType.BrownHouse:
+                    return Properties.Resources.BrownHouse;
+
+                case BackgroundTile.BackgroundType.ForestTopLeft:
+                    return Properties.Resources.ForestTopLeft;
+                case BackgroundTile.BackgroundType.ForestTopMiddle:
+                    return Properties.Resources.ForestTopMiddle;
+                case BackgroundTile.BackgroundType.ForestTopRight:
+                    return Properties.Resources.ForestTopRight;
+
+                case BackgroundTile.BackgroundType.ForestMiddleLeft:
+                    return Properties.Resources.ForestMiddleLeft;
+                case BackgroundTile.BackgroundType.ForestMiddle:
+                    return Properties.Resources.ForestMiddle;
+                case BackgroundTile.BackgroundType.ForestMiddleRight:
+                    return Properties.Resources.ForestMiddleRight;
+
+                case BackgroundTile.BackgroundType.ForestBottomLeft:
+                    return Properties.Resources.ForestBottomLeft;
+                case BackgroundTile.BackgroundType.ForestBottomMiddle:
+                    return Properties.Resources.ForestBottomMiddle;
+                case BackgroundTile.BackgroundType.ForestBottomRight:
+                    return Properties.Resources.ForestBottomRight;
+
+                case BackgroundTile.BackgroundType.ForestSolo:
+                    return Properties.Resources.ForestSolo;
+                case BackgroundTile.BackgroundType.DechetterieTopLeft:
+                    return Properties.Resources.DechetterieTopLeft;
+                case BackgroundTile.BackgroundType.DechetterieTopRight:
+                    return Properties.Resources.DechetterieTopRight;
+
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + animation);
                     return Properties.Resources.Missing; //FIXME Not the good one !!!
@@ -93,6 +147,10 @@ namespace Trash2012.Engine
                     return Properties.Resources.NormalHouse;
                 case HouseTile.THouse.Blue:
                     return Properties.Resources.BlueHouseBot;
+                case HouseTile.THouse.Red:
+                    return Properties.Resources.RedHouseBot;
+                case HouseTile.THouse.TrashFirm:
+                    return Properties.Resources.DechetterieBottomLeft;
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + type);
                     return Properties.Resources.Missing; //FIXME Not the good one !!!
@@ -156,6 +214,176 @@ namespace Trash2012.Engine
                 default:
                     throw new ArgumentException("Impossible case: " + from);
             } 
+        }
+
+        public static TruckAnimation FindNextFrom(
+            IMapTile ModelTile,
+            Travel.Extremity from)
+        {
+            if (ModelTile is IRoadTile)
+            {
+                IRoadTile Road = (IRoadTile)ModelTile;
+                switch (Road.Type)
+                {
+                    case RoadTile.RoadType.BottomLeft:
+                        if (from == Travel.Extremity.Left)
+                        {
+                            return TruckAnimation.Left2Bottom;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Bottom2Left;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.BottomRight:
+                        if (from == Travel.Extremity.Right)
+                        {
+                            return TruckAnimation.Right2Bottom;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Bottom2Right;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.Horizontal:
+                        if (from == Travel.Extremity.Right)
+                        {
+                            return TruckAnimation.Right2Left;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Left2Right;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.TopLeft:
+                        if (from == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Top2Left;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Left2Top;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.TopRight:
+                        if (from == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Top2Right;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Right2Top;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.Vertical:
+                        if (from == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Top2Bottom;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Bottom2Top;
+                        }
+                        break;
+
+                    default:
+                        throw new ArgumentException("Can't match tile and direction");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Can't animate the truck somewhere else than on a road");
+            }
+        }
+
+        public static TruckAnimation FindNextTo(
+            IMapTile ModelTile,
+            Travel.Extremity to)
+        {
+            if (ModelTile is IRoadTile)
+            {
+                IRoadTile Road = (IRoadTile)ModelTile;
+                switch (Road.Type)
+                {
+                    case RoadTile.RoadType.BottomLeft:
+                        if (to == Travel.Extremity.Left)
+                        {
+                            return TruckAnimation.Bottom2Left;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Left2Bottom;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.BottomRight:
+                        if (to == Travel.Extremity.Right)
+                        {
+                            return TruckAnimation.Bottom2Right;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Right2Bottom;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.Horizontal:
+                        if (to == Travel.Extremity.Right)
+                        {
+                            return TruckAnimation.Left2Right;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Right2Left;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.TopLeft:
+                        if (to == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Left2Top;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Top2Left;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.TopRight:
+                        if (to == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Right2Top;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Top2Right;
+                        }
+                        break;
+
+                    case RoadTile.RoadType.Vertical:
+                        if (to == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Bottom2Top;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Top2Bottom;
+                        }
+                        break;
+
+                    default:
+                        throw new ArgumentException("Can't match tile and direction");
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Can't animate the truck somewhere else than on a road");
+            }
         }
     }
 

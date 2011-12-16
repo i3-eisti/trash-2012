@@ -18,6 +18,36 @@ namespace Trash2012.Engine
                     return BackgroundTile.BackgroundType.Plain;
                 case 1:
                     return BackgroundTile.BackgroundType.BlueHouse;
+                case 2:
+                    return BackgroundTile.BackgroundType.RedHouse;
+                case 3:
+                    return BackgroundTile.BackgroundType.BrownHouse;
+                case 4:
+                    return BackgroundTile.BackgroundType.ForestTopLeft;
+                case 5:
+                    return BackgroundTile.BackgroundType.ForestTopMiddle;
+                case 6:
+                    return BackgroundTile.BackgroundType.ForestTopRight;
+                case 7:
+                    return BackgroundTile.BackgroundType.ForestMiddleLeft;
+                case 8:
+                    return BackgroundTile.BackgroundType.ForestMiddle;
+                case 9:
+                    return BackgroundTile.BackgroundType.ForestMiddleRight;
+                case 10:
+                    return BackgroundTile.BackgroundType.ForestBottomLeft;
+                case 11:
+                    return BackgroundTile.BackgroundType.ForestBottomMiddle;
+                case 12:
+                    return BackgroundTile.BackgroundType.ForestBottomRight;
+                case 13:
+                    return BackgroundTile.BackgroundType.ForestSolo;
+                case 14:
+                    return BackgroundTile.BackgroundType.DechetterieTopLeft;
+                case 15:
+                    return BackgroundTile.BackgroundType.DechetterieTopRight;
+
+
                 default:
                     throw new ArgumentException("Unknown tile code : " + tileCode);
             }
@@ -39,6 +69,8 @@ namespace Trash2012.Engine
                     return RoadTile.RoadType.BottomLeft;
                 case 6:
                     return RoadTile.RoadType.BottomRight;
+                case 7:
+                    return RoadTile.RoadType.TopLeftRight;
                 default:
                     throw new ArgumentException("Unknown tile code : " + tileCode);
             }
@@ -52,6 +84,10 @@ namespace Trash2012.Engine
                     return HouseTile.THouse.Normal;
                 case 2:
                     return HouseTile.THouse.Blue;
+                case 3:
+                    return HouseTile.THouse.Red;
+                case 4:
+                    return HouseTile.THouse.TrashFirm;
                 default:
                     throw new ArgumentException("Unknown tile code : " + tileCode);
             }

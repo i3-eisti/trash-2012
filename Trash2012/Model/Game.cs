@@ -8,12 +8,12 @@ namespace Trash2012.Model
     {
         public static readonly DateTime Trash2012Begin = new DateTime(2012, 1, 1);
 
-        public static readonly int PAYDAY = 1000;
+        public static readonly int PAYDAY = 1000000;
 
         private readonly int[] _dailyTrashRange = {0, 5};
         private readonly int[] _technoParadeTrashRange = {10, 50};
 
-        private const double RandomEventProbability = 0.3;
+        private const double RandomEventProbability = 0.1;
 
         public Random GameRandomness { get; private set; }
 
@@ -66,16 +66,24 @@ namespace Trash2012.Model
             {
                 if (assignedTruck.IsFull)
                     break;
-                if (!(tile is IHouseTile)) 
-                    continue;
+//                if (!(tile is IHouseTile)) 
+//                    continue;
 
-                var tilHouse = (IHouseTile) tile;
-                var collectedGarbage = assignedTruck.Swallow(tilHouse.Garbage);
-                garbageAccumulation += collectedGarbage;
-                tilHouse.Garbage = new Trash(
-                    tilHouse.Garbage.Type,
-                    tilHouse.Garbage.Amount - collectedGarbage
-                );
+
+                if (tile.ModelTile is IHouseTile)
+                {
+                    var tilHouse = tile.ModelTile as IHouseTile;
+                    var trashAmount = tilHouse.Garbage.Amount;
+                    if (trashAmount > 0)
+                    {
+                        var collectedGarbage = assignedTruck.Swallow(tilHouse.Garbage);
+                        garbageAccumulation += collectedGarbage;
+                        tilHouse.Garbage = new Trash(
+                            tilHouse.Garbage.Type,
+                            tilHouse.Garbage.Amount - collectedGarbage
+                        );
+                    }
+                }
             }
             return garbageAccumulation;
         }

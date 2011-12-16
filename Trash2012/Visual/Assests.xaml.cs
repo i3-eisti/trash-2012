@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Trash2012.Engine;
 using Trash2012.Model;
+using System;
 
 namespace Trash2012.Visual
 {
@@ -20,6 +21,7 @@ namespace Trash2012.Visual
 
         public void UpdateAssests(Game g)
         {
+            buttons.Clear();
             foreach (Truck t in g.Company.Trucks)
             {   
                 switch(t.HandledResource)
@@ -41,13 +43,23 @@ namespace Trash2012.Visual
                         break;
                 }
             }
+            //MyListView.KeyDown;
+            int selected = MyListView.SelectedIndex;
+            MyListView.UnselectAll();
+            MyListView.ItemsSource = null;
             MyListView.ItemsSource = buttons;
+            foreach ( TruckButton tb in MyListView.ItemsSource)
+                Console.WriteLine(tb.ToString());
+            MyListView.SelectedIndex = selected;
         }
 
         private void MyListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Truck MyTruck = ((TruckButton)MyListView.SelectedItem).MyTruck;
-            MyMainWindow.MyMap.SetTravel(MyTruck.Travel);
+            if (MyListView.SelectedIndex != -1)
+            {
+                Truck MyTruck = ((TruckButton)MyListView.SelectedItem).MyTruck;
+                MyMainWindow.MyMap.SetTravel(MyTruck.Travel);
+            }
         }
     }
 }

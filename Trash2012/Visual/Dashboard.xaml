@@ -13,104 +13,120 @@
     </UserControl.Resources>
     <Border 
             Name="OuterBorder" 
-            BorderThickness="12" CornerRadius="6,0,6,6" 
-            BorderBrush="Gainsboro" Background="Gainsboro">
+            BorderThickness="12" CornerRadius="6,6,0,0" 
+            BorderBrush="#FF96BCF8" Background="#FF96BCF8">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Name="TopMargin" Height="8"/>
-                <RowDefinition Name="company" Height="Auto"/>
-                <RowDefinition Name="truck" Height="Auto"/>
-                <RowDefinition Name="money" Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Name="city" Height="Auto"/>
-                <RowDefinition Name="inhabitant" Height="Auto"/>
-                <RowDefinition Name="garbage" Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="8"/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2"/>
-                <ColumnDefinition Width="2"/>
                 <ColumnDefinition />
-                <ColumnDefinition Width="5"/>
-                <ColumnDefinition Width="85"/>
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            
-            <!-- Company Section -->
-            <Label 
-                Name="infoCompany" 
-                Style="{DynamicResource Section}"
-                Grid.Row="1"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Content="Entreprise"/>
 
-            <!-- Truck -->
-            <Image 
-                    Name="iconTrucks" 
-                    Style="{StaticResource Icon}"
-                    Source="/Trash2012;component/Resources/truck.png"
-                    Grid.Row="2"
-                    Grid.Column="2"/>
-            <Label 
-                    Name="quantityTruck" 
-                    Content="0"
-                    Style="{StaticResource Quantity}"
-                    Grid.Column="4" 
-                    Grid.Row="2" />
+            <Border Grid.Column="0" BorderBrush="#FF909090" BorderThickness="0,0,0.5,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-            <!-- Money -->
-            <Image 
-                    Name="iconMoney" 
-                    Style="{StaticResource Icon}"
-                    Source="/Trash2012;component/Resources/money.png"
-                    Grid.Row="3"
-                    Grid.Column="2"/>
-            <Label 
-                    Name="quantityMoney" 
-                    Content="0"
-                    Style="{StaticResource Quantity}"
-                    Grid.Column="4" 
-                    Grid.Row="3" />
+                    <!-- Company Section -->
 
-            <!-- City Section -->
-            <Label 
+                    <Label 
+                    Name="infoCompany" 
+                    Style="{DynamicResource Section}"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Content="Entreprise"/>
+
+                    <!-- Truck -->
+                    <Image 
+                        Name="iconTrucks" 
+                        Style="{StaticResource Icon}"
+                        Source="/Trash2012;component/Resources/truck.png"
+                        Grid.Row="1"
+                        Grid.Column="0"/>
+                    <Label 
+                        Name="quantityTruck" 
+                        Content="0"
+                        Style="{StaticResource Quantity}"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                         />
+
+                    <!-- Money -->
+                    <Image 
+                        Name="iconMoney" 
+                        Style="{StaticResource Icon}"
+                        Source="/Trash2012;component/Resources/money.png"
+                        Grid.Row="2"
+                        Grid.Column="0"/>
+                    <Label 
+                        Name="quantityMoney" 
+                        Content="0"
+                        Style="{StaticResource Quantity}"
+                        Grid.Column="1" 
+                        Grid.Row="2"
+                        VerticalAlignment="Center" />
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" BorderBrush="#FF909090" BorderThickness="0.5,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- City Section -->
+                    <Label 
                 Name="infoCity" 
                 Style="{StaticResource Section}"
-                Grid.Row="5"
-                Grid.Column="1"
+                Grid.Row="0"
+                Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Content="Ville"/>
-            
-                <!-- Inhabitant -->
-                <Image 
+
+                    <!-- Inhabitant -->
+                    <Image 
                     Name="iconInhabitant" 
                     Style="{StaticResource Icon}"
                     Source="/Trash2012;component/Resources/inhabitant.png"
-                    Grid.Column="2" 
-                    Grid.Row="6"  HorizontalAlignment="Left" />
-                <Label 
+                    Grid.Column="0" 
+                    Grid.Row="1"  HorizontalAlignment="Left" />
+                    <Label 
                     Name="quantityInhabitant"
                     Content="0"
                     Style="{StaticResource Quantity}" 
-                    Grid.Column="4" 
-                    Grid.Row="6" />
-            
-                <!-- Garbage -->
-                <Image 
+                    Grid.Column="1" 
+                    Grid.Row="1" VerticalAlignment="Center" />
+
+                    <!-- Garbage -->
+                    <Image 
                     Name="iconGarbage" 
                     Style="{StaticResource Icon}"
                     Source="/Trash2012;component/Resources/bin-bag.png"
-                    Grid.Column="2" 
+                    Grid.Column="0" 
                     Grid.Row="7"  HorizontalAlignment="Left" />
-                <Label 
+                    <Label 
                     Name="quantityGarbage"
                     Content="0"
                     Style="{StaticResource Quantity}" 
-                    Grid.Column="4" 
-                    Grid.Row="7" />
+                    Grid.Column="1" 
+                    Grid.Row="2" VerticalAlignment="Center" />
 
+                </Grid>
+            </Border>
+            
         </Grid>
     </Border>
 </UserControl>

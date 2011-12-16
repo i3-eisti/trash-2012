@@ -20,16 +20,14 @@
     </Window.Resources>
     <Canvas>
 
-        <Grid 
-			Name="RootGrid" 
+        <Grid Name="RootGrid" 
 			HorizontalAlignment="Center"
 			VerticalAlignment="Center"
 			Canvas.Top="0" Canvas.Left="0">
+            
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-				<RowDefinition />
-				<RowDefinition Height="Auto" />
+                <RowDefinition Height="580" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="895" />
@@ -39,79 +37,86 @@
                 <Button Content="Quitter" />
             </StackPanel-->
 
-            <my:Timeline Grid.Row="1" Grid.Column="0"
+            <my:Timeline Grid.Row="0" Grid.Column="0"
                 x:Name="GameTimeline" HorizontalContentAlignment="Center"
                 Margin="5" />
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-
-                <my:Dashboard 
-					x:Name="GameDashboard"
-					Grid.Column="0"
-					HorizontalAlignment="Left"
-					Margin="5,5,0,5"/>
                 
-                <Grid 
-                    x:Name="AssetsContainer" 
-                    Grid.Column="1">
+                <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <my:Assests x:Name="MyAssets" Grid.Row="0" Margin="0,5,5,5" />    
+                    
+                    <my:Dashboard 
+					    x:Name="GameDashboard"
+					    Grid.Row="0"
+					    HorizontalAlignment="Stretch"
+					    Margin="5,5,5,0"/>
+                    <my:Assests x:Name="MyAssets" Grid.Row="1" Margin="5,0,5,5" />
+
+                    <Label Name="InfoMessage"
+                           Grid.Row="2"
+                           FontSize="16" 
+                           FontFamily="Comic Sans MS"
+                           VerticalAlignment="Bottom">
+                        Bienvenue à Trash City !
+                    </Label>
+
+                    <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Bottom">
+                        <TabControl x:Name="Tabs" Margin="5">
+                            <TabItem Header="Boutique">
+                                <StackPanel 
+							        Margin="8"
+							        Orientation="Horizontal"
+							        HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    
+                                    <my:ShopItem
+								        x:Name="PaperTruckBuyer"
+								        Source="/Trash2012;component/Resources/TruckPaper.png"
+								        Text="Camion recycleur de papier"
+								        Price="250000"
+								        BuyHandler="CheckOtherBuyableItem"
+								        Style="{StaticResource ShopButton}" />
+                                </StackPanel>
+                            </TabItem>
+
+                        </TabControl>
+                    </StackPanel>
                 </Grid>
                 
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <my:Map 
+					    x:Name="MyMap" Margin="0,5,5,0" HorizontalAlignment="Right"
+					    Height="550" Width="550" VerticalAlignment="Top" />
 
-                <my:Map 
-					x:Name="MyMap" 
-					Grid.Column="2"
-					Margin="5"
-					Grid.Row="0"
-					HorizontalAlignment="Right"
-					Height="380" Width="380"/>
-				
-				<Button 
-					Name="bNextDay"
-					Content="Jour Suivant"
-					Grid.Row="1"
-					Grid.Column="2" 
-					HorizontalAlignment="Center" Click="NextDayHandler" />
+                    <Button 
+					    Name="bNextDay"
+					    Content="Jour Suivant"
+					    Grid.Row="1"
+					    Grid.Column="2" 
+					    HorizontalAlignment="Center" Click="NextDayHandler" />
+                </Grid>
+
+                
+                
+
+                
 				
 			</Grid>
 
-			<StackPanel Grid.Row="3" Orientation="Vertical">
-				
-				<TabControl 
-					x:Name="Tabs" Margin="5">
-					
-					<TabItem Header="Boutique">
-						<StackPanel 
-							Margin="8"
-							Orientation="Horizontal"
-							HorizontalAlignment="Center" VerticalAlignment="Center">
-							
-							<my:ShopItem
-								x:Name="PaperTruckBuyer"
-								Source="/Trash2012;component/Resources/TruckPaper.png"
-								Text="Camion recycleur de papier"
-								Price="250"
-								BuyHandler="CheckOtherBuyableItem"
-								Style="{StaticResource ShopButton}" />
-							
-						</StackPanel>
-					</TabItem>
-					
-				</TabControl>
-			</StackPanel>
+			
 
 
 		</Grid>
@@ -130,7 +135,6 @@
                     <ImageBrush
                         ImageSource="/Trash2012;component/Resources/trash_background.png"
                         Stretch="UniformToFill"/>
-                    <!--Image Name="StartImage"  Width="900" Height="633" Stretch="Fill" Source="/Trash2012;component/Resources/trash_background.png" /-->
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="12*"/>

@@ -8,7 +8,6 @@
             Name="OuterBorder" 
             BorderThickness="12" CornerRadius="6" 
             BorderBrush="#6A000000" Background="#6A000000">
-            <Canvas 
-                Name="MapContainer"/>
+            <Canvas  Name="MapContainer"/>
         </Border>
 </UserControl>

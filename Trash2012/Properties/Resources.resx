@@ -142,12 +142,6 @@
   <data name="intro3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Animation\Intro\intro3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TruckLeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\LeftBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TruckLeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\LeftRight(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="NewGameAnnounce" xml:space="preserve">
     <value>Une ville est en proie à la saleté et aux déchets qui s'accumulent !
 Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</value>
@@ -185,15 +179,6 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   <data name="TileRoadVertical" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\road4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="TruckTopBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\TopBottom(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TruckTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Animation\TopLeft(long).gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="music" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Music\music.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="TruckPaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TruckPaper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -214,5 +199,89 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   </data>
   <data name="Missing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\troll_face.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckBottomLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckBottomLeft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckBottomRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckBottomRight.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckBottomTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckBottomTop.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckLeftBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckLeftBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckLeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckLeftRight.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckLetfTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckLetfTop.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckRightBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckRightBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckRightLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckRightLeft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckRightTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckRightTop.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckTopBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckTopBottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckTopLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckTopLeft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TruckTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\TruckAnimation\TruckTopRight.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BrownHouse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House2_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestBottomLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_BottomLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestBottomMiddle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_BottomMiddle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestBottomRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_BottomRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestMiddle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_Middle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestMiddleLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_MiddleLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestMiddleRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_MiddleRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestSolo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_Solo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestTopLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_TopLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestTopMiddle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_TopMiddle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ForestTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Forest_TopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedHouseBot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House3_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedHouseTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House3_top.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DechetterieBottomLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\DechetterieBottomLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DechetterieTopLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\DechetterieTopLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DechetterieTopRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\DechetterieTopRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

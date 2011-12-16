@@ -68,7 +68,22 @@ namespace Trash2012.Model
         public enum BackgroundType
         {
             Plain,
-            BlueHouse
+            BlueHouse,
+            RedHouse,
+            BrownHouse,
+            ForestTopLeft,
+            ForestTopMiddle,
+            ForestTopRight,
+            ForestMiddleLeft,
+            ForestMiddle,
+            ForestMiddleRight,
+            ForestBottomLeft,
+            ForestBottomMiddle,
+            ForestBottomRight,
+            ForestSolo,
+            DechetterieTopLeft,
+            DechetterieTopRight,
+            DechetterieBottomLeft,
         }
 
         public override int GetHashCode()
@@ -117,7 +132,9 @@ namespace Trash2012.Model
         public enum THouse
         {
             Normal,
-            Blue
+            Blue,
+            Red,
+            TrashFirm
         }
 
         public override int GetHashCode()

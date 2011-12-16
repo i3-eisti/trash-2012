@@ -8,8 +8,8 @@
     <Grid>
         <Border 
             Name="OuterBorder" 
-            BorderThickness="12" CornerRadius="0,6,6,0" 
-            BorderBrush="Gainsboro" Background="Gainsboro">
+            BorderThickness="12" CornerRadius="0,0,6,6" 
+            BorderBrush="#FF96BCF8" Background="#FF96BCF8">
             <GroupBox Header="Vos actifs :" HorizontalAlignment="Stretch" Name="groupBox1" VerticalAlignment="Stretch" >
                 <Grid>
                     <ListView Name="MyListView" 

@@ -8,6 +8,7 @@ using Trash2012.Model;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Windows.Controls;
+using System.Media;
 
 namespace Trash2012.Visual
 {
@@ -21,7 +22,7 @@ namespace Trash2012.Visual
         //Configure the game here for more simplicity 
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
-        private const bool PlayIntroAnimation = false;
+        private const bool PlayIntroAnimation = true;
         /// <summary>
         /// If new game announce should be displayed
         /// </summary>
@@ -29,7 +30,7 @@ namespace Trash2012.Visual
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
         private const long DashboardAnimationTick = 730000;
-        private readonly int[] _monthlyRevenueRange = {900, 1200};
+        private readonly int[] _monthlyRevenueRange = {90000, 120000};
 
         #endregion
 
@@ -46,6 +47,8 @@ namespace Trash2012.Visual
         public MainWindow()
         {
             InitializeComponent();
+
+            this.KeyDown += new System.Windows.Input.KeyEventHandler(MainWindow_KeyDown);
 
             BuyableItems = new List<ShopItem>(1) { PaperTruckBuyer };
 			
@@ -64,6 +67,40 @@ namespace Trash2012.Visual
             {
                 bStart.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
+            //MyMap.SetCanvas();
+        }
+
+        void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                if (MyMap.Position_Y < 0)
+                {
+                    this.MyMap.Position_Y += 1;
+                }
+            }
+            if (e.Key == System.Windows.Input.Key.Down)
+            {
+                if (MyMap.Position_Y > MyMap.MaxTiles - MyMap.MyCity.Height)
+                {
+                    this.MyMap.Position_Y -= 1;
+                }
+            }
+            if (e.Key == System.Windows.Input.Key.Left)
+            {
+                if(MyMap.Position_X < 0)
+                {
+                    this.MyMap.Position_X += 1;
+                }
+            }
+            if (e.Key == System.Windows.Input.Key.Right)
+            {
+                if (MyMap.Position_X > MyMap.MaxTiles - MyMap.MyCity.Width)
+                {
+                    this.MyMap.Position_X -= 1;
+                }
+            }
+            this.MyMap.UpdateCanvas();
         }       
 
         #region Game Events
@@ -85,7 +122,8 @@ namespace Trash2012.Visual
             {
                 var r = new Random();
                 var revenue = r.Next(_monthlyRevenueRange[0], _monthlyRevenueRange[1]);
-                _game.Company.Gold += revenue; 
+                _game.Company.Gold += revenue;
+                this.InfoMessage.Content = "It's payday !\nYou have earn " + revenue + " this month !";
                 MessageBox.Show(
                     this,
                     string.Format("It's payday ! You have earn {0:C} this month !", revenue),
@@ -128,13 +166,16 @@ namespace Trash2012.Visual
 									BitmapSizeOptions.FromEmptyOptions());
 				try
 				{
-				    music = new MediaElement
-				    {
-				        LoadedBehavior = MediaState.Manual,
-				        UnloadedBehavior = MediaState.Manual,
-				        Source = new Uri(@"D:\devel\Trash2012\Trash2012\Resources\Music\music.mp3")
-				    };
-				    music.Play();
+                    SoundPlayer sp = new SoundPlayer();
+                    sp.SoundLocation = "Resources/Music/Music.wav";
+                    //music = new MediaElement
+                    //{
+                    //    LoadedBehavior = MediaState.Manual,
+                    //    UnloadedBehavior = MediaState.Manual,
+                    //    Source = 
+                    //};
+                    //music.Play();
+                    sp.PlayLooping();
 				}
 				catch (Exception ex)
 				{
@@ -276,7 +317,7 @@ namespace Trash2012.Visual
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
                 );
-            _displayAnnounce = false;
+            _displayAnnounce = false;            
         }
 
         private void CheckOtherBuyableItem(ShopItem item)
@@ -308,6 +349,9 @@ namespace Trash2012.Visual
             //3. City garbage update
             CityUpdate();
 
+            //3.bis CompanyUpdate
+            CompanyUpdate();
+
             //4. Go to the next day
             DateUpdate();
         }
@@ -319,12 +363,14 @@ namespace Trash2012.Visual
                 var buyedTruck = buyableItem.GetArticle();
                 _game.Company.Gold -= buyableItem.Price;
                 _game.Company.Trucks.Add(buyedTruck);
+                MyAssets.UpdateAssests(_game);
             }
         }
 
         private void TravelUpdate()
         {
             //LINQ FTW
+            /*
             foreach (var collectedGarbage in 
                 from truckButton in MyAssets.buttons 
                 select truckButton.MyTruck.Travel into dailyTravel 
@@ -333,6 +379,23 @@ namespace Trash2012.Visual
             {
                 Console.WriteLine(string.Format("{0} garbage collected.", collectedGarbage));
             }
+             */
+            int totalCollectedGarbage = 0;
+            int totalTravelledDistance = 0;
+            int collectedGarbage = 0;
+            int currentIndex = 0;
+            Travel dailyTravel;
+            foreach (TruckButton tb in MyAssets.buttons)
+            {
+                currentIndex = ((List<TruckButton>)(MyAssets.MyListView.ItemsSource)).IndexOf(tb);
+                dailyTravel = tb.MyTruck.Travel;
+                collectedGarbage = _game.ApplyTravel(dailyTravel, _game.Company.Trucks[currentIndex]);
+
+                totalCollectedGarbage += collectedGarbage;
+                totalTravelledDistance += dailyTravel.Count;
+            }
+
+            _game.Company.Gold += totalCollectedGarbage * 1000 - totalTravelledDistance * 400;
         }
 
         private void CityUpdate()
@@ -344,6 +407,12 @@ namespace Trash2012.Visual
                 Console.WriteLine("Recent event occured : " + _recentEvent.Value.Message);
                 _recentEvent.Value.Effect();
             }
+        }
+
+        private void CompanyUpdate()
+        {
+            foreach (var companyTruck in _game.Company.Trucks)
+                companyTruck.Reset();
         }
 
         private void DateUpdate()
@@ -504,7 +573,7 @@ namespace Trash2012.Visual
             var adjusted = GameDashboard.MoneyQuantity == _game.Company.Gold.Current;
             var delta = _game.Company.Gold.Current - GameDashboard.MoneyQuantity;
             if (!adjusted)
-                GameDashboard.MoneyQuantity += Math.Sign(delta) * 1;
+                GameDashboard.MoneyQuantity += Math.Sign(delta) * 100;
             else
                 timer.Stop();
         }
@@ -543,6 +612,8 @@ namespace Trash2012.Visual
         }
 
         #endregion
+
+        
 
     }
 }
