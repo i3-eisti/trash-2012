@@ -186,8 +186,6 @@ namespace Trash2012.Visual
 
         public void SetCanvas()
         {
-            Tile_Size = (ActualWidth > 0) ? (int)((ActualWidth - 18) / MaxTiles) : 0;
-
             //compute tile size
             double tileWidth = 
                 (Width - 
@@ -221,8 +219,8 @@ namespace Trash2012.Visual
                             Child = tile
                         };
 
-                        Canvas.SetLeft(border, (Math.Ceiling(j * tileWidth) - j) + Position_X * Tile_Size);
-                        Canvas.SetTop(border, (Math.Ceiling(i * tileHeight) - i) + Position_Y * Tile_Size);
+                        Canvas.SetLeft(border, (Math.Ceiling(j * tileWidth) - j));
+                        Canvas.SetTop(border, (Math.Ceiling(i * tileHeight) - i));
                         MapContainer.Children.Add(border);
                         
                     }
@@ -278,6 +276,59 @@ namespace Trash2012.Visual
                             Canvas.SetTop(border, (i * Tile_Size - i) + Position_Y * Tile_Size);
                             border.Visibility = System.Windows.Visibility.Collapsed;
                         }
+
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error when loading City map [converting ressource into image] : " + e.Message);
+            }
+        }
+
+        public void UnUpdateCanvas()
+        {
+            double tileWidth =
+                (Width -
+                    OuterBorder.BorderThickness.Left -
+                    OuterBorder.BorderThickness.Right) / MyCity.Width;
+            double tileHeight =
+                (Height -
+                    OuterBorder.BorderThickness.Top -
+                    OuterBorder.BorderThickness.Bottom) / MyCity.Height;
+
+            try
+            {
+                for (var i = MyCity.Height; i-- > 0; )
+                {
+                    for (var j = MyCity.Width; j-- > 0; )
+                    {
+                        var tile = TilesVisual[i][j];
+                        tile.Update(tileWidth, tileHeight);
+                        var border = (Border)tile.Parent;
+
+
+                        //bool add = true;
+                        //if ((j * Tile_Size - j) + Position_X * Tile_Size < -j
+                        //    || (j * Tile_Size - j) + Position_X * Tile_Size > this.ActualWidth - Tile_Size - j
+                        //    || (i * Tile_Size - i) + Position_Y * Tile_Size < -i
+                        //    || (i * Tile_Size - i) + Position_Y * Tile_Size > this.ActualHeight - Tile_Size - i)
+                        //{
+                        //    add = false;
+                        //}
+                        //if (add)
+                        //{
+                        Canvas.SetLeft(border, (Math.Ceiling(j * tileWidth) - j));
+                        Canvas.SetTop(border, (Math.Ceiling(i * tileHeight) - i));
+                        border.Visibility = System.Windows.Visibility.Visible;
+                        //}
+                        //else
+                        //{
+                        //    Canvas.SetLeft(border, (j * Tile_Size - j) + Position_X * Tile_Size);
+                        //    Canvas.SetTop(border, (i * Tile_Size - i) + Position_Y * Tile_Size);
+                        //    border.Visibility = System.Windows.Visibility.Collapsed;
+                        //}
 
 
                     }

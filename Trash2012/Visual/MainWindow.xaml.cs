@@ -22,7 +22,7 @@ namespace Trash2012.Visual
         //Configure the game here for more simplicity 
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
-        private const bool PlayIntroAnimation = true;
+        private const bool PlayIntroAnimation = false;
         /// <summary>
         /// If new game announce should be displayed
         /// </summary>
@@ -67,41 +67,12 @@ namespace Trash2012.Visual
             {
                 bStart.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
-            //MyMap.SetCanvas();
+            
         }
 
-        void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                if (MyMap.Position_Y < 0)
-                {
-                    this.MyMap.Position_Y += 1;
-                }
-            }
-            if (e.Key == System.Windows.Input.Key.Down)
-            {
-                if (MyMap.Position_Y > MyMap.MaxTiles - MyMap.MyCity.Height)
-                {
-                    this.MyMap.Position_Y -= 1;
-                }
-            }
-            if (e.Key == System.Windows.Input.Key.Left)
-            {
-                if(MyMap.Position_X < 0)
-                {
-                    this.MyMap.Position_X += 1;
-                }
-            }
-            if (e.Key == System.Windows.Input.Key.Right)
-            {
-                if (MyMap.Position_X > MyMap.MaxTiles - MyMap.MyCity.Width)
-                {
-                    this.MyMap.Position_X -= 1;
-                }
-            }
-            this.MyMap.UpdateCanvas();
-        }       
+
+
+
 
         #region Game Events
 
@@ -154,27 +125,22 @@ namespace Trash2012.Visual
         {
             if (PlayIntroAnimation)
             {
-				Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-									Properties.Resources.intro.GetHbitmap(),
-									IntPtr.Zero,
-									Int32Rect.Empty,
-									BitmapSizeOptions.FromEmptyOptions());
-				CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-									Properties.Resources.CamionIntro.GetHbitmap(),
-									IntPtr.Zero,
-									Int32Rect.Empty,
-									BitmapSizeOptions.FromEmptyOptions());
+                //Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                //                    Properties.Resources.intro.GetHbitmap(),
+                //                    IntPtr.Zero,
+                //                    Int32Rect.Empty,
+                //                    BitmapSizeOptions.FromEmptyOptions());
+                //CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                //                    Properties.Resources.CamionIntro.GetHbitmap(),
+                //                    IntPtr.Zero,
+                //                    Int32Rect.Empty,
+                //                    BitmapSizeOptions.FromEmptyOptions());
+
+                Canvas.SetZIndex(CamionIntro, 10);
 				try
 				{
                     SoundPlayer sp = new SoundPlayer();
                     sp.SoundLocation = "Resources/Music/Music.wav";
-                    //music = new MediaElement
-                    //{
-                    //    LoadedBehavior = MediaState.Manual,
-                    //    UnloadedBehavior = MediaState.Manual,
-                    //    Source = 
-                    //};
-                    //music.Play();
                     sp.PlayLooping();
 				}
 				catch (Exception ex)
@@ -192,7 +158,6 @@ namespace Trash2012.Visual
         bool step3 = false;
         bool step4 = false;
         bool step5 = false;
-        MediaElement music;
 
         void intro_timer_Tick(object sender, EventArgs e)
         {
@@ -613,6 +578,90 @@ namespace Trash2012.Visual
 
         #endregion
 
+
+        void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                if (MyMap.Position_Y < 0)
+                {
+                    this.MyMap.Position_Y += 1;
+                }
+            }
+            if (e.Key == System.Windows.Input.Key.Down)
+            {
+                if (MyMap.Position_Y > MyMap.MaxTiles - MyMap.MyCity.Height)
+                {
+                    this.MyMap.Position_Y -= 1;
+                }
+            }
+            if (e.Key == System.Windows.Input.Key.Left)
+            {
+                if (MyMap.Position_X < 0)
+                {
+                    this.MyMap.Position_X += 1;
+                }
+            }
+            if (e.Key == System.Windows.Input.Key.Right)
+            {
+                if (MyMap.Position_X > MyMap.MaxTiles - MyMap.MyCity.Width)
+                {
+                    this.MyMap.Position_X -= 1;
+                }
+            }
+            this.MyMap.UpdateCanvas();
+        }
+
+        void MainWindow_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if(isZoom)
+            {
+                if (e.GetPosition(this.MyMap).Y < 10)
+                {
+                    if (MyMap.Position_Y < 0)
+                    {
+                        this.MyMap.Position_Y += 1;
+                    }
+                }
+                if (e.GetPosition(this.MyMap).Y > this.MyMap.ActualHeight -10)
+                {
+                    if (MyMap.Position_Y > MyMap.MaxTiles - MyMap.MyCity.Height)
+                    {
+                        this.MyMap.Position_Y -= 1;
+                    }
+                }
+                if (e.GetPosition(this.MyMap).X < 10)
+                {
+                    if (MyMap.Position_X < 0)
+                    {
+                        this.MyMap.Position_X += 1;
+                    }
+                }
+                if (e.GetPosition(this.MyMap).X > this.MyMap.ActualWidth -10)
+                {
+                    if (MyMap.Position_X > MyMap.MaxTiles - MyMap.MyCity.Width)
+                    {
+                        this.MyMap.Position_X -= 1;
+                    }
+                }
+                this.MyMap.UpdateCanvas();
+            }
+        } //FAIL
+
+        bool isZoom = false;
+        private void Zoom_Click(object sender, RoutedEventArgs e)
+        {
+            if (isZoom == false)
+            {
+                this.MyMap.UpdateCanvas();
+                isZoom = true;
+            }
+            else
+            {
+                this.MyMap.UnUpdateCanvas();
+                isZoom = false;
+            }
+        }
         
 
     }

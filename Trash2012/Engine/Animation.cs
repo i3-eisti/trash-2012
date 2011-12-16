@@ -234,7 +234,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Bottom2Left;
                         }
-                        break;
 
                     case RoadTile.RoadType.BottomRight:
                         if (from == Travel.Extremity.Right)
@@ -245,7 +244,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Bottom2Right;
                         }
-                        break;
 
                     case RoadTile.RoadType.Horizontal:
                         if (from == Travel.Extremity.Right)
@@ -256,7 +254,7 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Left2Right;
                         }
-                        break;
+
 
                     case RoadTile.RoadType.TopLeft:
                         if (from == Travel.Extremity.Top)
@@ -267,7 +265,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Left2Top;
                         }
-                        break;
 
                     case RoadTile.RoadType.TopRight:
                         if (from == Travel.Extremity.Top)
@@ -278,7 +275,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Right2Top;
                         }
-                        break;
 
                     case RoadTile.RoadType.Vertical:
                         if (from == Travel.Extremity.Top)
@@ -289,7 +285,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Bottom2Top;
                         }
-                        break;
 
                     default:
                         throw new ArgumentException("Can't match tile and direction");
@@ -319,7 +314,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Left2Bottom;
                         }
-                        break;
 
                     case RoadTile.RoadType.BottomRight:
                         if (to == Travel.Extremity.Right)
@@ -330,7 +324,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Right2Bottom;
                         }
-                        break;
 
                     case RoadTile.RoadType.Horizontal:
                         if (to == Travel.Extremity.Right)
@@ -341,7 +334,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Right2Left;
                         }
-                        break;
 
                     case RoadTile.RoadType.TopLeft:
                         if (to == Travel.Extremity.Top)
@@ -352,7 +344,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Top2Left;
                         }
-                        break;
 
                     case RoadTile.RoadType.TopRight:
                         if (to == Travel.Extremity.Top)
@@ -363,7 +354,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Top2Right;
                         }
-                        break;
 
                     case RoadTile.RoadType.Vertical:
                         if (to == Travel.Extremity.Top)
@@ -374,7 +364,6 @@ namespace Trash2012.Engine
                         {
                             return TruckAnimation.Top2Bottom;
                         }
-                        break;
 
                     default:
                         throw new ArgumentException("Can't match tile and direction");

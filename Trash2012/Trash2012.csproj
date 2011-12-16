@@ -301,7 +301,7 @@
     <None Include="Resources\Animation\Intro\intro3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Animation\Intro\CamionIntro.png" />
+    <Resource Include="Resources\Animation\Intro\CamionIntro.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\bin-bag.png" />
@@ -421,6 +421,7 @@
     <Content Include="Resources\Music\Music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\zoom.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

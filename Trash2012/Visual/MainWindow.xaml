@@ -95,18 +95,32 @@
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition />
+                        <RowDefinition Height="2" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <my:Map 
 					    x:Name="MyMap" Margin="0,5,5,0" HorizontalAlignment="Right"
 					    Height="550" Width="550" VerticalAlignment="Top" />
 
-                    <Button 
-					    Name="bNextDay"
-					    Content="Jour Suivant"
-					    Grid.Row="1"
-					    Grid.Column="2" 
-					    HorizontalAlignment="Center" Click="NextDayHandler" />
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                        </Grid.ColumnDefinitions>
+                        <Button 
+					        Name="bNextDay"
+                            Grid.Column="0"
+					        Content="Jour Suivant"
+					        HorizontalAlignment="Center" Click="NextDayHandler" />
+                        <Button
+                            Name="Zoom"
+                            Grid.Column="1"
+                            Click="Zoom_Click">
+                            <Image Source="/Trash2012;component/Resources/zoom.png" Width="22" Height="22"/>
+                        </Button>
+                    </Grid>
+                    
                 </Grid>
 
                 
@@ -122,10 +136,12 @@
 		</Grid>
 
         <Canvas Name="StartCanvas">
+            <Image Name="CamionIntro" Stretch="Fill" Width="150" Height="131" Visibility="Collapsed" Canvas.Top="290" Canvas.Left="900" Source="/Trash2012;component/Resources/Animation/Intro/CamionIntro.png" />
             <Image Name="Intro" Stretch="UniformToFill" 
                 Width="900"
-                Height="660"/>
-            <Image Name="CamionIntro" Stretch="Fill" Width="150" Height="131" Visibility="Collapsed" Canvas.Top="290" Canvas.Left="900" />
+                Height="660"
+                Source="/Trash2012;component/Resources/Animation/Intro/intro.png"/>
+            
             <Grid 
                 Name="StartGrid"
                 Width="900"
