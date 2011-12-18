@@ -64,9 +64,10 @@
 
                     <Label Name="InfoMessage"
                            Grid.Row="2"
-                           FontSize="16" 
+                           FontSize="14"
                            FontFamily="Comic Sans MS"
                            VerticalAlignment="Bottom">
+                        <!-- Y U NO WRAP -->
                         Bienvenue à Trash City !
                     </Label>
 

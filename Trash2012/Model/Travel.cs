@@ -157,7 +157,8 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.TopRight
                         || a.Type == RoadTile.RoadType.TopBottomLeft
                         || a.Type == RoadTile.RoadType.TopBottomRight
-                        || a.Type == RoadTile.RoadType.TopLeftRight);
+                        || a.Type == RoadTile.RoadType.TopLeftRight
+                        || a.Type == RoadTile.RoadType.TopBottomLeftRight);
 
                 case Extremity.Bottom:
                     return
@@ -166,7 +167,8 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.BottomRight
                         || a.Type == RoadTile.RoadType.TopBottomLeft
                         || a.Type == RoadTile.RoadType.TopBottomRight
-                        || a.Type == RoadTile.RoadType.BottomLeftRight);
+                        || a.Type == RoadTile.RoadType.BottomLeftRight
+                        || a.Type == RoadTile.RoadType.TopBottomLeftRight);
 
                 case Extremity.Left:
                     return
@@ -175,7 +177,8 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.BottomLeft
                         || a.Type == RoadTile.RoadType.TopBottomLeft
                         || a.Type == RoadTile.RoadType.TopLeftRight
-                        || a.Type == RoadTile.RoadType.BottomLeftRight);
+                        || a.Type == RoadTile.RoadType.BottomLeftRight
+                        || a.Type == RoadTile.RoadType.TopBottomLeftRight);
 
                 case Extremity.Right:
                     return
@@ -184,7 +187,8 @@ namespace Trash2012.Model
                         || a.Type == RoadTile.RoadType.BottomRight
                         || a.Type == RoadTile.RoadType.TopBottomRight
                         || a.Type == RoadTile.RoadType.TopLeftRight
-                        || a.Type == RoadTile.RoadType.BottomLeftRight);
+                        || a.Type == RoadTile.RoadType.BottomLeftRight
+                        || a.Type == RoadTile.RoadType.TopBottomLeftRight);
             }
             return false;
 

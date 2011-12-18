@@ -287,4 +287,106 @@ Aidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !</va
   <data name="zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\zoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="House4_bot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House4_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House4_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House4_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_bot_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-bot-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_bot_mid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-bot-mid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_bot_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-bot-right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_mid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-mid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_mid_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-mid-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_mid_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-mid-right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_top_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-top-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_top_mid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-top-mid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_top_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-top-right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TileRoadTopBottomLeftRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\road8.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_botleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_botleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_botright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_botright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_mid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_mid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_midleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_midleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_midright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_midright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_topleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_topleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Church_topright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Church_topright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Heolienne" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\Heolienne.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House5_bot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House5_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House5_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House5_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House6_bot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House6_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House6_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House6_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House7_bot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House7_bot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House7_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House7_top.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House8_botleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House8_botleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House8_botright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House8_botright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House8_topleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House8_topleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House8_topright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House8_topright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mairie_bot_left1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\mairie-bot-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House9_botleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House9_botleft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House9_topleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House9_topleft.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="House9_topright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Animation\Décors\House9_topright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

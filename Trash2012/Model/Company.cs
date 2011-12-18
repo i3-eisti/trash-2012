@@ -52,10 +52,15 @@ namespace Trash2012.Model
             return a;
         }
 
-        public static Resource operator-(Resource a, Resource b)
+        public static Resource operator -(Resource a, Resource b)
         {
             a.Add(-b.Current);
             return a;
+        }
+
+        public static Resource operator /(Resource a, Resource b)
+        {
+            return a.Current/b.Current;
         }
 
         #endregion

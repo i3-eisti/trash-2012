@@ -95,6 +95,55 @@ namespace Trash2012.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap Church_botleft {
+            get {
+                object obj = ResourceManager.GetObject("Church_botleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Church_botright {
+            get {
+                object obj = ResourceManager.GetObject("Church_botright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Church_mid {
+            get {
+                object obj = ResourceManager.GetObject("Church_mid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Church_midleft {
+            get {
+                object obj = ResourceManager.GetObject("Church_midleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Church_midright {
+            get {
+                object obj = ResourceManager.GetObject("Church_midright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Church_topleft {
+            get {
+                object obj = ResourceManager.GetObject("Church_topleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap Church_topright {
+            get {
+                object obj = ResourceManager.GetObject("Church_topright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static byte[] CustomMap {
             get {
                 object obj = ResourceManager.GetObject("CustomMap", resourceCulture);
@@ -214,6 +263,118 @@ namespace Trash2012.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap Heolienne {
+            get {
+                object obj = ResourceManager.GetObject("Heolienne", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House4_bot {
+            get {
+                object obj = ResourceManager.GetObject("House4_bot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House4_top {
+            get {
+                object obj = ResourceManager.GetObject("House4_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House5_bot {
+            get {
+                object obj = ResourceManager.GetObject("House5_bot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House5_top {
+            get {
+                object obj = ResourceManager.GetObject("House5_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House6_bot {
+            get {
+                object obj = ResourceManager.GetObject("House6_bot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House6_top {
+            get {
+                object obj = ResourceManager.GetObject("House6_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House7_bot {
+            get {
+                object obj = ResourceManager.GetObject("House7_bot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House7_top {
+            get {
+                object obj = ResourceManager.GetObject("House7_top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House8_botleft {
+            get {
+                object obj = ResourceManager.GetObject("House8_botleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House8_botright {
+            get {
+                object obj = ResourceManager.GetObject("House8_botright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House8_topleft {
+            get {
+                object obj = ResourceManager.GetObject("House8_topleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House8_topright {
+            get {
+                object obj = ResourceManager.GetObject("House8_topright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House9_botleft {
+            get {
+                object obj = ResourceManager.GetObject("House9_botleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House9_topleft {
+            get {
+                object obj = ResourceManager.GetObject("House9_topleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap House9_topright {
+            get {
+                object obj = ResourceManager.GetObject("House9_topright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap intro {
             get {
                 object obj = ResourceManager.GetObject("intro", resourceCulture);
@@ -238,6 +399,76 @@ namespace Trash2012.Properties {
         public static System.Drawing.Bitmap intro3 {
             get {
                 object obj = ResourceManager.GetObject("intro3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_bot_left {
+            get {
+                object obj = ResourceManager.GetObject("mairie_bot_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_bot_left1 {
+            get {
+                object obj = ResourceManager.GetObject("mairie_bot_left1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_bot_mid {
+            get {
+                object obj = ResourceManager.GetObject("mairie_bot_mid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_bot_right {
+            get {
+                object obj = ResourceManager.GetObject("mairie_bot_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_mid {
+            get {
+                object obj = ResourceManager.GetObject("mairie_mid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_mid_left {
+            get {
+                object obj = ResourceManager.GetObject("mairie_mid_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_mid_right {
+            get {
+                object obj = ResourceManager.GetObject("mairie_mid_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_top_left {
+            get {
+                object obj = ResourceManager.GetObject("mairie_top_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_top_mid {
+            get {
+                object obj = ResourceManager.GetObject("mairie_top_mid", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap mairie_top_right {
+            get {
+                object obj = ResourceManager.GetObject("mairie_top_right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -318,6 +549,13 @@ namespace Trash2012.Properties {
         public static System.Drawing.Bitmap TileRoadTopBottomLeft {
             get {
                 object obj = ResourceManager.GetObject("TileRoadTopBottomLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap TileRoadTopBottomLeftRight {
+            get {
+                object obj = ResourceManager.GetObject("TileRoadTopBottomLeftRight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -22,7 +22,7 @@ namespace Trash2012.Visual
         //Configure the game here for more simplicity 
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
-        private const bool PlayIntroAnimation = false;
+        private const bool PlayIntroAnimation = true;
         /// <summary>
         /// If new game announce should be displayed
         /// </summary>
@@ -94,13 +94,7 @@ namespace Trash2012.Visual
                 var r = new Random();
                 var revenue = r.Next(_monthlyRevenueRange[0], _monthlyRevenueRange[1]);
                 _game.Company.Gold += revenue;
-                this.InfoMessage.Content = "It's payday !\nYou have earn " + revenue + " this month !";
-                MessageBox.Show(
-                    this,
-                    string.Format("It's payday ! You have earn {0:C} this month !", revenue),
-                    "Monthly revenue",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation);
+                this.InfoMessage.Content = "C'est la fin du mois, jour de paye !\nVous avez gangé " + revenue + " !";
             }
         }
 
@@ -125,17 +119,6 @@ namespace Trash2012.Visual
         {
             if (PlayIntroAnimation)
             {
-                //Intro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                //                    Properties.Resources.intro.GetHbitmap(),
-                //                    IntPtr.Zero,
-                //                    Int32Rect.Empty,
-                //                    BitmapSizeOptions.FromEmptyOptions());
-                //CamionIntro.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                //                    Properties.Resources.CamionIntro.GetHbitmap(),
-                //                    IntPtr.Zero,
-                //                    Int32Rect.Empty,
-                //                    BitmapSizeOptions.FromEmptyOptions());
-
                 Canvas.SetZIndex(CamionIntro, 10);
 				try
 				{
@@ -275,13 +258,7 @@ namespace Trash2012.Visual
             StartCanvas.Visibility = Visibility.Collapsed;
             StartGrid.Visibility = Visibility.Collapsed;
             if (!_displayAnnounce) return;
-            MessageBox.Show(
-                this,
-                "Une ville est en proie à la saleté et aux déchets qui s'accumulent !\nAidez la en faisant les choix judicieux pour nettoyer au mieux cette ville !",
-                "Nouvelle Partie",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-                );
+            this.InfoMessage.Content = "La ville est en proie à la saleté\net aux déchets qui s'accumulent !\nAidez la en faisant les choix judicieux pour\nnettoyer au mieux cette ville !";
             _displayAnnounce = false;            
         }
 
@@ -421,6 +398,7 @@ namespace Trash2012.Visual
         {
             if(gameEvent.HasValue)
             {
+                this.InfoMessage.Content = gameEvent.Value.Message;
                 MessageBox.Show(
                     gameEvent.Value.Message,
                     "Un évènement inattendue !",
@@ -428,6 +406,7 @@ namespace Trash2012.Visual
                     MessageBoxImage.Information);
             }
             UpdateGameDashboard(_game, doneCallback);
+            MyAssets.UpdateAssests(_game);
         }
 
         private void UpdateMap(Game game, Action doneCallback)
@@ -537,8 +516,21 @@ namespace Trash2012.Visual
             var timer = sender as DispatcherTimer;
             var adjusted = GameDashboard.MoneyQuantity == _game.Company.Gold.Current;
             var delta = _game.Company.Gold.Current - GameDashboard.MoneyQuantity;
+            int rates = 1;
+            if (Math.Abs(delta) > 1000)
+            {
+                rates = 100;
+            }
+            else if (Math.Abs(delta) > 100)
+            {
+                rates = 10;
+            }
+            else
+            {
+                rates = 1;
+            }
             if (!adjusted)
-                GameDashboard.MoneyQuantity += Math.Sign(delta) * 100;
+                GameDashboard.MoneyQuantity += Math.Sign(delta) * rates;
             else
                 timer.Stop();
         }
@@ -581,6 +573,10 @@ namespace Trash2012.Visual
 
         void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
+            if (!isZoom)
+            {
+                isZoom = true;
+            }
             if (e.Key == System.Windows.Input.Key.Up)
             {
                 if (MyMap.Position_Y < 0)

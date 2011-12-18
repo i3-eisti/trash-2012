@@ -418,6 +418,38 @@
     <None Include="Resources\Animation\Décors\DechetterieTopRight.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Animation\Décors\mairie-bot-left.png" />
+    <None Include="Resources\Animation\Décors\mairie-bot-mid.png" />
+    <None Include="Resources\Animation\Décors\mairie-bot-right.png" />
+    <None Include="Resources\Animation\Décors\mairie-mid.png" />
+    <None Include="Resources\Animation\Décors\mairie-mid-left.png" />
+    <None Include="Resources\Animation\Décors\mairie-mid-right.png" />
+    <None Include="Resources\Animation\Décors\mairie-top-left.png" />
+    <None Include="Resources\Animation\Décors\mairie-top-mid.png" />
+    <None Include="Resources\Animation\Décors\mairie-top-right.png" />
+    <None Include="Resources\Animation\Décors\House4_bot.png" />
+    <None Include="Resources\Animation\Décors\House4_top.png" />
+    <None Include="Resources\Animation\Décors\Heolienne.gif" />
+    <None Include="Resources\Animation\Décors\House5_bot.png" />
+    <None Include="Resources\Animation\Décors\House5_top.png" />
+    <None Include="Resources\Animation\Décors\House6_bot.png" />
+    <None Include="Resources\Animation\Décors\House6_top.png" />
+    <None Include="Resources\Animation\Décors\House7_bot.png" />
+    <None Include="Resources\Animation\Décors\House7_top.png" />
+    <None Include="Resources\Animation\Décors\Church_botleft.png" />
+    <None Include="Resources\Animation\Décors\Church_botright.png" />
+    <None Include="Resources\Animation\Décors\Church_mid.png" />
+    <None Include="Resources\Animation\Décors\Church_midleft.png" />
+    <None Include="Resources\Animation\Décors\Church_midright.png" />
+    <None Include="Resources\Animation\Décors\Church_topleft.png" />
+    <None Include="Resources\Animation\Décors\Church_topright.png" />
+    <None Include="Resources\Animation\Décors\House8_botleft.png" />
+    <None Include="Resources\Animation\Décors\House8_botright.png" />
+    <None Include="Resources\Animation\Décors\House8_topleft.png" />
+    <None Include="Resources\Animation\Décors\House8_topright.png" />
+    <None Include="Resources\Animation\Décors\House9_botleft.png" />
+    <None Include="Resources\Animation\Décors\House9_topleft.gif" />
+    <None Include="Resources\Animation\Décors\House9_topright.png" />
     <Content Include="Resources\Music\Music.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

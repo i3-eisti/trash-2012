@@ -19,7 +19,8 @@ namespace Trash2012.Engine
         Top2Right,
         Bottom2Left,
         Bottom2Top,
-        Bottom2Right
+        Bottom2Right,
+        Missing
     }
 
     public class Animations
@@ -104,6 +105,52 @@ namespace Trash2012.Engine
                 case BackgroundTile.BackgroundType.DechetterieTopRight:
                     return Properties.Resources.DechetterieTopRight;
 
+                case BackgroundTile.BackgroundType.MairieTopLeft:
+                    return Properties.Resources.mairie_top_left;
+                case BackgroundTile.BackgroundType.MairieTopMid:
+                    return Properties.Resources.mairie_top_mid;
+                case BackgroundTile.BackgroundType.MairieTopRight:
+                    return Properties.Resources.mairie_top_right;
+                case BackgroundTile.BackgroundType.MairieMidLeft:
+                    return Properties.Resources.mairie_mid_left;
+                case BackgroundTile.BackgroundType.MairieMid:
+                    return Properties.Resources.mairie_mid;
+                case BackgroundTile.BackgroundType.MairieMidRight:
+                    return Properties.Resources.mairie_mid_right;
+
+                case BackgroundTile.BackgroundType.HouseFlowerTop:
+                    return Properties.Resources.House4_top;
+
+                case BackgroundTile.BackgroundType.Heolienne:
+                    return Properties.Resources.Heolienne;
+
+                case BackgroundTile.BackgroundType.HousePink:
+                    return Properties.Resources.House5_top;
+                case BackgroundTile.BackgroundType.HouseGreen:
+                    return Properties.Resources.House6_top;
+                case BackgroundTile.BackgroundType.HouseWater:
+                    return Properties.Resources.House7_top;
+
+                case BackgroundTile.BackgroundType.LabTopLeft:
+                    return Properties.Resources.House8_topleft;
+                case BackgroundTile.BackgroundType.LabTopRight:
+                    return Properties.Resources.House8_topright;
+
+                case BackgroundTile.BackgroundType.ChurchTopLeft:
+                    return Properties.Resources.Church_topleft;
+                case BackgroundTile.BackgroundType.ChurchTopRight:
+                    return Properties.Resources.Church_topright;
+                case BackgroundTile.BackgroundType.ChurchMidLeft:
+                    return Properties.Resources.Church_midleft;
+                case BackgroundTile.BackgroundType.ChurchMidRight:
+                    return Properties.Resources.Church_midright;
+
+                case BackgroundTile.BackgroundType.HouseYellowTopLeft:
+                    return Properties.Resources.House9_topleft;
+                case BackgroundTile.BackgroundType.HouseYellowTopRight:
+                    return Properties.Resources.House9_topright;
+
+
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + animation);
                     return Properties.Resources.Missing; //FIXME Not the good one !!!
@@ -134,6 +181,9 @@ namespace Trash2012.Engine
                     return Properties.Resources.TileRoadTopLeftRight;
                 case RoadTile.RoadType.BottomLeftRight:
                     return Properties.Resources.TileRoadBottomLeftRight;
+                case RoadTile.RoadType.TopBottomLeftRight:
+                    return Properties.Resources.TileRoadTopBottomLeftRight;
+
                 default:
                     throw new ArgumentException("Unhandled animation bitmap tile: " + type);
             }
@@ -151,6 +201,31 @@ namespace Trash2012.Engine
                     return Properties.Resources.RedHouseBot;
                 case HouseTile.THouse.TrashFirm:
                     return Properties.Resources.DechetterieBottomLeft;
+                case HouseTile.THouse.MairieLeft:
+                    return Properties.Resources.mairie_bot_left;
+                case HouseTile.THouse.MairieMid:
+                    return Properties.Resources.mairie_bot_mid;
+                case HouseTile.THouse.MairieRight:
+                    return Properties.Resources.mairie_bot_right;
+                case HouseTile.THouse.HouseFlower:
+                    return Properties.Resources.House4_bot;
+                case HouseTile.THouse.HousePink:
+                    return Properties.Resources.House5_bot;
+                case HouseTile.THouse.HouseGreen:
+                    return Properties.Resources.House6_bot;
+                case HouseTile.THouse.HouseWater:
+                    return Properties.Resources.House7_bot;
+                case HouseTile.THouse.LabLeft:
+                    return Properties.Resources.House8_botleft;
+                case HouseTile.THouse.LabRight:
+                    return Properties.Resources.House8_botright;
+                case HouseTile.THouse.ChurchLeft:
+                    return Properties.Resources.Church_botleft;
+                case HouseTile.THouse.ChurchRight:
+                    return Properties.Resources.Church_botright;
+                case HouseTile.THouse.HouseYellow:
+                    return Properties.Resources.House9_botleft;
+                
                 default:
                     Console.Error.WriteLine("Unhandled animation: " + type);
                     return Properties.Resources.Missing; //FIXME Not the good one !!!
@@ -286,8 +361,54 @@ namespace Trash2012.Engine
                             return TruckAnimation.Bottom2Top;
                         }
 
+                    case RoadTile.RoadType.TopBottomLeft:
+                        if (from == Travel.Extremity.Left)
+                        {
+                            return TruckAnimation.Left2Bottom;
+                        }
+                        else if (from == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Top2Bottom;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Bottom2Top;
+                        }
+
+                    case RoadTile.RoadType.TopBottomRight:
+                        if (from == Travel.Extremity.Right)
+                        {
+                            return TruckAnimation.Right2Bottom;
+                        }
+                        else if (from == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Top2Bottom;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Bottom2Top;
+                        }
+
+                    case RoadTile.RoadType.TopBottomLeftRight:
+                        if (from == Travel.Extremity.Left)
+                        {
+                            return TruckAnimation.Left2Right;
+                        }
+                        else if (from == Travel.Extremity.Right)
+                        {
+                            return TruckAnimation.Right2Left;
+                        }
+                        else if (from == Travel.Extremity.Top)
+                        {
+                            return TruckAnimation.Top2Bottom;
+                        }
+                        else
+                        {
+                            return TruckAnimation.Bottom2Top;
+                        }
+
                     default:
-                        throw new ArgumentException("Can't match tile and direction");
+                        return TruckAnimation.Missing;
                 }
             }
             else

@@ -13,7 +13,7 @@ namespace Trash2012.Model
         private readonly int[] _dailyTrashRange = {0, 5};
         private readonly int[] _technoParadeTrashRange = {10, 50};
 
-        private const double RandomEventProbability = 0.1;
+        private const double RandomEventProbability = 0.01;
 
         public Random GameRandomness { get; private set; }
 
@@ -90,12 +90,12 @@ namespace Trash2012.Model
 
         public GameEvent? ApplyRandomEvent()
         {
-            if(GameRandomness.NextDouble() <= RandomEventProbability)
+            if (GameRandomness.NextDouble() <= RandomEventProbability)
             {
                 return new GameEvent()
                 {
-                    Message = "Techno parade ! Gros déchêt en perspective !",
-                    Effect = delegate ()
+                    Message = "Aujourd'hui c'est la Techno parade !\nGros déchêt en perspective !",
+                    Effect = delegate()
                     {
                         int w = City.Width,
                             h = City.Height;
@@ -107,7 +107,63 @@ namespace Trash2012.Model
                                 if (m[i][j] is IHouseTile)
                                     ((IHouseTile)m[i][j]).Garbage.Amount += GameRandomness.Next(_technoParadeTrashRange[0], _technoParadeTrashRange[1]);
                             }
-                        }             
+                        }
+                    }
+                };
+            }
+            else if (GameRandomness.NextDouble() <= RandomEventProbability && this.Company.Trucks.Count > 0)
+            {
+                return new GameEvent()
+                {
+                    Message = "Un de vos employées a accidentellement\ngaré un de vos camions dans l'incinérateur",
+                    Effect = delegate()
+                    {
+                        this.Company.Trucks.RemoveAt(0);
+                    }
+                };
+            }
+            else if (GameRandomness.NextDouble() <= RandomEventProbability)
+            {
+                return new GameEvent()
+                {
+                    Message = "Le maire est fière de votre travail !\nIl vous offre 1 0000 € !",
+                    Effect = delegate()
+                    {
+                        this.Company.Gold += 1000;
+                    }
+                };
+            }
+            else if (GameRandomness.NextDouble() <= RandomEventProbability)
+            {
+                return new GameEvent()
+                {
+                    Message = "Vous avez confondu votre poubelle\net votre tirlire, vous venez de\njeter 10 000€ à la poubelle.",
+                    Effect = delegate()
+                    {
+                        this.Company.Gold -= 10000;
+                    }
+                };
+            }
+            else if (GameRandomness.NextDouble() <= RandomEventProbability)
+            {
+                return new GameEvent()
+                {
+                    Message = "Votre associé s'est envolé avec la moitié de\nvotre capital aux îles caïmans !\nVous perdez la moitié de vos biens.",
+                    Effect = delegate()
+                    {
+                        this.Company.Gold /= 2;
+                    }
+                };
+            }
+            else if (GameRandomness.NextDouble() <= RandomEventProbability)
+            {
+                return new GameEvent()
+                {
+                    Message = "Un employé pakastanai, ne sachant pas lire,\ntrouve un chèque de 100 000€ dans une\npoubelle et vous le confie.",
+                    //référence à Simulator Trash2011  :  http://www.youtube.com/watch?v=qrZTarWEu-w
+                    Effect = delegate()
+                    {
+                        this.Company.Gold += 100000;
                     }
                 };
             }

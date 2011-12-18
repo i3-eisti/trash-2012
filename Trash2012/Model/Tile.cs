@@ -84,6 +84,27 @@ namespace Trash2012.Model
             DechetterieTopLeft,
             DechetterieTopRight,
             DechetterieBottomLeft,
+            MairieTopLeft,
+            MairieTopMid,
+            MairieTopRight,
+            MairieMidLeft,
+            MairieMid,
+            MairieMidRight,
+            MairieBotLeft,
+            MairieBotRight,
+            HouseFlowerTop,
+            Heolienne,
+            HousePink,
+            HouseGreen,
+            HouseWater,
+            LabTopLeft,
+            LabTopRight,
+            ChurchTopLeft,
+            ChurchTopRight,
+            ChurchMidLeft,
+            ChurchMidRight,
+            HouseYellowTopLeft,
+            HouseYellowTopRight,
         }
 
         public override int GetHashCode()
@@ -113,7 +134,8 @@ namespace Trash2012.Model
             TopBottomLeft,      //            |     |
             TopBottomRight,     //            |     |        
             TopLeftRight,       //            |     |
-            BottomLeftRight     //            BOTTOM 
+            BottomLeftRight,    //            BOTTOM 
+            TopBottomLeftRight
         }
 
         public override int GetHashCode()
@@ -134,7 +156,19 @@ namespace Trash2012.Model
             Normal,
             Blue,
             Red,
-            TrashFirm
+            TrashFirm,
+            MairieLeft,
+            MairieMid,
+            MairieRight,
+            HouseFlower,
+            HousePink,
+            HouseGreen,
+            HouseWater,
+            LabLeft,
+            LabRight,
+            ChurchLeft,
+            ChurchRight,
+            HouseYellow,
         }
 
         public override int GetHashCode()

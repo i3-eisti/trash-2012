@@ -190,11 +190,11 @@ namespace Trash2012.Visual
             double tileWidth = 
                 (Width - 
                     OuterBorder.BorderThickness.Left -
-                    OuterBorder.BorderThickness.Right ) / MyCity.Width;
+                    OuterBorder.BorderThickness.Right + MyCity.Width) / MyCity.Width;
             double tileHeight = 
                 (Height - 
                     OuterBorder.BorderThickness.Top -
-                    OuterBorder.BorderThickness.Bottom) / MyCity.Height;
+                    OuterBorder.BorderThickness.Bottom + MyCity.Height) / MyCity.Height;
 
 
             //reset graphic tiles's array
@@ -234,20 +234,12 @@ namespace Trash2012.Visual
 
         public void UpdateCanvas()
         {
-            //MapContainer.Children.Clear();
-
-            Tile_Size = (ActualWidth > 0) ? (int)((ActualWidth - 18) / MaxTiles) : 0;
-
-
-
-            //reset graphic tiles's array
-            //TilesVisual = new VisualTile[MyCity.Height][];
+            Tile_Size = (ActualWidth > 0) ? (int)((ActualWidth - 5) / MaxTiles) : 0;
 
             try
             {
                 for (var i = MyCity.Height; i-- > 0; )
                 {
-                    //TilesVisual[i] = new VisualTile[MyCity.Width];
                     for (var j = MyCity.Width; j-- > 0; )
                     {
                         var tile = TilesVisual[i][j];
@@ -265,9 +257,8 @@ namespace Trash2012.Visual
                         }
                         if (add)
                         {
-                            Canvas.SetLeft(border, (j * (Tile_Size-1) - j) + Position_X * Tile_Size);
-                            Canvas.SetTop(border, (i * (Tile_Size -1)- i) + Position_Y * Tile_Size);
-                            //MapContainer.Children.Add(border);
+                            Canvas.SetLeft(border, j * (Tile_Size - 1) + Position_X * Tile_Size);
+                            Canvas.SetTop(border, i * (Tile_Size - 1) + Position_Y * Tile_Size);
                             border.Visibility = System.Windows.Visibility.Visible;
                         }
                         else
@@ -276,8 +267,6 @@ namespace Trash2012.Visual
                             Canvas.SetTop(border, (i * Tile_Size - i) + Position_Y * Tile_Size);
                             border.Visibility = System.Windows.Visibility.Collapsed;
                         }
-
-
                     }
                 }
             }
@@ -292,11 +281,11 @@ namespace Trash2012.Visual
             double tileWidth =
                 (Width -
                     OuterBorder.BorderThickness.Left -
-                    OuterBorder.BorderThickness.Right) / MyCity.Width;
+                    OuterBorder.BorderThickness.Right + MyCity.Width) / MyCity.Width;
             double tileHeight =
                 (Height -
                     OuterBorder.BorderThickness.Top -
-                    OuterBorder.BorderThickness.Bottom) / MyCity.Height;
+                    OuterBorder.BorderThickness.Bottom + MyCity.Height) / MyCity.Height;
 
             try
             {
