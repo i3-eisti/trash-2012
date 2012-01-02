@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignHeight="180" d:DesignWidth="190">
+             mc:Ignorable="d" d:DesignHeight="100" d:DesignWidth="330">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,8 +29,8 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- Company Section -->
@@ -56,8 +56,7 @@
                         Style="{StaticResource Quantity}"
                         Grid.Row="1"
                         Grid.Column="1"
-                        VerticalAlignment="Center"
-                         />
+                        VerticalAlignment="Center"/>
 
                     <!-- Money -->
                     <Image 
@@ -83,8 +82,8 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- City Section -->

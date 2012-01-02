@@ -137,7 +137,7 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Vous avez confondu votre poubelle\net votre tirlire, vous venez de\njeter 10 000€ à la poubelle.",
+                    Message = "Vous avez confondu votre poubelle\net votre tirelire, vous venez de\njeter 10 000€ à la poubelle.",
                     Effect = delegate()
                     {
                         this.Company.Gold -= 10000;

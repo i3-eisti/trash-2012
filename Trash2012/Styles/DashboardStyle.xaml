@@ -17,6 +17,7 @@
     
     <Style x:Key="Quantity" TargetType="Label">
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Padding" Value="5,5,10,5"/>
     </Style>
     
 </ResourceDictionary>

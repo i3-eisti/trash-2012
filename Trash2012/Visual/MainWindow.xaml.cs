@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using Trash2012.Engine;
 using Trash2012.Model;
@@ -22,14 +21,14 @@ namespace Trash2012.Visual
         //Configure the game here for more simplicity 
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
-        private const bool PlayIntroAnimation = true;
+        private const bool PlayIntroAnimation = false;
         /// <summary>
         /// If new game announce should be displayed
         /// </summary>
         private bool _displayAnnounce = false;
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
-        private const long DashboardAnimationTick = 730000;
+        private const long DashboardAnimationTick = 800000;
         private readonly int[] _monthlyRevenueRange = {90000, 120000};
 
         #endregion
@@ -48,11 +47,9 @@ namespace Trash2012.Visual
         {
             InitializeComponent();
 
-            this.KeyDown += new System.Windows.Input.KeyEventHandler(MainWindow_KeyDown);
+            KeyDown += MainWindow_KeyDown;
 
             BuyableItems = new List<ShopItem>(1) { PaperTruckBuyer };
-			
-            InitializeComponent();
 
             MyMap.MyMainWindow = this;
             MyAssets.MyMainWindow = this;
@@ -70,10 +67,6 @@ namespace Trash2012.Visual
             
         }
 
-
-
-
-
         #region Game Events
 
         private void OnGameStart(Game game)
@@ -81,8 +74,8 @@ namespace Trash2012.Visual
             MyMap.MyCity = game.City;
             game.DateChangeEvents.Add(PaydayEvent);
 
-            UpdateGameDashboard(game, delegate {});
-            UpdateBuyableItem(game, delegate { });
+            UpdateGameDashboard(game, delegate {}, false);
+            UpdateBuyableItem(game, delegate {});
             MyAssets.UpdateAssests(game);
         }
 
@@ -94,7 +87,7 @@ namespace Trash2012.Visual
                 var r = new Random();
                 var revenue = r.Next(_monthlyRevenueRange[0], _monthlyRevenueRange[1]);
                 _game.Company.Gold += revenue;
-                this.InfoMessage.Content = "C'est la fin du mois, jour de paye !\nVous avez gangé " + revenue + " !";
+                this.InfoMessage.Content = "C'est la fin du mois, jour de paye !\nVous avez gagné: " + revenue + " !";
             }
         }
 
@@ -311,17 +304,6 @@ namespace Trash2012.Visual
 
         private void TravelUpdate()
         {
-            //LINQ FTW
-            /*
-            foreach (var collectedGarbage in 
-                from truckButton in MyAssets.buttons 
-                select truckButton.MyTruck.Travel into dailyTravel 
-                let companyTruck = _game.Company.Trucks[0] 
-                select _game.ApplyTravel(dailyTravel, companyTruck))
-            {
-                Console.WriteLine(string.Format("{0} garbage collected.", collectedGarbage));
-            }
-             */
             int totalCollectedGarbage = 0;
             int totalTravelledDistance = 0;
             int collectedGarbage = 0;
@@ -455,48 +437,58 @@ namespace Trash2012.Visual
 
         #region Dashboard
 
-        private void UpdateGameDashboard(Game game, Action doneCallback)
+        private void UpdateGameDashboard(Game game, Action doneCallback, bool animated = true)
         {
-            int
-                deltat = _game.Company.Trucks.Count - GameDashboard.TruckQuantity,
-                deltam = _game.Company.Gold.Current - GameDashboard.MoneyQuantity,
-                deltap = _game.City.PeopleNumber - GameDashboard.PeopleQuantity,
-                deltag = _game.City.GarbageQuantity - GameDashboard.GarbageQuantity;
+            if(animated)
+            {
+                int
+                    deltat = _game.Company.Trucks.Count - GameDashboard.TruckQuantity,
+                    deltam = _game.Company.Gold.Current - GameDashboard.MoneyQuantity,
+                    deltap = _game.City.PeopleNumber - GameDashboard.PeopleQuantity,
+                    deltag = _game.City.GarbageQuantity - GameDashboard.GarbageQuantity;
                 
-            //trucks
-            if (deltat != 0)
-            {
-                _dashboardTimer[0] = new DispatcherTimer();
-                _dashboardTimer[0].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltat));
-                _dashboardTimer[0].Tick += DashboardTruckAnimate;
-                _dashboardTimer[0].Start();
-            }
+                //trucks
+                if (deltat != 0)
+                {
+                    _dashboardTimer[0] = new DispatcherTimer();
+                    _dashboardTimer[0].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltat));
+                    _dashboardTimer[0].Tick += DashboardTruckAnimate;
+                    _dashboardTimer[0].Start();
+                }
 
-            //money
-            if (deltam != 0)
-            {
-                _dashboardTimer[1] = new DispatcherTimer();
-                _dashboardTimer[1].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltam));
-                _dashboardTimer[1].Tick += DashboardMoneyAnimate;
-                _dashboardTimer[1].Start();
-            }
+                //money
+                if (deltam != 0)
+                {
+                    _dashboardTimer[1] = new DispatcherTimer();
+                    _dashboardTimer[1].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltam));
+                    _dashboardTimer[1].Tick += DashboardMoneyAnimate;
+                    _dashboardTimer[1].Start();
+                }
 
-            //people
-            if (deltap != 0)
-            {
-                _dashboardTimer[2] = new DispatcherTimer();
-                _dashboardTimer[2].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltap));
-                _dashboardTimer[2].Tick += DashboardPeopleAnimate;
-                _dashboardTimer[2].Start();
-            }
+                //people
+                if (deltap != 0)
+                {
+                    _dashboardTimer[2] = new DispatcherTimer();
+                    _dashboardTimer[2].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltap));
+                    _dashboardTimer[2].Tick += DashboardPeopleAnimate;
+                    _dashboardTimer[2].Start();
+                }
 
-            //garbage
-            if (deltag != 0)
+                //garbage
+                if (deltag != 0)
+                {
+                    _dashboardTimer[3] = new DispatcherTimer();
+                    _dashboardTimer[3].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltag));
+                    _dashboardTimer[3].Tick += DashboardGarbageAnimate;
+                    _dashboardTimer[3].Start();
+                }
+            }
+            else
             {
-                _dashboardTimer[3] = new DispatcherTimer();
-                _dashboardTimer[3].Interval = new TimeSpan(DashboardAnimationTick / Math.Abs(deltag));
-                _dashboardTimer[3].Tick += DashboardGarbageAnimate;
-                _dashboardTimer[3].Start();
+                GameDashboard.TruckQuantity = _game.Company.Trucks.Count;
+                GameDashboard.MoneyQuantity = _game.Company.Gold.Current;
+                GameDashboard.PeopleQuantity = _game.City.PeopleNumber;
+                GameDashboard.GarbageQuantity = _game.City.GarbageQuantity;
             }
 
             doneCallback();
