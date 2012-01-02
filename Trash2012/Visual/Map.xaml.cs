@@ -105,7 +105,7 @@ namespace Trash2012.Visual
 
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
-                    Animations.FindNextFrom(myTravel[pos].ModelTile, from));
+                    Animations.FindNext(from, to));
                 
                 myTravel[pos].Update();
 
@@ -144,7 +144,7 @@ namespace Trash2012.Visual
 
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
-                    Animations.FindNextTo(myTravel[pos].ModelTile, to));
+                    Animations.FindNext(from, to));
                 myTravel[pos].Update();
             }
             else if(pos < posmax)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Trash2012.Engine;
 using Trash2012.Model;
 using System;
@@ -60,6 +61,16 @@ namespace Trash2012.Visual
                 Truck MyTruck = ((TruckButton)MyListView.SelectedItem).MyTruck;
                 MyMainWindow.MyMap.SetTravel(MyTruck.Travel);
             }
+        }
+
+        private void UserControl_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Keyboard.Focus(MyMainWindow.MyMap);
+        }
+
+        private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Keyboard.Focus(MyMainWindow.MyMap);
         }
     }
 }
