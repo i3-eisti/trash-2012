@@ -62,14 +62,16 @@
 					    Margin="5,5,5,0"/>
                     <my:Assests x:Name="MyAssets" Grid.Row="1" Margin="5,0,5,5" />
 
-                    <Label Name="InfoMessage"
+                    <TextBlock Name="InfoMessage"
                            Grid.Row="2"
+                           Margin="10"
                            FontSize="14"
                            FontFamily="Comic Sans MS"
-                           VerticalAlignment="Bottom">
-                        <!-- Y U NO WRAP -->
-                        Bienvenue à Trash City !
-                    </Label>
+                           VerticalAlignment="Bottom"
+                           TextWrapping="Wrap"
+                           Text="Bienvenue à Trash City ! Il te faut nettoyer la ville. Pour cela, sélectionne un camion et fais lui parcourrir les rues afin de collecter un maximum de déchets."
+                           />
+
 
                     <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Bottom">
                         <TabControl x:Name="Tabs" Margin="5">

@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Media;
+using System.Windows.Controls.Primitives;
 
 namespace Trash2012.Visual
 {
@@ -22,10 +23,6 @@ namespace Trash2012.Visual
         private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
         //Intro Animation timer interval
         private const bool PlayIntroAnimation = false;
-        /// <summary>
-        /// If new game announce should be displayed
-        /// </summary>
-        private bool _displayAnnounce = false;
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
         private const long DashboardAnimationTick = 800000;
@@ -87,7 +84,7 @@ namespace Trash2012.Visual
                 var r = new Random();
                 var revenue = r.Next(_monthlyRevenueRange[0], _monthlyRevenueRange[1]);
                 _game.Company.Gold += revenue;
-                this.InfoMessage.Content = "C'est la fin du mois, jour de paye !\nVous avez gagné: " + revenue + " !";
+                this.InfoMessage.Text = "C'est la fin du mois, jour de paye ! Vous avez gagné: " + revenue + " € !";
             }
         }
 
@@ -249,10 +246,7 @@ namespace Trash2012.Visual
             _game = new Game(_choosenMap);
             OnGameStart(_game);
             StartCanvas.Visibility = Visibility.Collapsed;
-            StartGrid.Visibility = Visibility.Collapsed;
-            if (!_displayAnnounce) return;
-            this.InfoMessage.Content = "La ville est en proie à la saleté\net aux déchets qui s'accumulent !\nAidez la en faisant les choix judicieux pour\nnettoyer au mieux cette ville !";
-            _displayAnnounce = false;            
+            StartGrid.Visibility = Visibility.Collapsed;    
         }
 
         private void CheckOtherBuyableItem(ShopItem item)
@@ -267,6 +261,7 @@ namespace Trash2012.Visual
 
         private void NextDayHandler(object sender, RoutedEventArgs e)
         {
+            bNextDay.IsEnabled = false;
             GameUpdate();
             UIUpdate();
         }
@@ -309,10 +304,10 @@ namespace Trash2012.Visual
             int collectedGarbage = 0;
             int currentIndex = 0;
             Travel dailyTravel;
-            foreach (TruckButton tb in MyAssets.buttons)
+            foreach (ToggleButton tb in MyAssets.buttons)
             {
-                currentIndex = ((List<TruckButton>)(MyAssets.MyListView.ItemsSource)).IndexOf(tb);
-                dailyTravel = tb.MyTruck.Travel;
+                currentIndex = MyAssets.MyListButton.Children.IndexOf(tb);
+                dailyTravel = ((TruckButton)tb.Content).MyTruck.Travel;
                 collectedGarbage = _game.ApplyTravel(dailyTravel, _game.Company.Trucks[currentIndex]);
 
                 totalCollectedGarbage += collectedGarbage;
@@ -352,6 +347,7 @@ namespace Trash2012.Visual
 
         private void UIUpdate()
         {
+
             MyMap.ClearTravel();
             MyMap.IsSelectionEnabled = false;
             foreach (var shopItem in BuyableItems)
@@ -373,6 +369,8 @@ namespace Trash2012.Visual
                 //reset temporary values
                 _currentlyPushed.Clear();
                 _recentEvent = null;
+
+                bNextDay.IsEnabled = true;
             })))));
         }
 
@@ -380,7 +378,7 @@ namespace Trash2012.Visual
         {
             if(gameEvent.HasValue)
             {
-                this.InfoMessage.Content = gameEvent.Value.Message;
+                this.InfoMessage.Text = gameEvent.Value.Message;
                 MessageBox.Show(
                     gameEvent.Value.Message,
                     "Un évènement inattendue !",
@@ -561,7 +559,6 @@ namespace Trash2012.Visual
         }
 
         #endregion
-
 
         void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {

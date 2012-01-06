@@ -94,7 +94,7 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Aujourd'hui c'est la Techno parade !\nGros déchêt en perspective !",
+                    Message = "Aujourd'hui c'est la Techno parade ! Gros déchêt en perspective !",
                     Effect = delegate()
                     {
                         int w = City.Width,
@@ -115,7 +115,7 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Un de vos employées a accidentellement\ngaré un de vos camions dans l'incinérateur",
+                    Message = "Un de vos employées a accidentellement garé un de vos camions dans l'incinérateur",
                     Effect = delegate()
                     {
                         this.Company.Trucks.RemoveAt(0);
@@ -126,10 +126,10 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Le maire est fière de votre travail !\nIl vous offre 1 0000 € !",
+                    Message = "Le maire est fier de votre travail ! Il vous offre 10 000 € !",
                     Effect = delegate()
                     {
-                        this.Company.Gold += 1000;
+                        this.Company.Gold += 10000;
                     }
                 };
             }
@@ -137,7 +137,7 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Vous avez confondu votre poubelle\net votre tirelire, vous venez de\njeter 10 000€ à la poubelle.",
+                    Message = "Vous avez confondu votre poubelle et votre tirelire, vous venez de jeter 10 000€ à la poubelle.",
                     Effect = delegate()
                     {
                         this.Company.Gold -= 10000;
@@ -159,7 +159,7 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Un employé pakastanai, ne sachant pas lire,\ntrouve un chèque de 100 000€ dans une\npoubelle et vous le confie.",
+                    Message = "Un employé pakistanai, ne sachant pas lire, trouve un chèque de 100 000€ dans une poubelle et vous le confie.",
                     //référence à Simulator Trash2011  :  http://www.youtube.com/watch?v=qrZTarWEu-w
                     Effect = delegate()
                     {

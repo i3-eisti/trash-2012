@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Trash2012.Engine;
 using Trash2012.Model;
 using System;
+using System.Windows.Controls.Primitives;
 
 namespace Trash2012.Visual
 {
@@ -12,17 +13,18 @@ namespace Trash2012.Visual
     /// </summary>
     public partial class Assests : UserControl
     {
-        public List<TruckButton> buttons;
+        public List<ToggleButton> buttons;
         public MainWindow MyMainWindow;
         public Assests()
         {
             InitializeComponent();
-            buttons = new List<TruckButton>();
+            buttons = new List<ToggleButton>();
         }
 
         public void UpdateAssests(Game g)
         {
             buttons.Clear();
+            MyListButton.Children.Clear();
             foreach (Truck t in g.Company.Trucks)
             {   
                 switch(t.HandledResource)
@@ -40,37 +42,40 @@ namespace Trash2012.Visual
                             ItemLabel = {Text = "Papier"},
                             MyTruck = t
                         };
-                        buttons.Add(tb);
+                        ToggleButton b = new ToggleButton();
+                        b.Content = tb;
+                        b.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+                        b.Height = 50;
+                        b.Click += new System.Windows.RoutedEventHandler(b_Click);
+                        buttons.Add(b);
+                        MyListButton.Children.Add(b);
                         break;
                 }
             }
-            //MyListView.KeyDown;
-            int selected = MyListView.SelectedIndex;
-            MyListView.UnselectAll();
-            MyListView.ItemsSource = null;
-            MyListView.ItemsSource = buttons;
-            foreach ( TruckButton tb in MyListView.ItemsSource)
-                Console.WriteLine(tb.ToString());
-            MyListView.SelectedIndex = selected;
+
+            foreach (ToggleButton b in MyListButton.Children)
+                Console.WriteLine(b.ToString());
+            
         }
 
-        private void MyListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void b_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (MyListView.SelectedIndex != -1)
+            ToggleButton b = (ToggleButton) sender;
+            if((bool)b.IsChecked)
             {
-                Truck MyTruck = ((TruckButton)MyListView.SelectedItem).MyTruck;
+                foreach (ToggleButton tb in MyListButton.Children)
+                {
+                    tb.IsChecked = false;
+                }
+                b.IsChecked = true;
+                Truck MyTruck = ((TruckButton)b.Content).MyTruck;
                 MyMainWindow.MyMap.SetTravel(MyTruck.Travel);
             }
-        }
-
-        private void UserControl_GotFocus(object sender, System.Windows.RoutedEventArgs e)
-        {
-            Keyboard.Focus(MyMainWindow.MyMap);
-        }
-
-        private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            Keyboard.Focus(MyMainWindow.MyMap);
+            else
+            {
+                b.IsChecked = false;
+                MyMainWindow.MyMap.ClearTravel();
+            }
         }
     }
 }

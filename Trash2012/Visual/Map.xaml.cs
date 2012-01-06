@@ -7,6 +7,7 @@ using Trash2012.Engine;
 using Trash2012.Model;
 using System.Windows.Threading;
 using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
 
 namespace Trash2012.Visual
 {
@@ -160,6 +161,7 @@ namespace Trash2012.Visual
                     formerFrom == Travel.Extremity.Left ? Travel.Extremity.Right :
                     formerFrom == Travel.Extremity.Top ? Travel.Extremity.Bottom :
                                                     Travel.Extremity.Top;
+
                 var to =
                     cx < nx ? Travel.Extremity.Right :
                     cx > nx ? Travel.Extremity.Left :
@@ -331,8 +333,6 @@ namespace Trash2012.Visual
 
         #region TileSelectionHandler
 
-        //public Travel MyTravel  = new Travel();
-
         #region DO NOT LOOK
 
         private static readonly Color BORDER_COLOR = Colors.Black;
@@ -356,8 +356,6 @@ namespace Trash2012.Visual
         /// </summary>
         private const int BORDER_RADIUS_ACTIVATED = 7;
 
-        
-
         #endregion
 
         /// <summary>
@@ -368,22 +366,35 @@ namespace Trash2012.Visual
         private void SelectTile_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!IsSelectionEnabled) return;
-
-            var truckButton = MyMainWindow.MyAssets.MyListView.SelectedItem as TruckButton;
+            TruckButton truckButton = null;
+            foreach (ToggleButton tb in MyMainWindow.MyAssets.MyListButton.Children)
+            {
+                if((bool)tb.IsChecked)
+                {
+                    truckButton = (TruckButton) tb.Content;
+                }
+            }
+            
             if (truckButton == null) return;
             Truck MyTruck = truckButton.MyTruck;
 
-            VisualTile selectedVisualTile = (VisualTile)sender;
+            VisualTile selectedVisualTile = sender as VisualTile;
             IMapTile selectedTile = MyCity.Map[selectedVisualTile.X][selectedVisualTile.Y];
             Border imgContainer = (Border)selectedVisualTile.Parent;
 
-            if (!MyTruck.Travel.Contains(selectedVisualTile.ModelTile))
+            var travel = MyTruck.Travel;
+
+            //if (travel.Count == 0)
+            //{
+
+            //}
+            //else 
+            if (!travel.Contains(selectedVisualTile.ModelTile))
             {
-                if (MyTruck.Travel.Add(selectedVisualTile))
+                if (travel.Add(selectedVisualTile))
                 {
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
                     imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
-
 
                     //make it stand out above
                     Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
@@ -393,7 +404,7 @@ namespace Trash2012.Visual
             }
             else //already selected
             {
-                if (MyTruck.Travel.Remove(selectedTile))
+                if (travel.Remove(selectedTile))
                 {
                     //clean previous effect
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
