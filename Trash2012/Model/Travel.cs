@@ -227,11 +227,6 @@ namespace Trash2012.Model
             {
                 IRoadTile road = ((IRoadTile)tile);
                 int i = this.ContainsAndIndex(road);
-                if (i == 0)
-                {
-                    tiles.RemoveAt(0);
-                    return true;
-                }
                 if (i == tiles.Count - 1)
                 {
                     tiles.RemoveAt(tiles.Count - 1);

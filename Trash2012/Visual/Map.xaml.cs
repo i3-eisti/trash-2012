@@ -76,8 +76,35 @@ namespace Trash2012.Visual
             var animationEndCallback = args[3] as Action;
 
             var myTravel = truck.Travel;
-            var posmax = truck.Travel.Count - 1; 
-            if(posmax != 0 && pos == posmax)
+            var posmax = truck.Travel.Count - 1;
+            if (pos == 0 && pos == posmax)
+            {
+                //c : current, , n : next
+                int cx = myTravel[pos].ModelTile.Position.X,
+                    cy = myTravel[pos].ModelTile.Position.Y;
+
+                var from = Travel.Extremity.Top;
+                var to = Travel.Extremity.Left;
+
+                var animationLayer = TilesVisual[cy][cx].FourthLayer;
+                //cancel callback for next animation
+                animationLayer.BeforeEndCallback = delegate { };
+                //Stop animation at end
+                animationLayer.EndCallback = delegate
+                {
+                    animationLayer.StopAnimation();
+                    animationEndCallback();
+                };
+
+                //After all those computation, start animation
+                animationLayer.StartAnimation(
+                    Animations.FindNext(from, to));
+
+                myTravel[pos].Update();
+
+                truck.Travel = new Travel();
+            }
+            else if (pos != 0 && pos == posmax)
             {
                 //c : current, , n : next
                 int cx = myTravel[pos].ModelTile.Position.X,
@@ -96,7 +123,7 @@ namespace Trash2012.Visual
 
                 var animationLayer = TilesVisual[cy][cx].FourthLayer;
                 //cancel callback for next animation
-                animationLayer.BeforeEndCallback = delegate {};
+                animationLayer.BeforeEndCallback = delegate { };
                 //Stop animation at end
                 animationLayer.EndCallback = delegate
                 {
@@ -107,7 +134,7 @@ namespace Trash2012.Visual
                 //After all those computation, start animation
                 animationLayer.StartAnimation(
                     Animations.FindNext(from, to));
-                
+
                 myTravel[pos].Update();
 
                 truck.Travel = new Travel();
@@ -384,15 +411,37 @@ namespace Trash2012.Visual
 
             var travel = MyTruck.Travel;
 
-            //if (travel.Count == 0)
-            //{
+            if (travel.Count == 0) // new travel
+            {
+                if(selectedTile.Position.X == 0 && selectedTile.Position.Y == 1)
+                {
+                    if (travel.Add(selectedVisualTile))
+                    {
+                        MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Black);
+                        MyMainWindow.InfoMessage.Text = "";
 
-            //}
-            //else 
-            if (!travel.Contains(selectedVisualTile.ModelTile))
+                        imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
+                        imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
+
+                        //make it stand out above
+                        Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
+                        Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
+                        Canvas.SetZIndex(imgContainer, 1);
+                    }
+                }
+                else
+                {
+                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
+                    MyMainWindow.InfoMessage.Text = "Veuillez commencer votre route à la déchetterie !";
+                }
+            }
+            else if (!travel.Contains(selectedVisualTile.ModelTile)) //already some road in travel
             {
                 if (travel.Add(selectedVisualTile))
                 {
+                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Black);
+                    MyMainWindow.InfoMessage.Text = "";
+
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
                     imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
 
@@ -401,11 +450,19 @@ namespace Trash2012.Visual
                     Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_UNACTIVATED - BORDER_THICKNESS_ACTIVATED);
                     Canvas.SetZIndex(imgContainer, 1);
                 }
+                else
+                {
+                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
+                    MyMainWindow.InfoMessage.Text = "Veuillez ajouter une route adjacente à une des deux extrémités !";
+                }
             }
             else //already selected
             {
                 if (travel.Remove(selectedTile))
                 {
+                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Black);
+                    MyMainWindow.InfoMessage.Text = "";
+
                     //clean previous effect
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
                     imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_UNACTIVATED);
@@ -414,6 +471,11 @@ namespace Trash2012.Visual
                     Canvas.SetLeft(imgContainer, Canvas.GetLeft(imgContainer) + BORDER_THICKNESS_ACTIVATED - BORDER_THICKNESS_UNACTIVATED);
                     Canvas.SetTop(imgContainer, Canvas.GetTop(imgContainer) + BORDER_THICKNESS_ACTIVATED - BORDER_THICKNESS_UNACTIVATED);
                     Canvas.SetZIndex(imgContainer, 0);
+                }
+                else
+                {
+                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
+                    MyMainWindow.InfoMessage.Text = "Veuillez retirer la dernière route ajoutée !";
                 }
             }
         }

@@ -33,10 +33,6 @@
                 <ColumnDefinition Width="895" />
             </Grid.ColumnDefinitions>
 
-            <!--StackPanel Name="ToolBar" Grid.Row="0" Orientation="Horizontal" Background="LightGray">
-                <Button Content="Quitter" />
-            </StackPanel-->
-
             <my:Timeline Grid.Row="0" Grid.Column="0"
                 x:Name="GameTimeline" HorizontalContentAlignment="Center"
                 Margin="5" />

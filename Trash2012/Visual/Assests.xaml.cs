@@ -44,6 +44,7 @@ namespace Trash2012.Visual
                         };
                         ToggleButton b = new ToggleButton();
                         b.Content = tb;
+                        b.Focusable = false;
                         b.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
                         b.Height = 50;
                         b.Click += new System.Windows.RoutedEventHandler(b_Click);

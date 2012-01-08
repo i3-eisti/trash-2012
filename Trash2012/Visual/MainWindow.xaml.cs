@@ -261,6 +261,10 @@ namespace Trash2012.Visual
 
         private void NextDayHandler(object sender, RoutedEventArgs e)
         {
+            //reinitialise message box
+            InfoMessage.Text = "";
+            InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+
             bNextDay.IsEnabled = false;
             GameUpdate();
             UIUpdate();
