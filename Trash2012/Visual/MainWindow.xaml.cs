@@ -28,12 +28,12 @@ namespace Trash2012.Visual
         //Dashboard counter animation
         private const long DashboardAnimationTick = 800000;
         private readonly int[] _monthlyRevenueRange = {15000, 22000};
-        private const int _initialMoneyAmout = 20000;
+        private const int _initialMoneyAmout = 30000;
         //Travel
-        private const int _garbageCollectionBenefit = 120;
-        private const int _TravelCost = 28;
+        private const int _garbageCollectionBenefit = 150;
+        private const int _TravelCost = 200;
         //Garbage threshold
-        private readonly int[] _garbageThresholdRange = { 300, 600 };
+        private readonly int[] _garbageThresholdRange = { 500, 600 };
 
         #endregion
 
@@ -80,7 +80,6 @@ namespace Trash2012.Visual
             _garbageAmountThreshold = new Random().Next(_garbageThresholdRange[0], _garbageThresholdRange[1]);
 
             game.DateChangeEvents.Add(PaydayEvent);
-            game.DateChangeEvents.Add(GameEndEvent);
 
             UpdateGameDashboard(game, delegate {}, false);
             UpdateBuyableItem(game, delegate {});
@@ -104,7 +103,7 @@ namespace Trash2012.Visual
 
         private void GameEndEvent(DateTime newDate)
         {
-            if (_game.City.GarbageQuantity > _garbageAmountThreshold)
+            if (_game.City.GarbageQuantity <= 100 )
             {
                 string message = "Un sentiment de fraîcheur et propreté vous envahit..." +
                             "\nCette ville est enfin sauvé et goûte au bonheur !";
@@ -340,6 +339,8 @@ namespace Trash2012.Visual
             bNextDay.IsEnabled = false;
             GameUpdate();
             UIUpdate();
+
+            GameEndEvent(_game.CurrentDate);
         }
 
         #region Game Update

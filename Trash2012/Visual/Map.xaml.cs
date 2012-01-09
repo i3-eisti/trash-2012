@@ -45,18 +45,67 @@ namespace Trash2012.Visual
         public int MaxTiles = 5;
         public int Tile_Size = 50;
 
+        Tips MyTips = new Tips();
+
         public Map()
         {
             InitializeComponent();
             Canvas.SetZIndex(OuterBorder, -5);
             IsSelectionEnabled = true;
-            this.MouseEnter += new MouseEventHandler(Map_MouseEnter);
+            MapContainer.Children.Add(MyTips);
             //this.MouseDown += new MouseEventHandler(Map_MouseEnter);
+            
         }
+
+        
+        bool OverMap = false;
 
         void Map_MouseEnter(object sender, MouseEventArgs e)
         {
-            MyMainWindow.Focus();
+            OverMap = true;
+            MyTips.Visibility = Visibility.Visible;
+        }
+
+        private void Map_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(OverMap)
+            {
+                int X = (int)(e.GetPosition(this).X / Tile_Size);
+                int Y = (int)(e.GetPosition(this).Y / Tile_Size);
+                
+                if (my_city.Map[Y][X] is IHouseTile)
+                {
+                    HouseTile h = (HouseTile) my_city.Map[Y][X];
+                    MyTips.QuantitePoubelle.Text = h.Garbage.Amount.ToString();
+                    Canvas.SetZIndex(MyTips, 100);
+                    double pos_X = e.GetPosition(this).X;
+                    double diffX = pos_X + MyTips.ActualWidth - MapContainer.ActualWidth;
+                    if (diffX > 0)
+                    {
+                        pos_X -= diffX;
+                    }
+                    double pos_Y = e.GetPosition(this).Y;
+                    double diffY = pos_Y + MyTips.ActualHeight - MapContainer.ActualHeight;
+                    if (diffY > 0)
+                    {
+                        pos_Y -= diffY;
+                    }
+
+                    Canvas.SetLeft(MyTips, pos_X);
+                    Canvas.SetTop(MyTips, pos_Y);
+                    MyTips.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    MyTips.Visibility = Visibility.Collapsed;
+                }   
+            }
+        }
+
+        private void Map_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MyTips.Visibility = Visibility.Collapsed;
+            OverMap = false;
         }
 
         private delegate void AnimationEventHandler(object[] args);
@@ -449,7 +498,7 @@ namespace Trash2012.Visual
                 }
                 else
                 {
-                    MyMainWindow.errorMessage("Veuillez ajouter une route adjacente à une des deux extrémités !");
+                    MyMainWindow.errorMessage("Veuillez ajouter une route adjacente à la fin du trajet actuel !");
                 }
             }
             else //already selected
@@ -518,5 +567,7 @@ namespace Trash2012.Visual
                 }
             }
         }
+
+
     }
 }

@@ -46,7 +46,7 @@ namespace Trash2012.Visual
         {
             return new Truck(
                 TrashType.Paper,
-                25,
+                50,
                 1f);
         }
 

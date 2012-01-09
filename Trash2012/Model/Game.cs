@@ -8,7 +8,7 @@ namespace Trash2012.Model
     {
         public static readonly DateTime Trash2012Begin = new DateTime(2012, 1, 1);
 
-        private readonly int[] _dailyTrashRange = {0, 3};
+        private readonly int[] _dailyTrashRange = {0, 5};
         private readonly int[] _technoParadeTrashRange = {10, 50};
 
         private const double RandomEventProbability = 0.01;
@@ -38,10 +38,10 @@ namespace Trash2012.Model
             _currentDate = Trash2012Begin;
             Company = new Company(initialMoneyAmount);
 
-            var newTruck1 = new Truck(TrashType.Paper, 55, 1f);
-            var newTruck2 = new Truck(TrashType.Paper, 55, 1f);
+            var newTruck1 = new Truck(TrashType.Paper, 50, 1f);
+            //var newTruck2 = new Truck(TrashType.Paper, 55, 1f);
             Company.Trucks.Add(newTruck1);
-            Company.Trucks.Add(newTruck2);
+            //Company.Trucks.Add(newTruck2);
 
             GameRandomness = new Random();
         }
@@ -122,10 +122,10 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Le maire est fier de votre travail ! Il vous offre 10 000 € !",
+                    Message = "Le maire est fier de votre travail ! Il vous offre 1 000 € !",
                     Effect = delegate()
                     {
-                        this.Company.Gold += 10000;
+                        this.Company.Gold += 1000;
                     }
                 };
             }
@@ -133,10 +133,10 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Vous avez confondu votre poubelle et votre tirelire, vous venez de jeter 10 000€ à la poubelle.",
+                    Message = "Vous avez mal placé votre argent en bourse, vous venez de perdre 10 % de vos fonds !",
                     Effect = delegate()
                     {
-                        this.Company.Gold -= 10000;
+                        Company.Gold = (int)((double)Company.Gold * 0.9);
                     }
                 };
             }
@@ -155,11 +155,11 @@ namespace Trash2012.Model
             {
                 return new GameEvent()
                 {
-                    Message = "Un employé pakistanai, ne sachant pas lire, trouve un chèque de 100 000€ dans une poubelle et vous le confie.",
+                    Message = "Un employé pakistanai, ne sachant pas lire, trouve un chèque de 1 000€ dans une poubelle et vous le confie.",
                     //référence à Simulator Trash2011  :  http://www.youtube.com/watch?v=qrZTarWEu-w
                     Effect = delegate()
                     {
-                        this.Company.Gold += 100000;
+                        this.Company.Gold += 1000;
                     }
                 };
             }
