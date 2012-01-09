@@ -8,9 +8,7 @@ namespace Trash2012.Model
     {
         public static readonly DateTime Trash2012Begin = new DateTime(2012, 1, 1);
 
-        public static readonly int PAYDAY = 1000000;
-
-        private readonly int[] _dailyTrashRange = {0, 5};
+        private readonly int[] _dailyTrashRange = {0, 3};
         private readonly int[] _technoParadeTrashRange = {10, 50};
 
         private const double RandomEventProbability = 0.01;
@@ -33,14 +31,15 @@ namespace Trash2012.Model
         public Company Company { get; private set; }
 
         public Game(
-            IMapTile[][] cityMap
+            IMapTile[][] cityMap,
+            int initialMoneyAmount
         ) {
             City = new City(cityMap);
             _currentDate = Trash2012Begin;
-            Company = new Company();
+            Company = new Company(initialMoneyAmount);
 
-            var newTruck1 = new Truck(TrashType.Paper, 25, 1f);
-            var newTruck2 = new Truck(TrashType.Paper, 25, 1f);
+            var newTruck1 = new Truck(TrashType.Paper, 45, 1f);
+            var newTruck2 = new Truck(TrashType.Paper, 45, 1f);
             Company.Trucks.Add(newTruck1);
             Company.Trucks.Add(newTruck2);
 
@@ -66,9 +65,6 @@ namespace Trash2012.Model
             {
                 if (assignedTruck.IsFull)
                     break;
-//                if (!(tile is IHouseTile)) 
-//                    continue;
-
 
                 if (tile.ModelTile is IHouseTile)
                 {

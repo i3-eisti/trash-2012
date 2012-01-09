@@ -417,8 +417,7 @@ namespace Trash2012.Visual
                 {
                     if (travel.Add(selectedVisualTile))
                     {
-                        MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Black);
-                        MyMainWindow.InfoMessage.Text = "";
+                        MyMainWindow.reinitializeMessage();
 
                         imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
                         imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
@@ -431,16 +430,14 @@ namespace Trash2012.Visual
                 }
                 else
                 {
-                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
-                    MyMainWindow.InfoMessage.Text = "Veuillez commencer votre route à la déchetterie !";
+                    MyMainWindow.errorMessage("Veuillez commencer votre route à la déchetterie !");
                 }
             }
             else if (!travel.Contains(selectedVisualTile.ModelTile)) //already some road in travel
             {
                 if (travel.Add(selectedVisualTile))
                 {
-                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Black);
-                    MyMainWindow.InfoMessage.Text = "";
+                    MyMainWindow.reinitializeMessage();
 
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_ACTIVATED);
                     imgContainer.CornerRadius = new CornerRadius(BORDER_RADIUS_ACTIVATED);
@@ -452,16 +449,14 @@ namespace Trash2012.Visual
                 }
                 else
                 {
-                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
-                    MyMainWindow.InfoMessage.Text = "Veuillez ajouter une route adjacente à une des deux extrémités !";
+                    MyMainWindow.errorMessage("Veuillez ajouter une route adjacente à une des deux extrémités !");
                 }
             }
             else //already selected
             {
                 if (travel.Remove(selectedTile))
                 {
-                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Black);
-                    MyMainWindow.InfoMessage.Text = "";
+                    MyMainWindow.reinitializeMessage();
 
                     //clean previous effect
                     imgContainer.BorderThickness = new Thickness(BORDER_THICKNESS_UNACTIVATED);
@@ -474,8 +469,7 @@ namespace Trash2012.Visual
                 }
                 else
                 {
-                    MyMainWindow.InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(Colors.Red);
-                    MyMainWindow.InfoMessage.Text = "Veuillez retirer la dernière route ajoutée !";
+                    MyMainWindow.errorMessage("Veuillez retirer la dernière route ajoutée !");
                 }
             }
         }

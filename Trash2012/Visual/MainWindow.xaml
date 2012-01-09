@@ -81,7 +81,7 @@
 								        x:Name="PaperTruckBuyer"
 								        Source="/Trash2012;component/Resources/TruckPaper.png"
 								        Text="Camion recycleur de papier"
-								        Price="250000"
+								        Price="30000"
 								        BuyHandler="CheckOtherBuyableItem"
 								        Style="{StaticResource ShopButton}" />
                                 </StackPanel>

@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using System.Windows.Controls;
 using System.Media;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace Trash2012.Visual
 {
@@ -20,13 +21,19 @@ namespace Trash2012.Visual
         #region Game Configuration
         
         //Configure the game here for more simplicity 
-        private readonly IMapTile[][] _choosenMap = MapLoader.loadCustomMap();
+        private readonly Func<IMapTile[][]> _choosenMap = delegate() { return MapLoader.loadCustomMap(); };
         //Intro Animation timer interval
         private const bool PlayIntroAnimation = false;
         private readonly int[] _introInterval = {0, 0, 0, 0, 100}; 
         //Dashboard counter animation
         private const long DashboardAnimationTick = 800000;
-        private readonly int[] _monthlyRevenueRange = {90000, 120000};
+        private readonly int[] _monthlyRevenueRange = {15000, 22000};
+        private const int _initialMoneyAmout = 20000;
+        //Travel
+        private const int _garbageCollectionBenefit = 120;
+        private const int _TravelCost = 28;
+        //Garbage threshold
+        private readonly int[] _garbageThresholdRange = { 300, 600 };
 
         #endregion
 
@@ -69,10 +76,15 @@ namespace Trash2012.Visual
         private void OnGameStart(Game game)
         {
             MyMap.MyCity = game.City;
+
+            _garbageAmountThreshold = new Random().Next(_garbageThresholdRange[0], _garbageThresholdRange[1]);
+
             game.DateChangeEvents.Add(PaydayEvent);
+            game.DateChangeEvents.Add(GameEndEvent);
 
             UpdateGameDashboard(game, delegate {}, false);
             UpdateBuyableItem(game, delegate {});
+            UpdateTimeline(game, delegate { });
             MyAssets.UpdateAssests(game);
         }
 
@@ -85,6 +97,48 @@ namespace Trash2012.Visual
                 var revenue = r.Next(_monthlyRevenueRange[0], _monthlyRevenueRange[1]);
                 _game.Company.Gold += revenue;
                 this.InfoMessage.Text = "C'est la fin du mois, jour de paye ! Vous avez gagné: " + revenue + " € !";
+            }
+        }
+
+        private int _garbageAmountThreshold;
+
+        private void GameEndEvent(DateTime newDate)
+        {
+            if (_game.Company.Gold <= 0)
+            {
+                string message = "La compagnie fait faillite !" +
+                            "\nSauvez-vous tant que vous le pouvez encore !";
+                MessageBox.Show(
+                    message,
+                    "Vous avez perdu !",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                gotoNewGameScreen();
+            }
+            if (_game.City.GarbageQuantity > _garbageAmountThreshold)
+            {
+                string message = "Votre ville a croulé sous le poids de ses déchets...et de la fureur du maire !" +
+                            "\nSauvez-vous tant que vous le pouvez encore !";
+                MessageBox.Show(
+                    message,
+                    "Vous avez perdu !",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                gotoNewGameScreen();
+            }
+            if (newDate.Year != 2012)
+            {
+                string message = "Le temps a passé, passé, et vos stratégies n'y font rien !" +
+                            "\nLe maire a décidé de vous remplacez, pensez à vous reconvertir !";
+                MessageBox.Show(
+                    message,
+                    "Vous avez perdu !",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                gotoNewGameScreen();
             }
         }
 
@@ -241,9 +295,16 @@ namespace Trash2012.Visual
 
         #endregion
 
+        private void gotoNewGameScreen()
+        {
+            StartCanvas.Visibility = Visibility.Visible;
+            StartGrid.Visibility = Visibility.Visible;
+            bStart.Visibility = Visibility.Visible;  
+        }
+
         private void bStart_Click(object sender, RoutedEventArgs e)
         {
-            _game = new Game(_choosenMap);
+            _game = new Game(_choosenMap(), _initialMoneyAmout);
             OnGameStart(_game);
             StartCanvas.Visibility = Visibility.Collapsed;
             StartGrid.Visibility = Visibility.Collapsed;    
@@ -255,15 +316,14 @@ namespace Trash2012.Visual
             foreach (var buyableItem in BuyableItems.Where(
                                             buyableItem => !_currentlyPushed.Contains(buyableItem)))
             {
-                buyableItem.IsEnabled = buyableItem.Price <= _game.Company.Gold.Current;
+                buyableItem.IsEnabled = buyableItem.Price <= _game.Company.Gold;
             }
         }
 
         private void NextDayHandler(object sender, RoutedEventArgs e)
         {
             //reinitialise message box
-            InfoMessage.Text = "";
-            InfoMessage.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Black);
+            reinitializeMessage();
 
             bNextDay.IsEnabled = false;
             GameUpdate();
@@ -318,7 +378,7 @@ namespace Trash2012.Visual
                 totalTravelledDistance += dailyTravel.Count;
             }
 
-            _game.Company.Gold += totalCollectedGarbage * 1000 - totalTravelledDistance * 400;
+            _game.Company.Gold += totalCollectedGarbage * _garbageCollectionBenefit - totalTravelledDistance * _TravelCost;
         }
 
         private void CityUpdate()
@@ -327,7 +387,6 @@ namespace Trash2012.Visual
             _recentEvent = _game.ApplyRandomEvent();
             if (_recentEvent.HasValue)
             {
-                Console.WriteLine("Recent event occured : " + _recentEvent.Value.Message);
                 _recentEvent.Value.Effect();
             }
         }
@@ -445,7 +504,7 @@ namespace Trash2012.Visual
             {
                 int
                     deltat = _game.Company.Trucks.Count - GameDashboard.TruckQuantity,
-                    deltam = _game.Company.Gold.Current - GameDashboard.MoneyQuantity,
+                    deltam = _game.Company.Gold - GameDashboard.MoneyQuantity,
                     deltap = _game.City.PeopleNumber - GameDashboard.PeopleQuantity,
                     deltag = _game.City.GarbageQuantity - GameDashboard.GarbageQuantity;
                 
@@ -488,7 +547,7 @@ namespace Trash2012.Visual
             else
             {
                 GameDashboard.TruckQuantity = _game.Company.Trucks.Count;
-                GameDashboard.MoneyQuantity = _game.Company.Gold.Current;
+                GameDashboard.MoneyQuantity = _game.Company.Gold;
                 GameDashboard.PeopleQuantity = _game.City.PeopleNumber;
                 GameDashboard.GarbageQuantity = _game.City.GarbageQuantity;
             }
@@ -508,8 +567,8 @@ namespace Trash2012.Visual
         private void DashboardMoneyAnimate(object sender, EventArgs e)
         {
             var timer = sender as DispatcherTimer;
-            var adjusted = GameDashboard.MoneyQuantity == _game.Company.Gold.Current;
-            var delta = _game.Company.Gold.Current - GameDashboard.MoneyQuantity;
+            var adjusted = GameDashboard.MoneyQuantity == _game.Company.Gold;
+            var delta = _game.Company.Gold - GameDashboard.MoneyQuantity;
             int rates = 1;
             if (Math.Abs(delta) > 1000)
             {
@@ -557,7 +616,7 @@ namespace Trash2012.Visual
             {
                 //Buyable item are enabled only if the company has enough money to buy it
                 buyableItem.IsBuyed = false;
-                buyableItem.IsEnabled = buyableItem.Price <= game.Company.Gold.Current;
+                buyableItem.IsEnabled = buyableItem.Price <= game.Company.Gold;
             }
             doneCallback();
         }
@@ -651,7 +710,23 @@ namespace Trash2012.Visual
                 isZoom = false;
             }
         }
-        
+
+        #region MessageBoard
+
+        public void errorMessage(string text)
+        {
+            InfoMessage.Foreground = new SolidColorBrush(Colors.Red);
+            InfoMessage.Text = text;
+        }
+
+        public void reinitializeMessage()
+        {
+            InfoMessage.Foreground = new SolidColorBrush(Colors.Black);
+            InfoMessage.Text = "";
+        }
+
+        #endregion
+
 
     }
 }
